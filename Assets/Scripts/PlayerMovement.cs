@@ -15,9 +15,10 @@ public class PlayerMovement : MonoBehaviour
     private bool isFacingRight = true;
     
     // Direction Indicator stuff
-    [SerializeField] private GameObject directionIndicator;
-    [SerializeField] private float scaledDistanceFromPlayer;
-    private Transform dITransform;
+    [SerializeField] private GameObject directionIndicator; // The indicator
+    [SerializeField] private float scaledDistanceFromPlayer; // Indicator dist from player
+    private Transform dITransform; // Indicator transform to change it's position
+    // Currently need this mapping cuz the indicator is not facing the right direction when start
     private readonly Dictionary<Vector2, Vector3> rotationMapping =
         new Dictionary<Vector2, Vector3>
         {
@@ -32,11 +33,11 @@ public class PlayerMovement : MonoBehaviour
         };
     
     // For bullet stuff
-    [SerializeField] private Vector2Variable playerPosRef;
-    [SerializeField] private Vector2Variable playerDirectionRef;
+    [SerializeField] private Vector2Variable playerPosRef; // Where to fire the bullet
+    [SerializeField] private Vector2Variable playerDirectionRef; // Direction to fire the bullet
     
     // Const
-    private float fixedDeltaTime;
+    private float fixedDeltaTime; // For faster * Time.fixedDeltaTime
     
     private void Awake()
     {

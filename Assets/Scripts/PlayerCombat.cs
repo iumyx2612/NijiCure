@@ -7,27 +7,26 @@ using DG.Tweening;
 
 public class PlayerCombat : MonoBehaviour
 {
-    // I set some of the variables to Scriptable Variable in order for easy 
-    // balancing in the future
-    // Health stuff
-    [SerializeField] private IntVariable basePlayerHealth;
-    [SerializeField] private IntVariable currentPlayerHealth;
-    private bool isAlive = true;
-    [SerializeField] private GameEvent onPlayerKill;
-    [SerializeField] private IntGameEvent playerTakeDamage;
+    // Health stuff (Will be moved into ScriptableObject Data)
+    [SerializeField] private IntVariable basePlayerHealth; 
+    [SerializeField] private IntVariable currentPlayerHealth; // Track the player's health in the scene
+    private bool isAlive = true; // The name explains itself
+    [SerializeField] private GameEvent onPlayerKill; // Trigger when player dies
+    [SerializeField] private IntGameEvent playerTakeDamage; // Trigger when player takes dmg
     
-    // Attack stuff
+    // Attack stuff (Will be moved into ScriptableObject Data)
     [SerializeField] private FloatVariable timePerAttack;
-    [SerializeField] private GameEvent beginAttack;
+    [SerializeField] private GameEvent beginAttack; // Trigger when player attacks
     
-    // Bullet stuff
-    [SerializeField] private GameObject bulletHolder;
-    private List<GameObject> bulletPooling = new List<GameObject>();
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private int bulletToSpawn = 2;
+    // Bullet stuff 
+    [SerializeField] private GameObject bulletHolder; // The bullet holder in the scene (keep things in neat)
+    private List<GameObject> bulletPooling = new List<GameObject>(); // Bullet Pool
+    [SerializeField] private GameObject bulletPrefab; // The bullet
+    [SerializeField] private int bulletToSpawn = 2; // For pooling
     
     private void Awake()
     {
+        // Instantiate bullet to the Pool
         for (int i = 0; i < bulletToSpawn; i++)
         {
             GameObject bullet = Instantiate(bulletPrefab, bulletHolder.transform);
@@ -37,6 +36,7 @@ public class PlayerCombat : MonoBehaviour
     }
     private void Start()
     {
+        // Register some Scriptable Events and Variables
         currentPlayerHealth.Value = basePlayerHealth.Value;
         playerTakeDamage.AddListener(TakeDamage);
         onPlayerKill.AddListener(Dead);
@@ -44,12 +44,6 @@ public class PlayerCombat : MonoBehaviour
         StartCoroutine(AttackScheduling());
     }
     
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     // This function uses to call the Attack() function 
     // by raising the Attack GameEvent
     IEnumerator AttackScheduling()
@@ -61,6 +55,7 @@ public class PlayerCombat : MonoBehaviour
         }
     }
     
+    // Called by playerTakeDamage
     public void TakeDamage(int damage)
     {
         currentPlayerHealth.Value -= damage;
@@ -70,12 +65,14 @@ public class PlayerCombat : MonoBehaviour
         }
         
     }
-
+    
+    // Called by onPlayerKill
     public void Dead()
     {
         isAlive = false;
     }
-
+    
+    // Called by beginAttack
     private void Attack()
     {
         foreach (GameObject bullet in bulletPooling)

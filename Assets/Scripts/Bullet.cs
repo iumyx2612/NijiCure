@@ -6,17 +6,20 @@ using ScriptableObjectArchitecture;
 
 public class Bullet : MonoBehaviour
 {
-    // Bullet stats
+    // Bullet stats (Will be moved into ScriptableObject Data)
     [SerializeField] private FloatVariable bulletSpeed;
     [SerializeField] private FloatVariable bulletRange;
     
     // Bullet movement and direction
-    [SerializeField] private Rigidbody2D bulletRb;
-    [SerializeField] private Vector2Variable bulletDirectionRef;
-    [SerializeField] private Vector2Variable defaultPosRef;
-    [SerializeField] private Vector2 defaultPos;
-    private Vector2 bulletDirection;
+    // Some stuff like defaultPos or direction is set when the bullet is enable
+    // That's why we need 2 variable, cus the referencing ones always changing according to player
+    [SerializeField] private Rigidbody2D bulletRb; // The RigidBody to perform physics (fire)
+    [SerializeField] private Vector2Variable bulletDirectionRef; // Direction to shoot 
+    [SerializeField] private Vector2Variable defaultPosRef; // Start position to shoot from
+    [SerializeField] private Vector2 defaultPos; // The position when the bullet was fired from (to disable bullet if too far) 
+    private Vector2 bulletDirection; // Direction to shoot
     
+    // Yes the mapping for direction, same purpose as the indicator mapping
     private readonly Dictionary<Vector2, Vector3> directionMapping = 
         new Dictionary<Vector2, Vector3>
         {
