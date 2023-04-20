@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Node
 {
-    public bool isObstacle;
-    public Vector3 worldPos;
+    public bool isObstacle; // If the node is an obstacle
+    public Vector3 nodeCenterPos; // Center of the Node in World Point coord
 
-    public Node(bool _isObstacle, Vector3 _worldPos)
+    public Node(bool _isObstacle, Vector3 _nodeCenterPos)
     {
         isObstacle = _isObstacle;
-        worldPos = _worldPos;
+        nodeCenterPos = _nodeCenterPos;
     }
 }
