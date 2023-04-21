@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using ScriptableObjectArchitecture;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider2D))]
 public class LoopMapTrigger : MonoBehaviour
 {
     [SerializeField] private Transform player;
