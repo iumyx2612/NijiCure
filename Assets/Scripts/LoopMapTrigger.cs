@@ -9,6 +9,7 @@ public class LoopMapTrigger : MonoBehaviour
 {
     [SerializeField] private Transform player;
     [SerializeField] private Vector2Variable playerDirectionRef;
+    
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.CompareTag("Player"))

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97924e5f5d63f8f4584dd0ddc4462db3, type: 3}
+  m_Name: LanKnife
+  m_EditorClassIdentifier: 
+  name: LanKnife
+  UISprite: {fileID: 21300000, guid: 3a0b2de6ef49fd948a851e72ed2df0fa, type: 3}
+  level: 0
+  cooldownTime: 1
+  internalCooldownTime: 0.25972053
+  state: 2
+  damage: 0
+  range: 5
+  maxBullet: 1
+  numBullet: 1
+  speed: 10
+  bulletPrefab: {fileID: 7400625156079782614, guid: abff620e796444c43a3cb5311170645c,
+    type: 3}
+  sprite: {fileID: 21300000, guid: 3a0b2de6ef49fd948a851e72ed2df0fa, type: 3}
+  onFireAudio: {fileID: 0}
