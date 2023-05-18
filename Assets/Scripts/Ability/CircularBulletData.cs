@@ -17,7 +17,7 @@ public class CircularBulletData : AbilityBase
 
     public override List<GameObject> Initialize(GameObject player)
     {
-        GameObject temp = new GameObject(name + "Holder");
+        GameObject temp = new GameObject(abilityName + "Holder");
         List<GameObject> bulletPool = new List<GameObject>();
         for (int i = 0; i < maxBullet; i++)
         {
@@ -47,7 +47,7 @@ public class CircularBulletData : AbilityBase
         }
     }
 
-    public override void UpgradeAbility(List<GameObject> bulletPool, int tier)
+    public override void UpgradeAbility(List<GameObject> bulletPool)
     {
         
     }

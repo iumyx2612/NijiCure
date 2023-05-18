@@ -13,17 +13,29 @@ MonoBehaviour:
   m_Name: LanKnife
   m_EditorClassIdentifier: 
   name: LanKnife
-  UISprite: {fileID: 21300000, guid: 3a0b2de6ef49fd948a851e72ed2df0fa, type: 3}
-  level: 0
-  cooldownTime: 1
-  internalCooldownTime: 0.25972053
-  state: 2
-  damage: 0
+  UISprite: {fileID: 21300000, guid: 28a3627de74b1144b97dfe99ab3594d6, type: 3}
+  baseCooldownTime: 1
+  currentLevel: 2
+  currentCooldownTime: 1
+  internalCooldownTime: 0
+  playerType: {fileID: 0}
+  weight: 0
+  state: 0
+  damage: 10
   range: 5
-  maxBullet: 1
-  numBullet: 1
+  maxBullet: 2
+  startingBullet: 1
   speed: 10
+  hitLimit: 0
   bulletPrefab: {fileID: 7400625156079782614, guid: abff620e796444c43a3cb5311170645c,
     type: 3}
-  sprite: {fileID: 21300000, guid: 3a0b2de6ef49fd948a851e72ed2df0fa, type: 3}
+  sprite: {fileID: 21300000, guid: 28a3627de74b1144b97dfe99ab3594d6, type: 3}
   onFireAudio: {fileID: 0}
+  upgradeDatas:
+  - {fileID: 11400000, guid: a24b6bd3218a56e4b992ad510c6a492f, type: 2}
+  - {fileID: 11400000, guid: 5a7288104964d7c4181f30767bcafddf, type: 2}
+  currentDamage: 11
+  currentRange: 5
+  numBullet: 2
+  currentSpeed: 10
+  currentHitLimit: 0

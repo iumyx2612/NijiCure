@@ -39,14 +39,15 @@ public class StraightBulletData : AbilityBase
         currentSpeed = speed;
         currentHitLimit = hitLimit;
 
-        GameObject temp = new GameObject(name + "Holder");
+        GameObject temp = new GameObject(abilityName + "Holder");
         List<GameObject> bulletPool = new List<GameObject>();
         for (int i = 0; i < maxBullet; i++)
         {
             GameObject bullet = Instantiate(bulletPrefab, temp.transform);
             bullet.GetComponent<StraightBullet>().LoadBulletData(this);
             bulletPool.Add(bullet);
-            bullet.SetActive(false);
+            bullet.SetActive(false); // Put the ability on Cooldown when first added
+                                     // (state is managed in StraightBullet.cs)
         }
 
         return bulletPool; // This will be used in the AbilityManager.cs
@@ -65,13 +66,17 @@ public class StraightBulletData : AbilityBase
         }
     }
 
-    public override void UpgradeAbility(List<GameObject> bulletPool, int tier)
+    public override void UpgradeAbility(List<GameObject> bulletPool)
     {
-        StraightBulletUpgradeData upgradeData = upgradeDatas[tier - 1];
+        StraightBulletUpgradeData upgradeData = upgradeDatas[currentLevel];
         // First we update the data that used during play for the whole ability
         upgradeData.ApplyUpgrade(this);
         // Then we update the data in the bullet
-        
-        
+        foreach (GameObject bullet in bulletPool)
+        {
+            bullet.GetComponent<StraightBullet>().UpgradeBulletData(this);
+        }
+        // Increase the level
+        currentLevel += 1;
     }
 }

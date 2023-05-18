@@ -10,6 +10,8 @@ public class UpgradeAbilityBase : ScriptableObject
     {
         public float percentCoolDownReduction;
     }
+
+    public string description;
     
     [SerializeField]
     public BaseUpgrades baseUpgrades;

@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     private int health;
     private int rank;
     private float critChance;
+    private RuntimeAnimatorController animatorController;
     
     // Movement stuff
     private Rigidbody2D rb;
@@ -40,9 +41,10 @@ public class Player : MonoBehaviour
     [SerializeField] private IntVariable currentHealth;
     [SerializeField] private GameEvent onPlayerKilled;
     [SerializeField] private IntGameEvent playerTakeDamage;
-    private bool isAlive = true;
+    private bool isAlive;
 
-    private AbilityManager abilityManager; // This script MUST be on the player
+    // Animation stuff
+    private Animator animator;
     
     // For things that need reference to player
     [SerializeField] private Vector2Variable playerPosRef; // Where the player is
@@ -57,7 +59,8 @@ public class Player : MonoBehaviour
     {
         LoadData(playerData); // Maybe try different approach (?)
         rb = gameObject.GetComponent<Rigidbody2D>();
-        abilityManager = gameObject.GetComponent<AbilityManager>();
+        animator = gameObject.GetComponent<Animator>();
+        animator.runtimeAnimatorController = animatorController;
         fixedDeltaTime = Time.fixedDeltaTime;
         
         // Assign GameEvent Listener
@@ -79,6 +82,10 @@ public class Player : MonoBehaviour
         // Handle inputs
         movement = new Vector2(x:Input.GetAxisRaw("Horizontal"),
             y:Input.GetAxisRaw("Vertical"));
+        
+        // Animation
+        animator.SetBool("isMoving", isMoving(movement));
+        
         if (movement.x > 0 && !isFacingRight) // going right and facing left
         {
             Flip();
@@ -127,6 +134,19 @@ public class Player : MonoBehaviour
         health = data.health;
         rank = data.rank;
         critChance = data.critChance;
+        animatorController = data.animatorController;
+    }
+
+    private bool isMoving(Vector2 movement)
+    {
+        if (movement != Vector2.zero)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
     private void Flip()

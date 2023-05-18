@@ -4,12 +4,17 @@ using UnityEngine;
 
 public abstract class AbilityBase : ScriptableObject
 {
-    public string name;
+    public string abilityName;
     public Sprite UISprite;
     public float baseCooldownTime;
+    public string description;
     [HideInInspector] public int currentLevel; // For upgrade purpose
     [HideInInspector] public float currentCooldownTime; // For upgrade purpose
     [HideInInspector] public float internalCooldownTime; // This increment every update function to meet cooldownTime (if ability has cooldown)
+    
+    public PlayerType playerType;
+    public float weight; // Chances to appear when leveled up
+    
     public enum AbilityState
     {
         ready,
@@ -27,5 +32,5 @@ public abstract class AbilityBase : ScriptableObject
     public abstract void TriggerAbility(List<GameObject> bulletPool);
 
     // Apply upgrade on to the entire Pool
-    public abstract void UpgradeAbility(List<GameObject> bulletPool, int tier);
+    public abstract void UpgradeAbility(List<GameObject> bulletPool);
 }

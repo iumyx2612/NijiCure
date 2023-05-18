@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ScriptableObjectArchitecture;
+using UnityEngine.PlayerLoop;
 
 public class StraightBullet : MonoBehaviour
 {
@@ -54,8 +55,6 @@ public class StraightBullet : MonoBehaviour
     
     private void OnEnable()
     {
-        if (bulletData != null)
-            bulletData.state = AbilityBase.AbilityState.ready; // The first enabled bullet sets the state for the whole ability
         bulletDirection = directionRef.Value; // Set the direction once
         transform.position = defaultPosRef.Value; // Set the start firing pos once
         defaultPos = defaultPosRef.Value; // Register the start firing pos
@@ -64,8 +63,7 @@ public class StraightBullet : MonoBehaviour
 
     private void FixedUpdate()
     {
-        bulletRb.AddForce(bulletDirection * speed * fixedDeltaTime,
-            ForceMode2D.Impulse);
+        FireBullet();
     }
 
     private void Update()
@@ -105,18 +103,17 @@ public class StraightBullet : MonoBehaviour
     private void ResetBullet()
     {
         gameObject.SetActive(false);
-        bulletData.state = AbilityBase.AbilityState.cooldown; // The last bullet deactivated bullet sets the state for the ability
+        bulletData.state = AbilityBase.AbilityState.cooldown; // The last deactivated bullet sets the state for the ability
     }
 
     // Deal damage to enemies
     // Further behavior if hit enemy
-//    private void OnCollisionEnter2D(Collision collision)
-//    {
-//        if (collision.gameObject.CompareTag("Enemy"))
-//        {
-////            collision.gameObject.GetComponent<Enemy>().TakeDamage(damage);
-//            
-//        }
-//        
-//    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            collision.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+        }
+        
+    }
 }
