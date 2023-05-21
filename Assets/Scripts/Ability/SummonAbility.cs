@@ -39,12 +39,6 @@ public class SummonAbility : MonoBehaviour
         }
         
     }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     private void OnEnable()
     {
@@ -57,7 +51,6 @@ public class SummonAbility : MonoBehaviour
         // If state is attacking
         if (summonData.summonState == SummonAbilityData.SummonState.attacking)
         {
-            Debug.Log("Attack");
             // Perform a single attack
             Attack();
             // The switch to cooldown state
@@ -66,7 +59,6 @@ public class SummonAbility : MonoBehaviour
 
         if (summonData.summonState == SummonAbilityData.SummonState.cooldown)
         {
-            Debug.Log("Cooldown");
             // Cooldown 
             internalTime += Time.deltaTime;
             if (internalTime >= timePerAttack)
@@ -85,12 +77,10 @@ public class SummonAbility : MonoBehaviour
         // If the state is moving, then we move the summon
         if (summonData.summonState == SummonAbilityData.SummonState.moving)
         {
-            Debug.Log("Moving");
             Vector2 direction = (nextPos - rb.position).normalized;
             rb.MovePosition(rb.position + direction * summonSpeed * Time.fixedDeltaTime);
             if (ReachedDest(rb.position, nextPos))
             {
-                Debug.Log("Reach dest");
                 // If the summon reached the Position, switch to attack state
                 summonData.summonState = SummonAbilityData.SummonState.attacking;
             }
@@ -129,7 +119,7 @@ public class SummonAbility : MonoBehaviour
             summonAttackRadius, enemyMask);
         foreach (Collider2D enemy in hitEnemies)
         {
-            enemy.GetComponent<Enemy>().TakeDamage(damage);
+            enemy.GetComponent<EnemyCombat>().TakeDamage(damage);
         }  
     }
 

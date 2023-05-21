@@ -4,24 +4,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using ScriptableObjectArchitecture;
 
-public class Player : MonoBehaviour
+[RequireComponent(typeof(Rigidbody2D))]
+public class PlayerMovement : MonoBehaviour
 {
     public PlayerData playerData;
     
-    // Data
-    private float speed;
-    private int health;
-    private int rank;
-    private RuntimeAnimatorController animatorController;
-    
     // Movement stuff
+    private float speed;
     private Rigidbody2D rb;
     private Vector2 movement;
     private Vector2 oldMovement; // To check if player has changed position
     private bool isFacingRight = true;
+    private RuntimeAnimatorController animatorController;
+    private Animator animator;
     
-    // Arrow indicator
-    [SerializeField] private GameObject arrowIndicator;
+    // Direction stuff
+    [SerializeField] private GameObject directionIndicator;
     private float distanceFromPlayer = 1f;
     private readonly Dictionary<Vector2, Vector3> rotationMapping =
         new Dictionary<Vector2, Vector3>
@@ -36,42 +34,33 @@ public class Player : MonoBehaviour
             {new Vector2(1, -1), new Vector3(0, 0, -45)}
         };
     
-    // Combat stuff
-    [SerializeField] private IntVariable currentHealth;
-    [SerializeField] private GameEvent onPlayerKilled;
-    [SerializeField] private IntGameEvent playerTakeDamage;
-    private bool isAlive;
-
-    // Animation stuff
-    private Animator animator;
-    
     // For things that need reference to player
     [SerializeField] private Vector2Variable playerPosRef; // Where the player is
     [SerializeField] private Vector2Variable playerDirectionRef; // Direction of the player
     [SerializeField] private BoolVariable hasChangePos;
+    
 
-    // Const
-    private float fixedDeltaTime;
-    
-    
     private void Awake()
     {
-        LoadData(playerData); // Maybe try different approach (?)
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
-        animator.runtimeAnimatorController = animatorController;
-        fixedDeltaTime = Time.fixedDeltaTime;
-        
-        // Assign GameEvent Listener
-        playerTakeDamage.AddListener(TakeDamage);
-        onPlayerKilled.AddListener(Dead);
     }
 
     // Start is called before the first frame update
     private void Start()
     {
-        Vector2 playerPos = gameObject.transform.position;
-        arrowIndicator.transform.position = playerPos + new Vector2(distanceFromPlayer, 0);
+        Vector2 playerPos = transform.position;
+        directionIndicator.transform.position = playerPos + new Vector2(distanceFromPlayer, 0);
+    }
+
+    private void OnEnable()
+    {
+        if (playerData != null)
+        {
+            LoadData(playerData);
+        }
+        
+        animator.runtimeAnimatorController = animatorController;
     }
 
     // Update is called once per frame
@@ -111,10 +100,10 @@ public class Player : MonoBehaviour
         if (offset != Vector2.zero && movement != Vector2.zero)
         {
             Vector3 rotationAngle = rotationMapping[movement];
-            arrowIndicator.transform.rotation = Quaternion.Euler(rotationAngle);
+            directionIndicator.transform.rotation = Quaternion.Euler(rotationAngle);
             Vector2 playerPos = gameObject.transform.position;
             Vector2 arrowNewPos = playerPos + movement * distanceFromPlayer;
-            arrowIndicator.transform.position = arrowNewPos;
+            directionIndicator.transform.position = arrowNewPos;
         }
         
         oldMovement = movement;
@@ -123,18 +112,9 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         // Handle physics
-        rb.MovePosition(rb.position + movement * speed * fixedDeltaTime);
+        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
     }
-
-    public void LoadData(PlayerData data)
-    {
-        playerData = data;
-        speed = data.speed;
-        health = data.health;
-        rank = data.rank;
-        animatorController = data.animatorController;
-    }
-
+    
     private bool isMoving(Vector2 movement)
     {
         if (movement != Vector2.zero)
@@ -153,20 +133,11 @@ public class Player : MonoBehaviour
 
         isFacingRight = !isFacingRight;
     }
-    
-    // Called by GameEvent playerTakeDamage
-    public void TakeDamage(int damage)
+
+    public void LoadData(PlayerData data)
     {
-        currentHealth.Value -= damage;
-        if (currentHealth.Value <= 0)
-        {
-            onPlayerKilled.Raise();
-        }
-    }
-    
-    public void Dead()
-    {
-        isAlive = false;
-        gameObject.SetActive(false);
+        playerData = data;
+        speed = data.speed;
+        animatorController = data.animatorController;
     }
 }

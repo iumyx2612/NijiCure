@@ -97,7 +97,7 @@ public class CircularAreaDamageAbility : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             Debug.Log("Wah");
-            other.GetComponent<Enemy>().TakeDamage(damage);
+            other.GetComponent<EnemyCombat>().TakeDamage(damage);
         }
     }
 }

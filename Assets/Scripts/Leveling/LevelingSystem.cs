@@ -1,97 +1,91 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using ScriptableObjectArchitecture;
 
 public class LevelingSystem : MonoBehaviour
 {
-    public List<GameObject> expPickerPrefabList;
     public int currentLevel;
     public int currentExp;
-    [SerializeField] private IntCollection nextLevelExp;
+    private int expToNextLevel = 79; // Initialize with 79 (Wiki)
+    [SerializeField] private GameObject expDropPrefab;
     [SerializeField] private IntGameEvent increaseExp;
     [SerializeField] private GameEvent increaseLevel;
 
-    [SerializeField] private ExpDropGameEvent chooseExpGameEvent;
     [SerializeField] private ExpDropGameEvent dropExp;
 
     // Pool containing expPicker prefabs    
-    public List<GameObject> expPool; 
+    public List<GameObject> expDropPool; 
 
     private void Awake()
     {
         increaseExp.AddListener(IncreaseExp);
         increaseLevel.AddListener(IncreaseLevel);
-        chooseExpGameEvent.AddListener(ChooseExpPicker);
         dropExp.AddListener(DropExp);
         SpawnExpPool();
     }
 
-    private void Start()
-    {
-    }
 
     private void IncreaseExp(int exp)
     {
         currentExp += exp;
-        if (currentExp >= nextLevelExp[currentLevel])
+        if (currentExp >= expToNextLevel)
         {
             increaseLevel.Raise();
+            currentExp = 0;
         }
     }
 
     private void IncreaseLevel()
     {
         currentLevel += 1;
+        CalculateExpForNextLevel();
 //        chooseAbility.Raise();
     }
-    
-    // This choose what ExpPicker to enable
-    private void ChooseExpPicker(ExpDrop expDrop)
+
+    private void DropExp(ExpData expData)
     {
-        List<float> listChances = expDrop.chances;
-        // Random a number
-        float number = UnityEngine.Random.Range(0f, 1f);
-        // Get the index of listChances, which is the level of ExpPicker
-        int index = 0;
-        for (int i = 0; i < listChances.Count; i++)
+        bool hasInactiveExpDrop = false;
+        for (int i = 0; i < expDropPool.Count; i++)
         {
-            if (number <= listChances[i])
+            GameObject expDrop = expDropPool[i];
+            if (!expDrop.activeSelf)
             {
-                index = i;
+                expDrop.GetComponent<ExpDrop>().LoadData(expData);
+                expDrop.transform.position = expData.position;
+                expDrop.SetActive(true);
+                hasInactiveExpDrop = true;
                 break;
             }
         }
-
-        expDrop.level = index;
-        dropExp.Raise(expDrop);
-    }
-
-    // This drop ExpPicker of :parameter: level
-    private void DropExp(ExpDrop expDrop)
-    {
-        foreach (GameObject expPicker in expPool)
+        
+        // If we're out of inactive ExpDrop, create new one
+        if (!hasInactiveExpDrop)
         {
-            if (expPicker.GetComponent<ExpPicker>().type == expDrop.level)
-            {
-                expPicker.transform.position = expDrop.position;
-                expPicker.SetActive(true);
-                break;
-            }
+            GameObject expDrop = Instantiate(expDropPrefab);
+            expDrop.transform.position = expData.position;
+            expDropPool.Add(expDrop);
+            expDrop.GetComponent<ExpDrop>().LoadData(expData);
         }
     }
 
     // This creates a ExpPicker Pool at the start
-    // TODO: Fix when have more ExpPicker
     private void SpawnExpPool()
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 50; i++)
         {
-            GameObject expPicker = Instantiate(expPickerPrefabList[i], transform);
-            expPool.Add(expPicker);
+            GameObject expPicker = Instantiate(expDropPrefab, transform);
+            expDropPool.Add(expPicker);
             expPicker.SetActive(false);
         }
+    }
+
+    // Will be called every time we level up
+    private void CalculateExpForNextLevel()
+    {
+        int subtrahend = Mathf.RoundToInt(Mathf.Pow(4 * (currentLevel + 1), 2.1f));
+        int minuend = Mathf.RoundToInt(Mathf.Pow(4 * currentLevel, 2.1f));
+        expToNextLevel = subtrahend - minuend;
     }
 }

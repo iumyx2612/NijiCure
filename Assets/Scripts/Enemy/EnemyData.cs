@@ -8,6 +8,6 @@ public class EnemyData : ScriptableObject
     public float speed; 
     public int damage; 
     public int health;
-    public List<float> expDropChances;
+    public int expDrop;
     public Sprite sprite;
 }

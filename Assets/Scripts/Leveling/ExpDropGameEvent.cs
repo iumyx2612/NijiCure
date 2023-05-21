@@ -4,11 +4,16 @@ using UnityEngine;
 
 
 [System.Serializable]
-public struct ExpDrop
+public struct ExpData
 {
-    public int level;
+    public int expAmount;
     public Vector2 position;
-    public List<float> chances;
+
+    public ExpData(int _expAmount, Vector2 _position)
+    {
+        expAmount = _expAmount;
+        position = _position;
+    }
 }
 
 namespace ScriptableObjectArchitecture
@@ -20,7 +25,7 @@ namespace ScriptableObjectArchitecture
     [CreateAssetMenu(
         fileName = "ExpDropGameEvent.asset",
         menuName = SOArchitecture_Utility.GAME_EVENT + "ExpDrop")]
-    public class ExpDropGameEvent : GameEventBase<ExpDrop>
+    public class ExpDropGameEvent : GameEventBase<ExpData>
     {
         
     }

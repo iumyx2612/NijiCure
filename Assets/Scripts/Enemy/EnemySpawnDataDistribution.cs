@@ -2,12 +2,12 @@ using WeightedDistribution;
 
 
 [System.Serializable]
-public class EnemySpawnDataDistItem : DistributionItem<EnemySpawnData>
+public class EnemySpawnDataDistItem : DistributionItem<SpawnData>
 {
  
 }
 
-public class EnemySpawnDataDistribution : Distribution<EnemySpawnData, EnemySpawnDataDistItem>
+public class EnemySpawnDataDistribution : Distribution<SpawnData, EnemySpawnDataDistItem>
 {
     
 }
