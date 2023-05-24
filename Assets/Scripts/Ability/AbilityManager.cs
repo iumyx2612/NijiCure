@@ -7,7 +7,7 @@ using ScriptableObjectArchitecture;
 // Manage the player's abilities
 public class AbilityManager : MonoBehaviour
 {
-    private GameObject player; // The player MUST have this script
+    [SerializeField] private PlayerTypeAndStartingAbility mapping;
     [SerializeField] private AbilityCollection abilities;
     private List<List<GameObject>> bulletPools = new List<List<GameObject>>(); // Each ability has its own bullet pool, each pool contains bullets
 
@@ -16,13 +16,14 @@ public class AbilityManager : MonoBehaviour
     private void Awake()
     {
         abilities.Clear();
-        player = gameObject;
         modifyAbility.AddListener(ModifyAbility);
-        foreach (AbilityBase ability in abilities)
-        {
-            List<GameObject> newBulletPool = ability.Initialize(player);
-            bulletPools.Add(newBulletPool);
-        }
+    }
+
+    private void Start()
+    {
+        abilities.Add(mapping.startingAbility);
+        List<GameObject> newBulletPool = abilities[0].Initialize();
+        bulletPools.Add(newBulletPool);
     }
 
     // Allow player to add/ increase the level of Ability
@@ -33,7 +34,7 @@ public class AbilityManager : MonoBehaviour
         {
             // Create a new BulletPool for this ability and add it to the List
             abilities.Add(ability);
-            List<GameObject> newBulletPool = ability.Initialize(player);
+            List<GameObject> newBulletPool = ability.Initialize();
             bulletPools.Add(newBulletPool);
         }
         // If player already has this ability

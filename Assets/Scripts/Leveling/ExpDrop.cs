@@ -23,6 +23,7 @@ public class ExpDrop : MonoBehaviour
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         selfCollider = gameObject.GetComponent<CircleCollider2D>();
+        selfCollider.isTrigger = true;
     }
 
     private void Start()

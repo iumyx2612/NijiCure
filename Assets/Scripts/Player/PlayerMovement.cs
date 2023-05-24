@@ -19,7 +19,12 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     
     // Direction stuff
+    public bool directionLock;
+    
     [SerializeField] private GameObject directionIndicator;
+    [SerializeField] private Sprite[] arrowSprites;
+    private Vector2 playerPos;
+    private Vector2 arrowNewPos;
     private float distanceFromPlayer = 1f;
     private readonly Dictionary<Vector2, Vector3> rotationMapping =
         new Dictionary<Vector2, Vector3>
@@ -37,13 +42,15 @@ public class PlayerMovement : MonoBehaviour
     // For things that need reference to player
     [SerializeField] private Vector2Variable playerPosRef; // Where the player is
     [SerializeField] private Vector2Variable playerDirectionRef; // Direction of the player
-    [SerializeField] private BoolVariable hasChangePos;
     
 
     private void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
+        playerPosRef.Value = Vector2.zero;
+        playerDirectionRef.Value = Vector2.right;
+        directionIndicator.GetComponent<SpriteRenderer>().sprite = arrowSprites[0];
     }
 
     // Start is called before the first frame update
@@ -66,6 +73,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            directionLock = true;
+            directionIndicator.GetComponent<SpriteRenderer>().sprite = arrowSprites[1];
+        }
         playerPosRef.Value = transform.position;
         // Handle inputs
         movement = new Vector2(x:Input.GetAxisRaw("Horizontal"),
@@ -74,39 +86,40 @@ public class PlayerMovement : MonoBehaviour
         // Animation
         animator.SetBool("isMoving", isMoving(movement));
         
-        if (movement.x > 0 && !isFacingRight) // going right and facing left
+        if (movement.x > 0 && !isFacingRight && !directionLock) // going right and facing left
         {
             Flip();
         }
-        else if (movement.x < 0 && isFacingRight) // going left and facing right
+        else if (movement.x < 0 && isFacingRight && !directionLock) // going left and facing right
         {
             Flip();
         }
 
-        if (movement != Vector2.zero)
+        if (movement != Vector2.zero && !directionLock)
         {
             playerDirectionRef.Value = movement;
-            hasChangePos.Value = true;
-        }
-        else
-        {
-            hasChangePos.Value = false;
         }
         
         // If player moves, then the arrow moves
         Vector2 offset = movement - oldMovement;
         // Check if last movement diff from this movement
         // And this movement can't be zero (omit last movement frame if stay still)
-        if (offset != Vector2.zero && movement != Vector2.zero)
+        if (offset != Vector2.zero && movement != Vector2.zero && !directionLock)
         {
             Vector3 rotationAngle = rotationMapping[movement];
             directionIndicator.transform.rotation = Quaternion.Euler(rotationAngle);
-            Vector2 playerPos = gameObject.transform.position;
-            Vector2 arrowNewPos = playerPos + movement * distanceFromPlayer;
+            playerPos = gameObject.transform.position;
+            arrowNewPos = playerPos + movement * distanceFromPlayer;
             directionIndicator.transform.position = arrowNewPos;
         }
         
         oldMovement = movement;
+
+        if (Input.GetKeyUp(KeyCode.Z))
+        {
+            directionLock = false;
+            directionIndicator.GetComponent<SpriteRenderer>().sprite = arrowSprites[0];
+        }
     }
     
     private void FixedUpdate()

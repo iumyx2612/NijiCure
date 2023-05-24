@@ -108,12 +108,11 @@ public class StraightBullet : MonoBehaviour
 
     // Deal damage to enemies
     // Further behavior if hit enemy
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collider.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<EnemyCombat>().TakeDamage(damage);
+            collider.gameObject.GetComponent<EnemyCombat>().TakeDamage(damage);
         }
-        
     }
 }

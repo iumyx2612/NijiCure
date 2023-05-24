@@ -19,7 +19,7 @@ public class CircularAreaDamageAbilityData : AbilityBase
     [HideInInspector] public float currentEffectRadius;
     [HideInInspector] public float currentRangeFromPlayer;
 
-    public override List<GameObject> Initialize(GameObject player)
+    public override List<GameObject> Initialize()
     {
         currentNumArea = initialNumArea;
         currentEffectRadius = effectRadius;

@@ -11,4 +11,6 @@ public class PlayerData : ScriptableObject
     public int rank;
     public float critChance;
     public RuntimeAnimatorController animatorController;
+
+    public AbilityBase startingAbility;
 }

@@ -20,7 +20,6 @@ public class EnemyCombat : MonoBehaviour
     [SerializeField] private LayerMask playerMask;
 
     [SerializeField] private IntGameEvent playerTakeDamage;
-    [SerializeField] private ExpDropGameEvent dropExp;
 
 
     private void OnEnable()
@@ -67,15 +66,8 @@ public class EnemyCombat : MonoBehaviour
         enemyHealth -= damage;
         if (enemyHealth <= 0)
         {
-            isAlive = false;
-            dropExp.Raise(ConstructExpData());
-            gameObject.SetActive(false);
+            gameObject.GetComponent<EnemyMovement>().Dead();
         }
-    }
-
-    private ExpData ConstructExpData()
-    {
-        return new ExpData(enemyData.expDrop, transform.position);
     }
 
     public void LoadData(EnemyData data)

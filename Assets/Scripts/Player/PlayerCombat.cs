@@ -4,9 +4,18 @@ using System.Collections.Generic;
 using ScriptableObjectArchitecture;
 using UnityEngine;
 
+
+public struct TypeAndBaseAbility
+{
+    public PlayerType playerType;
+    public AbilityBase startingAbility;
+}
+
+
 public class PlayerCombat : MonoBehaviour
 {
     public PlayerData playerData;
+    [SerializeField] private PlayerTypeAndStartingAbility mapping;
     
     // Data
     private int health;
@@ -20,8 +29,11 @@ public class PlayerCombat : MonoBehaviour
 
     private void Awake()
     {
+        // Set up variables and stuff
         onPlayerKilled.AddListener(Dead);
         playerTakeDamage.AddListener(TakeDamage);
+        mapping.playerType = playerData.type;
+        mapping.startingAbility = playerData.startingAbility;
     }
 
     private void OnEnable()

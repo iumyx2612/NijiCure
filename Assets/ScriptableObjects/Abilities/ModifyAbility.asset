@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dfa0bf4169e21e49b17973f0665b754, type: 3}
-  m_Name: SpawnData
+  m_Script: {fileID: 11500000, guid: 9797492ff8356794ab844d7e28ef1c86, type: 3}
+  m_Name: ModifyAbility
   m_EditorClassIdentifier: 
-  starTime: 0
-  endTime: 30
-  spawnAmount: 3
-  enemyData: {fileID: 11400000, guid: f9f99dd79bf2f944c9242fd9b1398e26, type: 2}
-  weight: 4
+  _debugValue: {fileID: 11400000, guid: 78ca966d113ed91419ccb85e4b26e94a, type: 2}

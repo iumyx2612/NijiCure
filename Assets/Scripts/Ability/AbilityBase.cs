@@ -25,7 +25,7 @@ public abstract class AbilityBase : ScriptableObject
     [HideInInspector] public AbilityState state; // Set in initialize
     
     // Create a BulletPool
-    public abstract List<GameObject> Initialize(GameObject player);
+    public abstract List<GameObject> Initialize();
 
     // Trigger the ability
     // Every ability has its own BulletPool

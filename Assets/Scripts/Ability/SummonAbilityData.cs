@@ -27,7 +27,7 @@ public class SummonAbilityData : AbilityBase
 
     [HideInInspector] public SummonState summonState;
 
-    public override List<GameObject> Initialize(GameObject player)
+    public override List<GameObject> Initialize()
     {
         // Re-init runtime data
         numSummon = 1;

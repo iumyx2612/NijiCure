@@ -19,8 +19,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Vector2Variable playerPosRef;
     [SerializeField] private Vector2 baseSpawnArea;
     
-    public int index = 0;
-    public List<SpawnData> currentSpawnData; // The Spawn Data in the current moment of the game
+    private int index = 0;
+    private List<SpawnData> currentSpawnData = new List<SpawnData>(); // The Spawn Data in the current moment of the game
 
     private float internalSpawnCooldown;
     [SerializeField] private int spawnCooldown; // how fast to spawn enemy
@@ -32,11 +32,11 @@ public class EnemySpawner : MonoBehaviour
         enemyPool.Clear();
         timeSinceGameStart.Value = 0f;
         spawnDistribution = gameObject.GetComponent<EnemySpawnDataDistribution>();
-        InitializeEnemy();
     }
 
     private void Start()
     {
+        InitializeEnemy();
         currentSpawnData.Add(stageSpawnData[0]); // Start the game with the first Spawn Data
         spawnDistribution.Add(stageSpawnData[0], stageSpawnData[0].weight);
     }

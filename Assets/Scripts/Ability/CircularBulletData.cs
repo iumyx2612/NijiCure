@@ -15,7 +15,7 @@ public class CircularBulletData : AbilityBase
     public Sprite sprite;
     public AudioClip OnFireAudioClip;
 
-    public override List<GameObject> Initialize(GameObject player)
+    public override List<GameObject> Initialize()
     {
         GameObject temp = new GameObject(abilityName + "Holder");
         List<GameObject> bulletPool = new List<GameObject>();

@@ -29,7 +29,7 @@ public class StraightBulletData : AbilityBase
     
 
     // Create a BulletPool and bullets
-    public override List<GameObject> Initialize(GameObject player)
+    public override List<GameObject> Initialize()
     {
         currentLevel = 0;
         currentCooldownTime = baseCooldownTime;
