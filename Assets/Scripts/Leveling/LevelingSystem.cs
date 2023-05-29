@@ -14,6 +14,7 @@ public class LevelingSystem : MonoBehaviour
     [SerializeField] private GameEvent increaseLevel;
 
     [SerializeField] private ExpDropGameEvent dropExp;
+    [SerializeField] private GameEvent levelUpShowAbility;
 
     // Pool containing expPicker prefabs    
     public List<GameObject> expDropPool; 
@@ -41,7 +42,7 @@ public class LevelingSystem : MonoBehaviour
     {
         currentLevel += 1;
         CalculateExpForNextLevel();
-//        chooseAbility.Raise();
+        levelUpShowAbility.Raise(); // Check AbilityManager.cs
     }
 
     private void DropExp(ExpData expData)

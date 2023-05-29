@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: NAL
   m_EditorClassIdentifier: 
   speed: 1
-  damage: 10
-  health: 1
-  expDrop: 0
+  damage: 2
+  health: 8
+  expAmount: 6
   sprite: {fileID: 21300000, guid: f3f257d9dad2acd45afd127dbfece71b, type: 3}
   animatorController: {fileID: 9100000, guid: 87497e2f9ec676544a61bc2cd2522d10, type: 2}

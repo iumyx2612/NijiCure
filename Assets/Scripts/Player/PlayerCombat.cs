@@ -5,17 +5,10 @@ using ScriptableObjectArchitecture;
 using UnityEngine;
 
 
-public struct TypeAndBaseAbility
-{
-    public PlayerType playerType;
-    public AbilityBase startingAbility;
-}
-
-
 public class PlayerCombat : MonoBehaviour
 {
     public PlayerData playerData;
-    [SerializeField] private PlayerTypeAndStartingAbility mapping;
+    [SerializeField] private PlayerTypeAndStartingAbility mapping; // Reference by others' 
     
     // Data
     private int health;
@@ -25,7 +18,7 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private BoolVariable isAlive;
     [SerializeField] private GameEvent onPlayerKilled;
     [SerializeField] private IntGameEvent playerTakeDamage;
-    
+
 
     private void Awake()
     {

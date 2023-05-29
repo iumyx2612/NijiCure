@@ -9,15 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9377ffeb64ba30478a995a8ffc78ae8, type: 3}
-  m_Name: ExpPickupRange
+  m_Script: {fileID: 11500000, guid: 46fa4debbe159d64884947c81c8b2fd4, type: 3}
+  m_Name: All Abilities
   m_EditorClassIdentifier: 
-  _value: 0.4
-  _readOnly: 0
-  _raiseWarning: 1
-  _isClamped: 0
-  _minClampedValue: 0
-  _maxClampedValue: 0
-  _event:
-    m_PersistentCalls:
-      m_Calls: []
+  _list:
+  - {fileID: 11400000, guid: 78ca966d113ed91419ccb85e4b26e94a, type: 2}
