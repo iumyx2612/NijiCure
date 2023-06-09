@@ -13,4 +13,5 @@ public class PlayerData : ScriptableObject
     public RuntimeAnimatorController animatorController;
 
     public AbilityBase startingAbility;
+    public UltimateAbilityBase ultimateAbility;
 }

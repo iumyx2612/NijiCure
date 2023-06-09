@@ -6,10 +6,10 @@ public abstract class AbilityBase : ScriptableObject
 {
     public string abilityName;
     public Sprite UISprite;
-    public float baseCooldownTime;
+    public float cooldownTime;
     public string description;
     [HideInInspector] public int currentLevel; // For upgrade purpose
-    [HideInInspector] public float currentCooldownTime; // For upgrade purpose
+    [HideInInspector] public float currentCooldownTime;
     [HideInInspector] public float internalCooldownTime; // This increment every update function to meet cooldownTime (if ability has cooldown)
     
     public PlayerType playerType;
@@ -22,15 +22,16 @@ public abstract class AbilityBase : ScriptableObject
         cooldown
     }
 
-    [HideInInspector] public AbilityState state; // Set in initialize
+    public AbilityState state; // Set in initialize
     
-    // Create a BulletPool
-    public abstract List<GameObject> Initialize();
+    // Setup the Ability
+    public abstract void Initialize();
 
     // Trigger the ability
-    // Every ability has its own BulletPool
-    public abstract void TriggerAbility(List<GameObject> bulletPool);
+    public abstract void TriggerAbility();
 
-    // Apply upgrade on to the entire Pool
-    public abstract void UpgradeAbility(List<GameObject> bulletPool);
+    // Apply upgrade on to the entire Ability
+    public abstract void UpgradeAbility();
+
+    public abstract void PartialModify(int value);
 }

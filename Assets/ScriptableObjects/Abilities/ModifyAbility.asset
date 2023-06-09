@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9797492ff8356794ab844d7e28ef1c86, type: 3}
   m_Name: ModifyAbility
   m_EditorClassIdentifier: 
-  _debugValue: {fileID: 11400000, guid: 78ca966d113ed91419ccb85e4b26e94a, type: 2}
+  _debugValue: {fileID: 11400000, guid: 94615bc0916bf3346b8af10f1b74397d, type: 2}

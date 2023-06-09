@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(CircleCollider2D))]
 public class CircularAreaDamageAbility : MonoBehaviour
 {
-    public CircularAreaDamageAbilityData bulletData;
+    public LanKnifeData bulletData;
 
     // Data
     private float effectRadius;
@@ -38,7 +38,7 @@ public class CircularAreaDamageAbility : MonoBehaviour
     {
         if (bulletData != null)
         {
-            LoadBulletData(bulletData);
+//            LoadBulletData(bulletData);
         }
     }
 
@@ -77,13 +77,13 @@ public class CircularAreaDamageAbility : MonoBehaviour
         return newPos;
     }
 
-    public void LoadBulletData(CircularAreaDamageAbilityData data)
-    {
-        effectRadius = data.effectRadius;
-        rangeFromPlayer = data.rangeFromPlayer;
-        damage = data.damage;
-        existingTime = data.existingTime;
-    }
+//    public void LoadBulletData(CircularAreaDamageAbilityData data)
+//    {
+//        effectRadius = data.effectRadius;
+//        rangeFromPlayer = data.rangeFromPlayer;
+//        damage = data.damage;
+//        existingTime = data.existingTime;
+//    }
 
     private void ResetBullet()
     {

@@ -1,25 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
 
 public class TestRotation : MonoBehaviour
 {
-    public Transform centerPoint;
+    public TMP_Text text;
+    public Color newColor = new Color(255, 0, 0, 1);
     
-    public Rigidbody2D rb;
-
-    public float orbitSpeed;
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        Quaternion q = Quaternion.AngleAxis (orbitSpeed * Time.fixedDeltaTime, transform.forward);
-        rb.MovePosition (q * (rb.transform.position - centerPoint.position) + centerPoint.position);
-        rb.MoveRotation (rb.transform.rotation * q);
+        text.color = newColor;
     }
 }

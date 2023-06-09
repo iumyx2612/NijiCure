@@ -9,7 +9,7 @@ using UnityEngine;
 // Note: The bullet will not follow the player
 public class CircularBullet : MonoBehaviour
 {
-    public CircularBulletData bulletData;
+    public LanKnifeData bulletData;
     
     // Data
     private int damage;
@@ -64,16 +64,16 @@ public class CircularBullet : MonoBehaviour
         Circulate(speed, anchor);
     }
 
-    public void LoadBulletData(CircularBulletData data)
-    {
-        bulletData = data;
-        damage = data.damage;
-        radius = data.radius;
-        speed = data.speed;
-        spriteRenderer.sprite = data.sprite;
-        circulatingTime = data.circulatingTime;
-//        onFireAudio = data.OnFireAudioClip;
-    }
+//    public void LoadBulletData(CircularBulletData data)
+//    {
+//        bulletData = data;
+//        damage = data.damage;
+//        radius = data.radius;
+//        speed = data.speed;
+//        spriteRenderer.sprite = data.sprite;
+//        circulatingTime = data.circulatingTime;
+////        onFireAudio = data.OnFireAudioClip;
+//    }
     
     // The bullet circulate around a defined position (not follow player)
     private void Circulate(float orbitSpeed, Transform anchor)

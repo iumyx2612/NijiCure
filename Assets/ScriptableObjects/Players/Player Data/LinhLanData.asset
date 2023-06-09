@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: {fileID: 11400000, guid: cbe7559e02d45fb479fda40e78a01e1e, type: 2}
   health: 50
-  speed: 3
+  speed: 2.5
   rank: 0
   critChance: 0
   animatorController: {fileID: 9100000, guid: 3c77b387a9920ce4c910189b1f33905c, type: 2}
-  startingAbility: {fileID: 11400000, guid: 78ca966d113ed91419ccb85e4b26e94a, type: 2}
+  startingAbility: {fileID: 11400000, guid: d22b31a8cc9bfc14a984e33fec9d701b, type: 2}
+  ultimateAbility: {fileID: 11400000, guid: d8ac76264ec77664284ee1b451574c10, type: 2}

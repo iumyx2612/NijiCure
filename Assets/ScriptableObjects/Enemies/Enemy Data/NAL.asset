@@ -18,3 +18,4 @@ MonoBehaviour:
   expAmount: 6
   sprite: {fileID: 21300000, guid: f3f257d9dad2acd45afd127dbfece71b, type: 3}
   animatorController: {fileID: 9100000, guid: 87497e2f9ec676544a61bc2cd2522d10, type: 2}
+  shape: 0

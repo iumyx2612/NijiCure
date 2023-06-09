@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 4705576780418981527}
   - component: {fileID: 943619922503704804}
   - component: {fileID: 5060313261751837167}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TX Tileset Wall_58
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8416854471654074096
 Transform:

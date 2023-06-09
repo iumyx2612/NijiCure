@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04a3ec3ac22614746b95d3b4c927108c, type: 3}
+  m_Name: ChuaTeNuaBaiLv1
+  m_EditorClassIdentifier: 
+  abilityName: 
+  UISprite: {fileID: 21300000, guid: 3458c119c69e9bc4f9647599c2901dee, type: 3}
+  cooldownTime: 2
+  description: 
+  currentLevel: 0
+  currentCooldownTime: 0
+  internalCooldownTime: 0
+  playerType: {fileID: 11400000, guid: cbe7559e02d45fb479fda40e78a01e1e, type: 2}
+  weight: 5
+  state: 2
+  damage: 15
+  currentDamage: 0
+  sprite: {fileID: 21300000, guid: 41d1b9312bce36048949d8da37f6c300, type: 3}
+  scale: 20
+  prefab: {fileID: 354887343291413962, guid: 6a746b493eceab24d9e5f25574e4d35d, type: 3}
+  upgradedDatas: []
+  pool: []

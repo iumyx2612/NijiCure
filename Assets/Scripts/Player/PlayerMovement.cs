@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ScriptableObjectArchitecture;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
 public class PlayerMovement : MonoBehaviour
 {
     public PlayerData playerData;
@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     
     // Direction stuff
-    public bool directionLock;
+    private bool directionLock;
     
     [SerializeField] private GameObject directionIndicator;
     [SerializeField] private Sprite[] arrowSprites;
@@ -42,6 +42,8 @@ public class PlayerMovement : MonoBehaviour
     // For things that need reference to player
     [SerializeField] private Vector2Variable playerPosRef; // Where the player is
     [SerializeField] private Vector2Variable playerDirectionRef; // Direction of the player
+
+    [SerializeField] private Canvas playerUICanvas; // For player UI element
     
 
     private void Awake()
@@ -51,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         playerPosRef.Value = Vector2.zero;
         playerDirectionRef.Value = Vector2.right;
         directionIndicator.GetComponent<SpriteRenderer>().sprite = arrowSprites[0];
+        rb.gravityScale = 0f;
     }
 
     // Start is called before the first frame update
@@ -73,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        playerUICanvas.transform.position = transform.position;
         if (Input.GetKeyDown(KeyCode.Z))
         {
             directionLock = true;

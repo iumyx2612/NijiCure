@@ -101,6 +101,6 @@ public class EnemyMovement : MonoBehaviour
         Sequence deadSequence = DOTween.Sequence();
         deadSequence.Append(transform.DOMoveY(transform.position.y + 0.3f, 0.5f));
         deadSequence.Join(spriteRenderer.DOFade(0f, 0.5f));
-        deadSequence.OnComplete(delegate { gameObject.SetActive(false); });
+        deadSequence.OnComplete(delegate { gameObject.transform.parent.gameObject.SetActive(false); });
     }
 }

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33b535fd82ae169459a0a401d162c000, type: 3}
+  m_Name: UltimateHoiThoCuaDa
+  m_EditorClassIdentifier: 
+  cooldown: 45
+  canUseUltimate: {fileID: 11400000, guid: 5ab1c7b354838d943aad936e13e7403b, type: 2}
+  activeTime: 15
+  cooldownReduction: 0.5
+  damageMultiplier: 1
+  knifeScaleMultiplier: 2
+  knifeDistanceMultiplier: 2
+  knifeSpeedMultiplier: 2

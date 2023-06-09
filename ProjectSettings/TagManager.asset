@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Wall
   - Ability
+  - Heal
+  - PickUp
   layers:
   - Default
   - TransparentFX
@@ -58,4 +60,7 @@ TagManager:
     locked: 0
   - name: GameObjects
     uniqueID: 794747351
+    locked: 0
+  - name: WorldSpaceUI
+    uniqueID: 3407249261
     locked: 0

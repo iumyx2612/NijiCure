@@ -12,9 +12,9 @@ public class EnemySpawner : MonoBehaviour
     private EnemySpawnDataDistribution spawnDistribution;
     
     // Configurable in the editor
-    [SerializeField] private GameObjectCollection enemyPool;
+    [SerializeField] private GameObjectCollection enemyHolderPool;
     [SerializeField] private FloatVariable timeSinceGameStart;
-    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject enemyHolderPrefab;
     [SerializeField] private List<SpawnData> stageSpawnData; // The Spawn Data of the entire stage
     [SerializeField] private Vector2Variable playerPosRef;
     [SerializeField] private Vector2 baseSpawnArea;
@@ -29,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Awake()
     {
-        enemyPool.Clear();
+        enemyHolderPool.Clear();
         timeSinceGameStart.Value = 0f;
         spawnDistribution = gameObject.GetComponent<EnemySpawnDataDistribution>();
     }
@@ -80,9 +80,9 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < 50; i++)
         {
-            GameObject enemy = Instantiate(enemyPrefab, transform);
-            enemyPool.Add(enemy);
-            enemy.SetActive(false);
+            GameObject enemyHolder = Instantiate(enemyHolderPrefab, transform);
+            enemyHolderPool.Add(enemyHolder);
+            enemyHolder.SetActive(false);
         }
     }
     
@@ -91,9 +91,9 @@ public class EnemySpawner : MonoBehaviour
         SpawnData spawnData = spawnDistribution.Draw();
         // Check for number of inactive Enemy Prefab
         int numInActive = 0;
-        foreach (GameObject enemy in enemyPool)
+        foreach (GameObject enemyHolder in enemyHolderPool)
         {
-            if (!enemy.activeSelf)
+            if (!enemyHolder.activeSelf)
             {
                 numInActive += 1;
                 if (numInActive >= spawnData.spawnAmount)
@@ -108,15 +108,16 @@ public class EnemySpawner : MonoBehaviour
         if (numInActive >= spawnData.spawnAmount)
         {
             // Grab Prefab from Pool to active
-            for (int i = 0; i < enemyPool.Count; i++)
+            for (int i = 0; i < enemyHolderPool.Count; i++)
             {
-                GameObject enemy = enemyPool[i];
-                if (!enemy.activeSelf)
+                GameObject enemyHolder = enemyHolderPool[i];
+                if (!enemyHolder.activeSelf)
                 {
+                    GameObject enemy = enemyHolder.transform.GetChild(0).gameObject;
                     enemy.GetComponent<EnemyMovement>().LoadData(spawnData.enemyData);
                     enemy.GetComponent<EnemyCombat>().LoadData(spawnData.enemyData);
-                    enemy.transform.position = PickSpawnPosition();
-                    enemy.SetActive(true);
+                    enemyHolder.transform.position = PickSpawnPosition();
+                    enemyHolder.SetActive(true);
                     numRequired += 1;
                 }
 
@@ -130,10 +131,11 @@ public class EnemySpawner : MonoBehaviour
         {
             for (int i = 0; i < spawnData.spawnAmount; i++)
             {
-                GameObject enemy = Instantiate(enemyPrefab, transform);
+                GameObject enemyHolder = Instantiate(enemyHolderPrefab, transform);
+                GameObject enemy = enemyHolder.transform.GetChild(0).gameObject;
                 enemy.GetComponent<EnemyMovement>().LoadData(spawnData.enemyData);
                 enemy.GetComponent<EnemyCombat>().LoadData(spawnData.enemyData);
-                enemy.transform.position = PickSpawnPosition();
+                enemyHolder.transform.position = PickSpawnPosition();
             }
         }
     }

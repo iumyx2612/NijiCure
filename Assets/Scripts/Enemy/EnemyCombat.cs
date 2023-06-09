@@ -2,8 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using ScriptableObjectArchitecture;
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
+
+[RequireComponent(typeof(BoxCollider2D))]
 public class EnemyCombat : MonoBehaviour
 {
     public EnemyData enemyData;
@@ -12,6 +17,7 @@ public class EnemyCombat : MonoBehaviour
     private int damage;
     private int enemyHealth;
     private bool isAlive = true;
+    private BoxCollider2D selfCollider;
     
     private float attackRadius = 0.52f;
     private float damageTime = 1f;
@@ -21,6 +27,13 @@ public class EnemyCombat : MonoBehaviour
 
     [SerializeField] private IntGameEvent playerTakeDamage;
 
+    public TMP_Text damageUIPopupText;
+
+
+    private void Awake()
+    {
+        selfCollider = gameObject.GetComponent<BoxCollider2D>();
+    }
 
     private void OnEnable()
     {
@@ -28,6 +41,10 @@ public class EnemyCombat : MonoBehaviour
         {
             LoadData(enemyData);
         }
+    }
+
+    private void OnDisable()
+    {
     }
 
     // Update is called once per frame
@@ -55,15 +72,11 @@ public class EnemyCombat : MonoBehaviour
             canAttack = false;
         }
     }
-    
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, attackRadius);
-    }
 
     public void TakeDamage(int damage) // Will be called in Bullet scripts
     {
         enemyHealth -= damage;
+        DamagePopupSequence(damage);
         if (enemyHealth <= 0)
         {
             gameObject.GetComponent<EnemyMovement>().Dead();
@@ -75,5 +88,29 @@ public class EnemyCombat : MonoBehaviour
         enemyData = data;
         damage = data.damage;
         enemyHealth = data.health;
+        selfCollider.size = data.shapeToColliderMapping[data.shape].Item1;
+        selfCollider.offset = data.shapeToColliderMapping[data.shape].Item2;
+    }
+
+    private void DamagePopupSequence(int damage)
+    {
+        damageUIPopupText.text = damage.ToString();
+        GameObject damageUIPopupGO = damageUIPopupText.gameObject;
+        damageUIPopupGO.transform.position = transform.position;
+        float basePosY = damageUIPopupGO.transform.position.y;
+        damageUIPopupGO.SetActive(true);
+        Sequence textSequence = DOTween.Sequence();
+        textSequence.Append(damageUIPopupGO.transform.DOMoveY(basePosY + 0.3f, 0.3f));
+        textSequence.Append(damageUIPopupGO.transform.DOMoveY(basePosY - 0.5f, 0.5f));
+        textSequence.Join(damageUIPopupText.DOFade(0f, 0.7f));
+        textSequence.OnComplete(RecoverDamagePopUpTextState);
+    }
+
+    private void RecoverDamagePopUpTextState()
+    {
+        damageUIPopupText.gameObject.SetActive(false);
+        Color temp = damageUIPopupText.color;
+        temp.a = 1;
+        damageUIPopupText.color = temp;
     }
 }

@@ -6,41 +6,61 @@ using ScriptableObjectArchitecture;
 
 public class LevelingSystem : MonoBehaviour
 {
-    public int currentLevel;
-    public int currentExp;
-    private int expToNextLevel = 79; // Initialize with 79 (Wiki)
-    [SerializeField] private GameObject expDropPrefab;
+    [SerializeField] private IntVariable currentLevel;
+    [SerializeField] private IntVariable currentExp;
+    [SerializeField] private IntVariable expToNextLevel; // Initialize with 79 (Wiki)
+    [SerializeField] private GameObject expPickUpPrefab;
     [SerializeField] private IntGameEvent increaseExp;
     [SerializeField] private GameEvent increaseLevel;
 
     [SerializeField] private ExpDropGameEvent dropExp;
     [SerializeField] private GameEvent levelUpShowAbility;
+    
+    // For UI
+    [SerializeField] private GameEvent increaseLevelUI; // Setup in UIManager.cs 
+    [SerializeField] private GameEvent increaseExpUI; // Setup in UIManager.cs
 
     // Pool containing expPicker prefabs    
-    public List<GameObject> expDropPool; 
+    public List<GameObject> expPickUpPool; 
 
     private void Awake()
     {
+        // Setup ScriptableObject Variables
+        currentLevel.Value = 1;
+        currentExp.Value = 0;
+        expToNextLevel.Value = 79;
+        // Setup ScriptableObject GameEvents
         increaseExp.AddListener(IncreaseExp);
         increaseLevel.AddListener(IncreaseLevel);
         dropExp.AddListener(DropExp);
+        // Other initialization
         SpawnExpPool();
     }
 
 
+    private void OnDisable()
+    {
+        increaseExp.RemoveListener(IncreaseExp);
+        increaseLevel.RemoveListener(IncreaseLevel);
+        dropExp.RemoveListener(DropExp);
+    }
+
     private void IncreaseExp(int exp)
     {
-        currentExp += exp;
+        currentExp.Value += exp;
+        increaseExpUI.Raise();
         if (currentExp >= expToNextLevel)
         {
             increaseLevel.Raise();
-            currentExp = 0;
         }
     }
 
     private void IncreaseLevel()
     {
-        currentLevel += 1;
+        currentLevel.Value += 1;
+        currentExp.Value = 0;
+        increaseExpUI.Raise(); // To reset the ExpBar to 0
+        increaseLevelUI.Raise();
         CalculateExpForNextLevel();
         levelUpShowAbility.Raise(); // Check AbilityManager.cs
     }
@@ -48,12 +68,12 @@ public class LevelingSystem : MonoBehaviour
     private void DropExp(ExpData expData)
     {
         bool hasInactiveExpDrop = false;
-        for (int i = 0; i < expDropPool.Count; i++)
+        for (int i = 0; i < expPickUpPool.Count; i++)
         {
-            GameObject expDrop = expDropPool[i];
+            GameObject expDrop = expPickUpPool[i];
             if (!expDrop.activeSelf)
             {
-                expDrop.GetComponent<ExpDrop>().LoadData(expData);
+                expDrop.GetComponent<ExpPickUp>().LoadData(expData);
                 expDrop.transform.position = expData.position;
                 expDrop.SetActive(true);
                 hasInactiveExpDrop = true;
@@ -64,10 +84,10 @@ public class LevelingSystem : MonoBehaviour
         // If we're out of inactive ExpDrop, create new one
         if (!hasInactiveExpDrop)
         {
-            GameObject expDrop = Instantiate(expDropPrefab);
-            expDrop.transform.position = expData.position;
-            expDropPool.Add(expDrop);
-            expDrop.GetComponent<ExpDrop>().LoadData(expData);
+            GameObject expPickUp = Instantiate(expPickUpPrefab);
+            expPickUp.transform.position = expData.position;
+            expPickUpPool.Add(expPickUp);
+            expPickUp.GetComponent<ExpPickUp>().LoadData(expData);
         }
     }
 
@@ -76,9 +96,9 @@ public class LevelingSystem : MonoBehaviour
     {
         for (int i = 0; i < 50; i++)
         {
-            GameObject expPicker = Instantiate(expDropPrefab, transform);
-            expDropPool.Add(expPicker);
-            expPicker.SetActive(false);
+            GameObject expPickUp = Instantiate(expPickUpPrefab, transform);
+            expPickUpPool.Add(expPickUp);
+            expPickUp.SetActive(false);
         }
     }
 
@@ -87,6 +107,6 @@ public class LevelingSystem : MonoBehaviour
     {
         int subtrahend = Mathf.RoundToInt(Mathf.Pow(4 * (currentLevel + 1), 2.1f));
         int minuend = Mathf.RoundToInt(Mathf.Pow(4 * currentLevel, 2.1f));
-        expToNextLevel = subtrahend - minuend;
+        expToNextLevel.Value = subtrahend - minuend;
     }
 }

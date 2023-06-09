@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: SharedTypeAndAbilityMapping
   m_EditorClassIdentifier: 
   playerType: {fileID: 11400000, guid: cbe7559e02d45fb479fda40e78a01e1e, type: 2}
-  startingAbility: {fileID: 11400000, guid: 78ca966d113ed91419ccb85e4b26e94a, type: 2}
+  startingAbility: {fileID: 11400000, guid: 788c44748bfd83f48ac2916a8c856331, type: 2}
