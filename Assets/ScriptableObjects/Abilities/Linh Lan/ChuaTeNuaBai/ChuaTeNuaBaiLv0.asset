@@ -12,23 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04a3ec3ac22614746b95d3b4c927108c, type: 3}
   m_Name: ChuaTeNuaBaiLv0
   m_EditorClassIdentifier: 
-  abilityName: 
+  abilityName: "Ch\xFAa T\u1EC3 N\u1EEDa B\xE0i"
   UISprite: {fileID: 21300000, guid: 3458c119c69e9bc4f9647599c2901dee, type: 3}
   cooldownTime: 3
-  description: 
+  description: "M\u1ED7i 3s Linh Lan s\u1EBD t\u1EA1o ra m\u1ED9t N\u1EECA l\xE0n
+    s\xF3ng \xE2m nh\u1EA1c l\u1EDBn d\u1EA7n theo th\u1EDDi gian. M\u1ED7i k\u1EBB
+    \u0111\u1ECBch ch\u1EA1m ph\u1EA3i l\xE0n s\xF3ng \xE2m nh\u1EA1c s\u1EBD nh\u1EADn
+    10 s\xE1t th\u01B0\u01A1ng"
   currentLevel: 0
   currentCooldownTime: 3
-  internalCooldownTime: 0.93296903
+  internalCooldownTime: 0
   playerType: {fileID: 11400000, guid: cbe7559e02d45fb479fda40e78a01e1e, type: 2}
   weight: 5
-  state: 2
+  state: 0
   damage: 10
-  currentDamage: 0
+  currentDamage: 10
   sprite: {fileID: 21300000, guid: 41d1b9312bce36048949d8da37f6c300, type: 3}
   scale: 20
   prefab: {fileID: 354887343291413962, guid: 6a746b493eceab24d9e5f25574e4d35d, type: 3}
-  upgradedDatas:
+  upgradeDatas:
   - {fileID: 11400000, guid: 25266a75164ebd04e86790b9043e2978, type: 2}
   - {fileID: 11400000, guid: 9c50c12f4644c0e4d81ab1a2fabd32a0, type: 2}
   pool:
   - {fileID: 0}
+  currentScale: 20

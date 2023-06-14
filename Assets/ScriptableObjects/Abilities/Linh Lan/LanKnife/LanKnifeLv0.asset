@@ -12,19 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a762d44112205045949e40c9f056402, type: 3}
   m_Name: LanKnifeLv0
   m_EditorClassIdentifier: 
-  abilityName: 
+  abilityName: Yandere Mode
   UISprite: {fileID: 21300000, guid: 28a3627de74b1144b97dfe99ab3594d6, type: 3}
-  cooldownTime: 1.5
-  description: 
-  currentLevel: 2
+  cooldownTime: 1
+  description: "Linh Lan n\xE9m dao theo h\u01B0\u1EDBng di chuy\u1EC3n c\u1EE7a
+    c\xF4. Dao g\xE2y 12 s\xE1t th\u01B0\u01A1ng cho m\u1ED7i k\u1EBB \u0111\u1ECBch
+    ch\u1EA1m ph\u1EA3i"
+  currentLevel: 0
   currentCooldownTime: 1
   internalCooldownTime: 0
   playerType: {fileID: 11400000, guid: cbe7559e02d45fb479fda40e78a01e1e, type: 2}
   weight: 5
   state: 0
   damage: 12
+  currentDamage: 12
   sprite: {fileID: 21300000, guid: 28a3627de74b1144b97dfe99ab3594d6, type: 3}
-  damage: 12
   knifeSpeed: 12
   knifeDistance: 7
   knifeScale: 1
@@ -33,5 +35,9 @@ MonoBehaviour:
   upgradeDatas:
   - {fileID: 11400000, guid: 66aa1776a5cba3042a5bd7937bbcfe13, type: 2}
   - {fileID: 11400000, guid: 62b5f2ac60b81a04b9ee140ef591e643, type: 2}
-  pool: []
+  pool:
+  - {fileID: 0}
+  currentKnifeScale: 1
+  currentKnifeDistance: 7
+  currentKnifeSpeed: 12
   colliderSize: {x: 0.2, y: 0.15}

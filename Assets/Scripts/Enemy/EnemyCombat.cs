@@ -24,11 +24,11 @@ public class EnemyCombat : MonoBehaviour
     private float internalDamageTime;
     private bool canAttack = true;
     [SerializeField] private LayerMask playerMask;
-
+    
+    [Header("UI")]
     [SerializeField] private IntGameEvent playerTakeDamage;
-
-    public TMP_Text damageUIPopupText;
-
+    [SerializeField] private TMP_Text damageUIPopupText;
+    
 
     private void Awake()
     {
@@ -41,10 +41,6 @@ public class EnemyCombat : MonoBehaviour
         {
             LoadData(enemyData);
         }
-    }
-
-    private void OnDisable()
-    {
     }
 
     // Update is called once per frame

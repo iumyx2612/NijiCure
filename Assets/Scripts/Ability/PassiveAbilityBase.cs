@@ -4,9 +4,12 @@ using UnityEngine;
 
 public abstract class PassiveAbilityBase : AbilityBase
 {
+    // The Passive Ability Script will be attached directly to Player
+    public GameObject player;
+    
     public override void Initialize()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
         AddAndLoadComponent(player);
     }
 

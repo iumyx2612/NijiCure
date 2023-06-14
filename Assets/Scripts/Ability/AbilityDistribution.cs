@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using WeightedDistribution;
 
 
@@ -9,5 +10,5 @@ public class AbilityDistributionItem : DistributionItem<AbilityBase>
 
 public class AbilityDistribution : Distribution<AbilityBase, AbilityDistributionItem>
 {
-    
+
 }

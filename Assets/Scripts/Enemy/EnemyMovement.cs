@@ -17,14 +17,13 @@ public class EnemyMovement : MonoBehaviour
     private RuntimeAnimatorController animatorController;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
-    [SerializeField] private Transform player;
-
-    [SerializeField] private ExpDropGameEvent dropExp;
-
-    public Vector2 direction;
+    private Transform player;
+    
+    private Vector2 direction;
     private bool isFacingRight;
 
     private bool isAlive;
+
 
     private void Awake()
     {
@@ -89,15 +88,11 @@ public class EnemyMovement : MonoBehaviour
 
         isFacingRight = !isFacingRight;
     }
-    
-    private ExpData ConstructExpData()
-    {
-        return new ExpData(enemyData.expAmount, transform.position);
-    }
+
 
     public void Dead()
     {
-        dropExp.Raise(ConstructExpData());
+        gameObject.GetComponent<EnemyDrop>().Drop(enemyData.expAmount);
         Sequence deadSequence = DOTween.Sequence();
         deadSequence.Append(transform.DOMoveY(transform.position.y + 0.3f, 0.5f));
         deadSequence.Join(spriteRenderer.DOFade(0f, 0.5f));

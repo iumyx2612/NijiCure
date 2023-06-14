@@ -285,6 +285,7 @@ GameObject:
   - component: {fileID: 808047625360757166}
   - component: {fileID: 3745958690123775625}
   - component: {fileID: 5876861617886712255}
+  - component: {fileID: 3666581253804705689}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
@@ -459,9 +460,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: f9f99dd79bf2f944c9242fd9b1398e26, type: 2}
-  player: {fileID: 0}
-  dropExp: {fileID: 11400000, guid: b78613f960ff76a4ca07ce2c295f11ea, type: 2}
-  direction: {x: 0, y: 0}
+--- !u!114 &3666581253804705689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4202792173408076663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d132c3b507d009c49a9b10d299a839ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expPickUpPool: {fileID: 11400000, guid: 9f4750412aafe6b49b3d0814b90441d8, type: 2}
+  expPickUpPrefab: {fileID: 4509189700703300521, guid: 9047130375b001648b85c1dd8949409c,
+    type: 3}
+  healthDropChance: {fileID: 11400000, guid: d084f8b4a7f1b5747806b6ae0c5b93f5, type: 2}
+  healthPickUpPool: {fileID: 11400000, guid: 8b815829b41dd454b9ae0ba861c1d177, type: 2}
+  healthPickUpPrefab: {fileID: 4326921745061960110, guid: e50ad71d8a3a4534687fc76e09c95ec4,
+    type: 3}
 --- !u!1 &8782676588019619153
 GameObject:
   m_ObjectHideFlags: 0

@@ -35,12 +35,12 @@ namespace WeightedDistribution
         public List<T_ITEM> Items { get { return items; } }
 
         bool firstCompute = false;
-        int nbItems, lastIndex;
+        int nbItems;
         float combinedWeight;
 
         void Start()
         {
-            lastIndex = -1;
+            
         }
 
         void OnItemsChange(bool addedItem = false)
@@ -59,17 +59,11 @@ namespace WeightedDistribution
             if (!addedItem && items.Count > nbItems)
                 items[items.Count - 1].Weight = 0;
 
-            bool atLeastOnePositiveValue = false;
             foreach (T_ITEM item in items)
             {
                 if (item.Weight < 0)
                     item.Weight = 0;
-                if (item.Weight > 0)
-                    atLeastOnePositiveValue = true;
             }
-
-//            if (items.Count > 0 && (items.Count == 1 || !atLeastOnePositiveValue))
-//                items[0].Weight = 1;
 
             ComputePercentages();
             nbItems = items.Count;
@@ -103,20 +97,16 @@ namespace WeightedDistribution
 
             int nbIterationsMax = 40;
             int nbIterations = 0;
-            bool isUnique = lastIndex == -1 || items[lastIndex].Unique;
 
             while (nbIterations < nbIterationsMax)
             {
-                int index = 0;
                 float random = Random.Range(0f, combinedWeight);
                 foreach (T_ITEM item in items)
                 {
-                    if ((!isUnique || index != lastIndex) && random <= item.CombinedWeight)
+                    if (random <= item.CombinedWeight)
                     {
-                        lastIndex = index;
                         return item.Value;
                     }
-                    index++;
                 }
 
                 nbIterations++;
@@ -137,6 +127,26 @@ namespace WeightedDistribution
                 return;
             items.RemoveAt(index);
             OnItemsChange();
+        }
+
+        public int IndexOf(T value)
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                T val = items[i].Value;
+                if (EqualityComparer<T>.Default.Equals(val, value))
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        public void SetItems(List<T_ITEM> referenceItems)
+        {
+            List<T_ITEM> temp = new List<T_ITEM>(referenceItems);
+            items = temp;
         }
     }
 }

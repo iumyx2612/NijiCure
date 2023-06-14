@@ -10,9 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46fa4debbe159d64884947c81c8b2fd4, type: 3}
-  m_Name: All Abilities
+  m_Name: AbilitiesToPick
   m_EditorClassIdentifier: 
-  _list:
-  - {fileID: 11400000, guid: 788c44748bfd83f48ac2916a8c856331, type: 2}
-  - {fileID: 11400000, guid: d22b31a8cc9bfc14a984e33fec9d701b, type: 2}
-  - {fileID: 11400000, guid: 94615bc0916bf3346b8af10f1b74397d, type: 2}
+  _list: []

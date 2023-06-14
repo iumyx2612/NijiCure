@@ -6,26 +6,11 @@ using UnityEngine;
 using DG.Tweening;
 
 
-[System.Serializable]
-public class ExpData
-{
-    public int expAmount;
-    public Vector2 position;
-
-    public ExpData(int _expAmount, Vector2 _position)
-    {
-        expAmount = _expAmount;
-        position = _position;
-    }
-}
-
-
 [RequireComponent(typeof(CircleCollider2D))]
 public class ExpPickUp : MonoBehaviour, IPickUpItem
 {
     private CircleCollider2D selfCollider;
     
-    public ExpData expData;
     [SerializeField] private Sprite[] sprites;
     // For selecting what sprite to display
     private readonly List<int> expRanges = new List<int>
@@ -50,10 +35,6 @@ public class ExpPickUp : MonoBehaviour, IPickUpItem
     private void OnEnable()
     {
         transform.localScale = baseScale;
-        if (expData != null)
-        {
-            LoadData(expData);
-        }
     }
 
     public void OnPickUp(Transform player)
@@ -66,10 +47,9 @@ public class ExpPickUp : MonoBehaviour, IPickUpItem
         sequence.OnComplete(DonePickUp);
     }
 
-    public void LoadData(ExpData data)
+    public void LoadData(int _expAmount)
     {
-        expData = data;
-        expAmount = data.expAmount;
+        expAmount = _expAmount;
         spriteRenderer.sprite = SelectSpriteAccordingToExp(expAmount);
     }
     

@@ -9,18 +9,26 @@ public class ChuaTeNuaBaiData : DamageAbilityBase
     public float scale;
     public GameObject prefab;
     
-    public List<ChuaTeNuaBaiData> upgradedDatas;
+    public List<ChuaTeNuaBaiData> upgradeDatas;
 
     [HideInInspector] public List<GameObject> pool;
+    
+    // For Upgrade
+    [HideInInspector] public float currentScale;
     
     
     public override void Initialize()
     {
         currentLevel = 0;
+        internalCooldownTime = 0f;
         currentCooldownTime = cooldownTime;
-        state = AbilityState.ready;
-        pool = new List<GameObject>();
+
+        currentDamage = damage;
+        currentScale = scale;
         
+        state = AbilityState.cooldown;
+        
+        pool = new List<GameObject>();
         GameObject abilityHolder = new GameObject( " Holder");
         GameObject bullet = Instantiate(prefab, abilityHolder.transform);
         bullet.GetComponent<ChuaTeNuaBai>().LoadData(this);
@@ -37,11 +45,21 @@ public class ChuaTeNuaBaiData : DamageAbilityBase
 
     public override void UpgradeAbility()
     {
-        ChuaTeNuaBaiData upgradeData = upgradedDatas[currentLevel];
+        ChuaTeNuaBaiData upgradeData = upgradeDatas[currentLevel];
+        // Update current
         currentCooldownTime = upgradeData.cooldownTime;
+        currentDamage = upgradeData.damage;
+        currentScale = upgradeData.scale;
+        
         GameObject bullet = pool[0];
-        bullet.GetComponent<ChuaTeNuaBai>().LoadData(upgradeData);
+        bullet.GetComponent<ChuaTeNuaBai>().LoadData(this);
         currentLevel += 1;
+    }
+
+    public override AbilityBase GetUpgradeDataInfo()
+    {
+        Debug.Log(currentLevel);
+        return upgradeDatas[currentLevel];
     }
 
     public override void PartialModify(int value)

@@ -13,7 +13,7 @@ public class EnemySpawner : MonoBehaviour
     
     // Configurable in the editor
     [SerializeField] private GameObjectCollection enemyHolderPool;
-    [SerializeField] private FloatVariable timeSinceGameStart;
+    [SerializeField] private FloatVariable timeSinceGameStart; // Setup in GameManager.cs
     [SerializeField] private GameObject enemyHolderPrefab;
     [SerializeField] private List<SpawnData> stageSpawnData; // The Spawn Data of the entire stage
     [SerializeField] private Vector2Variable playerPosRef;
@@ -30,7 +30,6 @@ public class EnemySpawner : MonoBehaviour
     private void Awake()
     {
         enemyHolderPool.Clear();
-        timeSinceGameStart.Value = 0f;
         spawnDistribution = gameObject.GetComponent<EnemySpawnDataDistribution>();
     }
 
@@ -43,7 +42,6 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        timeSinceGameStart.Value += Time.deltaTime;
         // At the last element of list
         if (index < stageSpawnData.Count - 1)
         {

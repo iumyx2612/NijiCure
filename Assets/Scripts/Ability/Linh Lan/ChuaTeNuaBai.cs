@@ -80,9 +80,10 @@ public class ChuaTeNuaBai : MonoBehaviour
             baseData = data;
         }
         abilityData = data;
-        scale = data.scale;
-        damage = data.damage;
         spriteRenderer.sprite = data.sprite;
+        // Things can changes during runtime
+        scale = data.currentScale;
+        damage = data.currentDamage;
     }
 
     private void ResetBullet()

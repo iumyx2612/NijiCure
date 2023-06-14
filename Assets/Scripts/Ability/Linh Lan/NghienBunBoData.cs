@@ -12,11 +12,29 @@ public class NghienBunBoData : PassiveAbilityBase
 
     public List<NghienBunBoData> upgradeDatas;
 
-    
+    // For Upgrade
+    [HideInInspector] public float currentDuration;
+    [HideInInspector] public int currentDamageIncrease;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        currentDamageIncrease = damageIncrease;
+        currentDuration = duration;
+    }
+
     public override void UpgradeAbility()
     {
         NghienBunBoData upgradeData = upgradeDatas[currentLevel];
-        
+        // Update current
+        currentDuration = upgradeData.duration;
+        currentDamageIncrease = upgradeData.damageIncrease;
+        player.GetComponent<NghienBunBo>().LoadData(this);
+    }
+    
+    public override AbilityBase GetUpgradeDataInfo()
+    {
+        return upgradeDatas[currentLevel];
     }
 
     public override void AddAndLoadComponent(GameObject player)

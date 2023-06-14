@@ -17,6 +17,7 @@ public class NghienBunBo : MonoBehaviour
     private int damageIncrease;
     private float duration;
 
+    // Act as state management system
     private bool havingBuff = false;
     private bool justReceivedBuff = false;
     
@@ -78,8 +79,9 @@ public class NghienBunBo : MonoBehaviour
         }
 
         abilityData = data;
-        damageIncrease = data.damageIncrease;
-        duration = data.duration;
+        // Things can change during runtime
+        damageIncrease = data.currentDamageIncrease;
+        duration = data.currentDuration;
     }
 
 }

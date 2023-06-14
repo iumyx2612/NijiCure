@@ -7,25 +7,32 @@ using ScriptableObjectArchitecture;
 // Manage the player's abilities
 public class AbilityManager : MonoBehaviour
 {
+    [Header("Setup all Abilities and Pick-able Abilites")]
+    [SerializeField] private AbilityCollection allAbilities; // All created Abilities in the game
+    [SerializeField] private PlayerType typeAny; // For adding Ability 
+    private List<AbilityBase> availableAbilities = new List<AbilityBase>(); // What Ability can appear in the Scene
+
+    [Header("First and current Abilities")]
     [SerializeField] private PlayerTypeAndStartingAbility mapping; // Mapping of PlayerType and Starting Ability
     [SerializeField] private AbilityCollection currentAbilities; // Current abilities that player have 
 
-    [SerializeField] private AbilityGameEvent modifyAbility; // Let player changes ability (Add or Upgrade)
-    [SerializeField] private GameEvent levelUpShowAbility; // Show 4 Abilities when Level Up
-    [SerializeField] private AbilityCollection allAbilities; // All created Abilities in the game
-    [SerializeField] private PlayerType typeAny; // For adding Ability 
+    [Header("Modify Abilities stuff")]
+    [SerializeField] private AbilityGameEvent modifyAbility; // Let player changes ability (Raised in UIManager.cs)
+    [SerializeField] private GameEvent levelUpSetUpAbility; // Show 4 Abilities when Level Up (Raised in GameManager.cs)
+    [SerializeField] private AbilityCollection abilitiesToPick; // List of 4 Abilities to pick when LvlUp
+    [SerializeField] private GameEvent levelUpAbilityUIPopUp; // Setup in UIManager.cs
+    [SerializeField] private AbilityDistribution _abilityDistribution; // Act as a reference to abilityDistribution
     private AbilityDistribution abilityDistribution;
-    private List<AbilityBase> availableAbilities = new List<AbilityBase>(); // What Ability can appear in the Scene
-    private AbilityCollection abilitiesToPick;
+    
     
     private void Awake()
     {
+        // Setup ScriptableObjects Variables and Game Events 
         currentAbilities.Clear();
-        abilityDistribution = gameObject.GetComponent<AbilityDistribution>();
         modifyAbility.AddListener(ModifyAbility);
-//        levelUpShowAbility.AddListener(ShowAbilityWhenLvlUp);
-        
-        // Set up which Ability can be picked in the scene
+        levelUpSetUpAbility.AddListener(SetupAbilitiesWhenLvlUp);
+
+        // Which Ability can be picked in the scene
         PlayerType runtimePlayerType = mapping.playerType;
         foreach (AbilityBase ability in allAbilities)
         {
@@ -35,6 +42,7 @@ public class AbilityManager : MonoBehaviour
             }
         }
         // Set up AbilityDistribution
+        abilityDistribution = gameObject.GetComponent<AbilityDistribution>();
         foreach (AbilityBase ability in availableAbilities)
         {
             abilityDistribution.Add(ability, ability.weight);
@@ -46,7 +54,13 @@ public class AbilityManager : MonoBehaviour
         currentAbilities.Add(mapping.startingAbility);
         currentAbilities[0].Initialize();
     }
-    
+
+    private void OnDisable()
+    {
+        modifyAbility.RemoveListener(ModifyAbility);
+        levelUpSetUpAbility.RemoveListener(SetupAbilitiesWhenLvlUp);
+    }
+
     private void Update()
     {
         // Loop through list of ability, if ability is ready, trigger it
@@ -76,7 +90,7 @@ public class AbilityManager : MonoBehaviour
     }
 
     // Allow player to add/ increase the level of Ability
-    public void ModifyAbility(AbilityBase ability)
+    private void ModifyAbility(AbilityBase ability)
     {
         // If player does not have this ability
         if (!currentAbilities.Contains(ability))
@@ -88,18 +102,31 @@ public class AbilityManager : MonoBehaviour
         // If player already has this ability
         else
         {
-            int index = currentAbilities.IndexOf(ability); // Find the index of the ability
             ability.UpgradeAbility(); // Upgrade 
         }
+        // De-Active the ability selection UI
+        levelUpAbilityUIPopUp.Raise();
     }
 
-    public void ShowAbilityWhenLvlUp()
+    // Setup Abilities to pick in UI
+    // Then activate the UI for picking Ability
+    private void SetupAbilitiesWhenLvlUp()
     {
-        // Show 4 Abilities when Level Up
+        // Init Referenced Distribution
+        _abilityDistribution.SetItems(abilityDistribution.Items);
+        abilitiesToPick.Clear();
         for (int i = 0; i < 4; i++)
         {
-            AbilityBase ability = abilityDistribution.Draw();
-            abilitiesToPick.Add(ability);
+            if (_abilityDistribution.Items.Count > 0)
+            {
+                AbilityBase ability = _abilityDistribution.Draw();
+                int abilityIndex = _abilityDistribution.IndexOf(ability);
+                // Remove from the Referenced Distribution so we don't draw it AGAIN!
+                _abilityDistribution.RemoveAt(abilityIndex);
+                abilitiesToPick.Add(ability);
+            }
         }
+        // Active the ability selection UI
+        levelUpAbilityUIPopUp.Raise();
     }
 }

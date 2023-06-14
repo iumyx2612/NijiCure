@@ -15,9 +15,11 @@ public class LanKnifeData : DamageAbilityBase
     public List<LanKnifeData> upgradeDatas;
 
     [HideInInspector] public List<GameObject> pool;
-    [HideInInspector] public float currentKnifeScale; // For upgrade 
-    [HideInInspector] public float currentKnifeDistance; // For upgrade 
-    [HideInInspector] public float currentKnifeSpeed; // For upgrade 
+    
+    // For Upgrade
+    [HideInInspector] public float currentKnifeScale;  
+    [HideInInspector] public float currentKnifeDistance;  
+    [HideInInspector] public float currentKnifeSpeed;  
 
     // Fixed
     [HideInInspector] public Vector2 colliderSize = new Vector2(0.2f, 0.15f);
@@ -25,15 +27,17 @@ public class LanKnifeData : DamageAbilityBase
     public override void Initialize()
     {
         currentLevel = 0;
+        internalCooldownTime = 0f;
         currentCooldownTime = cooldownTime;
 
         currentKnifeScale = knifeScale;
         currentKnifeDistance = knifeDistance;
         currentKnifeSpeed = knifeSpeed;
         currentDamage = damage;
+
+        state = AbilityState.cooldown;
         
         pool = new List<GameObject>();
-        
         GameObject abilityHolder = new GameObject(abilityName + " Holder");
         GameObject bullet = Instantiate(bulletPrefab, abilityHolder.transform);
         bullet.GetComponent<LanKnife>().LoadData(this);
@@ -58,8 +62,13 @@ public class LanKnifeData : DamageAbilityBase
         currentDamage = upgradeData.damage;
         
         GameObject bullet = pool[0];
-        bullet.GetComponent<LanKnife>().LoadData(upgradeData);
+        bullet.GetComponent<LanKnife>().LoadData(this);
         currentLevel += 1;
+    }
+    
+    public override AbilityBase GetUpgradeDataInfo()
+    {
+        return upgradeDatas[currentLevel];
     }
 
     public override void PartialModify(int value)

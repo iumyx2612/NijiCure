@@ -11,9 +11,8 @@ using Random = UnityEngine.Random;
 
 public class PlayerUIManager : MonoBehaviour
 {
-    private GameObject player;
-    
     // Health Bar
+    [SerializeField] private Vector2Variable playerPosRef;
     [SerializeField] private IntVariable playerBaseHealth;
     [SerializeField] private IntVariable playerCurrentHealth;
     [SerializeField] private Vector2GameEvent healthBarImageUpdate;
@@ -27,13 +26,12 @@ public class PlayerUIManager : MonoBehaviour
     // Health Popup
     [SerializeField] private TMP_Text[] healthPopupTextArr;
     [SerializeField] private IntGameEvent healthTextPopupGameEvent;
-    [SerializeField] private Color lowerHealthColor = new Color(255, 50, 50, 1);
-    [SerializeField] private Color increaseHealthColor = new Color(104, 255, 104, 1);
+    [SerializeField] private Color lowerHealthColor;
+    [SerializeField] private Color increaseHealthColor;
 
 
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Start()
@@ -55,12 +53,12 @@ public class PlayerUIManager : MonoBehaviour
 
     private void Update()
     {       
+        healthBarImageFull.transform.position = new Vector2(playerPosRef.Value.x,
+            playerPosRef.Value.y + baseHealthBarYPos); 
         // To reduce the number of update called
         // Health Bar Image
         if (healthBarImageFull.gameObject.activeSelf)
         {
-            healthBarImageFull.transform.position = new Vector2(player.transform.position.x,
-                player.transform.position.y + baseHealthBarYPos); 
             internalDisplayTime += Time.deltaTime;
             if (internalDisplayTime >= displayTime)
             {
@@ -93,7 +91,7 @@ public class PlayerUIManager : MonoBehaviour
             {
                 healthPopupText.text = Mathf.Abs(amount).ToString();
                 GameObject healthPopupTextGO = healthPopupText.gameObject;
-                healthPopupTextGO.transform.position = player.transform.position;
+                healthPopupTextGO.transform.position = playerPosRef.Value;
                 if (amount < 0)
                 {
                     healthPopupText.color = lowerHealthColor;
@@ -108,7 +106,7 @@ public class PlayerUIManager : MonoBehaviour
                 healthPopupTextGO.SetActive(true);
                 Sequence textSequence = DOTween.Sequence();
                 textSequence.Append(healthPopupTextGO.transform.DOMove(new Vector2(basePosX + Random.Range(-0.2f, 0.2f),
-                    basePosY + 0.5f), 0.6f));
+                    basePosY + 0.8f), 0.6f));
                 textSequence.OnComplete(()=>RecoverHealthPopUpText(healthPopupText));
                 break;
             }

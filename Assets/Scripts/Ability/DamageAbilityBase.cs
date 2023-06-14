@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class DamageAbilityBase : AbilityBase
 {
     public int damage;
-    public int currentDamage; // For in-game upgrade
+    [HideInInspector] public int currentDamage; // For in-game upgrade
 
     public override void Initialize()
     {

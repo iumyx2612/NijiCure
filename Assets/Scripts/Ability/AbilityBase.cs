@@ -33,5 +33,9 @@ public abstract class AbilityBase : ScriptableObject
     // Apply upgrade on to the entire Ability
     public abstract void UpgradeAbility();
 
+    // Access the generic info of UpgradeData like description, name, UISprite
+    // THIS IS USED ONLY IN UIManager.cs TO DISPLAY THE UPGRADE INFO
+    public abstract AbilityBase GetUpgradeDataInfo();
+
     public abstract void PartialModify(int value);
 }

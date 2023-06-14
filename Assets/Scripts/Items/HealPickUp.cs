@@ -6,33 +6,18 @@ using ScriptableObjectArchitecture;
 using DG.Tweening;
 
 
-[System.Serializable]
-public class HealPickUpData
-{
-    public int healAmount;
-    public Vector2 position;
-
-    public HealPickUpData(int _healAmount, Vector2 _position)
-    {
-        healAmount = _healAmount;
-        position = _position;
-    }
-}
-
-
 [RequireComponent(typeof(CircleCollider2D))]
 public class HealPickUp : MonoBehaviour, IPickUpItem
 {
     private CircleCollider2D selfCollider;
     private SpriteRenderer spriteRenderer;
     
-    public HealPickUpData healData;
-
     private Vector2 basePosition;
     private int healAmount;
     private Vector2 baseScale;
 
     [SerializeField] private IntGameEvent healPlayer;
+    [SerializeField] private IntVariable basePlayerHealth;
     
     void Awake()
     {
@@ -44,20 +29,11 @@ public class HealPickUp : MonoBehaviour, IPickUpItem
 
     private void OnEnable()
     {
+        healAmount = basePlayerHealth.Value / 5; // Will always heal 20% of player's maxHP (HoloCure)
         transform.localScale = baseScale;
         basePosition = transform.position;
-        if (healData != null)
-        {
-            LoadData(healData);
-        }
 
         StartCoroutine(Animate());
-    }
-
-    public void LoadData(HealPickUpData data)
-    {
-        healData = data;
-        healAmount = data.healAmount;
     }
 
     public void OnPickUp(Transform player)
@@ -72,9 +48,9 @@ public class HealPickUp : MonoBehaviour, IPickUpItem
     private void DonePickUp()
     {
         gameObject.SetActive(false);
-        healPlayer.Raise(healAmount); // Check Player/PlayerCombat.cs
+        healPlayer.Raise(healAmount); // Check PlayerCombat.cs
     }
-
+    
     private IEnumerator Animate()
     {
         while (true)

@@ -83,12 +83,13 @@ public class LanKnife : MonoBehaviour
             baseData = data;
         }
         knifeData = data;
+        spriteRenderer.sprite = data.sprite;
+        selfCollider.size = data.colliderSize;
+        // Things can changes during runtime
         damage = data.currentDamage;
         knifeSpeed = data.currentKnifeSpeed;
         knifeDistance = data.currentKnifeDistance;
         knifeScale = data.currentKnifeScale;
-        spriteRenderer.sprite = data.sprite;
-        selfCollider.size = data.colliderSize;
     }
 
     private void FireBullet()
