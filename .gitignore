@@ -116,7 +116,6 @@ eval/
 options/
 plugin_DC.license
 plugin_DPN.license
-plugins/
 port
 port.lock
 resharper-host/
