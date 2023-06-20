@@ -8,7 +8,7 @@ public abstract class AbilityBase : ScriptableObject
     public Sprite UISprite;
     public float cooldownTime;
     public string description;
-    [HideInInspector] public int currentLevel; // For upgrade purpose
+    public int currentLevel; // For upgrade purpose
     [HideInInspector] public float currentCooldownTime;
     [HideInInspector] public float internalCooldownTime; // This increment every update function to meet cooldownTime (if ability has cooldown)
     
@@ -38,4 +38,6 @@ public abstract class AbilityBase : ScriptableObject
     public abstract AbilityBase GetUpgradeDataInfo();
 
     public abstract void PartialModify(int value);
+
+    public abstract bool IsMaxLevel();
 }

@@ -76,4 +76,14 @@ public class LanKnifeData : DamageAbilityBase
         GameObject bullet = pool[0];
         bullet.GetComponent<LanKnife>().ModifyDamage(value);
     }
+    
+    public override bool IsMaxLevel()
+    {
+        if (currentLevel >= upgradeDatas.Count && currentLevel >= 1)
+        {
+            return true;
+        }
+
+        return false;
+    }
 }

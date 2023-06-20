@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using ScriptableObjectArchitecture;
 using UnityEngine;
 
 
@@ -12,6 +13,8 @@ public class UltimateHoiThoCuaDaData : UltimateAbilityBase
     public float knifeScaleMultiplier;
     public float knifeDistanceMultiplier;
     public float knifeSpeedMultiplier;
+
+    public AbilityCollection currentAbilites;
 
     public override void AddAndLoadUltimate(GameObject player)
     {

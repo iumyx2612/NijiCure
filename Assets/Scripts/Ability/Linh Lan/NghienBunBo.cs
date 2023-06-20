@@ -9,19 +9,20 @@ public class NghienBunBo : MonoBehaviour
 {
     public NghienBunBoData abilityData;
     private NghienBunBoData baseData;
-
-    [SerializeField] private AbilityCollection currentAbilities;
+    private AbilityCollection currentAbilities;
     private List<DamageAbilityBase> damageAbilities = new List<DamageAbilityBase>();
     
     // Data
     private int damageIncrease;
     private float duration;
+    private float internalDuration;
 
     // Act as state management system
     private bool havingBuff = false;
     private bool justReceivedBuff = false;
     
-    [SerializeField] private FloatVariable internalDuration; // This will be used by UI
+    // For UI Stuff
+    private PassiveAbilityGameEvent activeCountdownImage; // Setup in UIManager.cs
     
     
     private void Update()
@@ -32,15 +33,15 @@ public class NghienBunBo : MonoBehaviour
             if (justReceivedBuff)
             {
                 // Reset buff timer
-                internalDuration.Value = 0f;
+                internalDuration = 0f;
                 // Immediately reset this or internalDuration will forever be 0
                 justReceivedBuff = false;
             }
-            internalDuration.Value += Time.deltaTime;
+            internalDuration += Time.deltaTime;
             // Ran out of buff time
-            if (internalDuration.Value >= duration)
+            if (internalDuration >= duration)
             {
-                internalDuration.Value = 0f;
+                internalDuration = 0f;
                 foreach (DamageAbilityBase ability in damageAbilities)
                 {
                     ability.PartialModify(-damageIncrease);
@@ -56,18 +57,23 @@ public class NghienBunBo : MonoBehaviour
     {
         if (other.CompareTag("Heal"))
         {
-            // Loop through every Damage abilities in available Abilities
-            foreach (AbilityBase ability in currentAbilities)
+            if (!havingBuff)
             {
-                if (ability is DamageAbilityBase damageAbilityBase)
+                // Loop through every Damage abilities in available Abilities
+                foreach (AbilityBase ability in currentAbilities)
                 {
-                    damageAbilities.Add(damageAbilityBase);
-                    damageAbilityBase.PartialModify(damageIncrease);
+                    if (ability is DamageAbilityBase damageAbilityBase)
+                    {
+                        damageAbilities.Add(damageAbilityBase);
+                        damageAbilityBase.PartialModify(damageIncrease);
+                    }
                 }
+                havingBuff = true;
             }
-            // Change state to havingBuff
+            // Change state to justReceivedBuff
             justReceivedBuff = true;
-            havingBuff = true;
+            // Active the UI 
+            activeCountdownImage.Raise(new PassiveAbilityInfo(duration, baseData.UISprite));
         }
     }
 
@@ -79,6 +85,8 @@ public class NghienBunBo : MonoBehaviour
         }
 
         abilityData = data;
+        currentAbilities = data.currentAbilities;
+        activeCountdownImage = data.activeCountdownImage;
         // Things can change during runtime
         damageIncrease = data.currentDamageIncrease;
         duration = data.currentDuration;

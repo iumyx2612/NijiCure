@@ -8,7 +8,7 @@ public class UltimateHoiThoCuaDa : MonoBehaviour
 {
     public UltimateHoiThoCuaDaData ultimateData;
 
-    [SerializeField] private AbilityCollection currentAbilites;
+    private AbilityCollection currentAbilites;
     
     // Data
     private float activeTime;
@@ -25,7 +25,7 @@ public class UltimateHoiThoCuaDa : MonoBehaviour
         cooldown
     }
 
-    [SerializeField] private State state;
+    private State state;
     
     // Start is called before the first frame update
     void Start()
@@ -70,6 +70,7 @@ public class UltimateHoiThoCuaDa : MonoBehaviour
         ultimateData = data;
         activeTime = data.activeTime;
         cooldown = data.cooldown;
+        currentAbilites = data.currentAbilites;
     }
 
     private void TriggerUltimate(bool upgrade)

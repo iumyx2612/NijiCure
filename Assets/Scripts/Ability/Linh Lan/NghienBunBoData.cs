@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using ScriptableObjectArchitecture;
 using UnityEngine;
 
 
@@ -9,6 +10,8 @@ public class NghienBunBoData : PassiveAbilityBase
 {
     public int damageIncrease;
     public float duration;
+    public AbilityCollection currentAbilities;
+    public PassiveAbilityGameEvent activeCountdownImage;
 
     public List<NghienBunBoData> upgradeDatas;
 
@@ -19,6 +22,7 @@ public class NghienBunBoData : PassiveAbilityBase
     public override void Initialize()
     {
         base.Initialize();
+        currentLevel = 0;
         currentDamageIncrease = damageIncrease;
         currentDuration = duration;
     }
@@ -41,5 +45,15 @@ public class NghienBunBoData : PassiveAbilityBase
     {
         player.AddComponent<NghienBunBo>();
         player.GetComponent<NghienBunBo>().LoadData(this);
+    }
+    
+    public override bool IsMaxLevel()
+    {
+        if (currentLevel >= upgradeDatas.Count && currentLevel >= 1)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

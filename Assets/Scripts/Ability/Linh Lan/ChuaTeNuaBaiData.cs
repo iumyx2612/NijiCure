@@ -58,7 +58,6 @@ public class ChuaTeNuaBaiData : DamageAbilityBase
 
     public override AbilityBase GetUpgradeDataInfo()
     {
-        Debug.Log(currentLevel);
         return upgradeDatas[currentLevel];
     }
 
@@ -66,5 +65,15 @@ public class ChuaTeNuaBaiData : DamageAbilityBase
     {
         GameObject bullet = pool[0];
         bullet.GetComponent<ChuaTeNuaBai>().ModifyDamage(value);
+    }
+
+    public override bool IsMaxLevel()
+    {
+        if (currentLevel >= upgradeDatas.Count && currentLevel >= 1)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

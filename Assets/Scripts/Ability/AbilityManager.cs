@@ -38,6 +38,7 @@ public class AbilityManager : MonoBehaviour
         {
             if (ability.playerType == runtimePlayerType || ability.playerType == typeAny)
             {
+                ability.currentLevel = 0;
                 availableAbilities.Add(ability);
             }
         }
@@ -114,6 +115,16 @@ public class AbilityManager : MonoBehaviour
     {
         // Init Referenced Distribution
         _abilityDistribution.SetItems(abilityDistribution.Items);
+        // Check if any Abilities has reach its max level
+        for (int i = _abilityDistribution.Items.Count - 1; i >= 0; i--)
+        {
+            AbilityBase ability = _abilityDistribution.Items[i].Value;
+            if (ability.IsMaxLevel())
+            {
+                int index = _abilityDistribution.IndexOf(ability);
+                _abilityDistribution.RemoveAt(index);
+            }
+        }
         abilitiesToPick.Clear();
         for (int i = 0; i < 4; i++)
         {
