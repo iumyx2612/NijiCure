@@ -1452,6 +1452,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickUpRadius: {fileID: 11400000, guid: 537f8ccf7c1ffea4f9c8816f6df6e532, type: 2}
+  pickUpables:
+    serializedVersion: 2
+    m_Bits: 6144
 --- !u!1 &1519284877681342835
 GameObject:
   m_ObjectHideFlags: 0
