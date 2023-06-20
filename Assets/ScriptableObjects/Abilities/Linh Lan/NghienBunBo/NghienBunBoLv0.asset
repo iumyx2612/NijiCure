@@ -27,6 +27,9 @@ MonoBehaviour:
   player: {fileID: 0}
   damageIncrease: 10
   duration: 10
+  currentAbilities: {fileID: 11400000, guid: 5192fad01cb6f0b4fb45b6602337b9b6, type: 2}
+  activeCountdownImage: {fileID: 11400000, guid: 3e165fcbbe9aa5f43ad9354ca89b2705,
+    type: 2}
   upgradeDatas: []
-  currentDuration: 0
-  currentDamageIncrease: 0
+  currentDuration: 10
+  currentDamageIncrease: 10

@@ -20,10 +20,10 @@ MonoBehaviour:
     ch\u1EA1m ph\u1EA3i"
   currentLevel: 0
   currentCooldownTime: 1
-  internalCooldownTime: 0
+  internalCooldownTime: 0.6039367
   playerType: {fileID: 11400000, guid: cbe7559e02d45fb479fda40e78a01e1e, type: 2}
   weight: 5
-  state: 0
+  state: 2
   damage: 12
   currentDamage: 12
   sprite: {fileID: 21300000, guid: 28a3627de74b1144b97dfe99ab3594d6, type: 3}

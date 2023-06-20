@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ChuaTeNuaBaiLv1
   m_EditorClassIdentifier: 
   abilityName: "Ch\xFAa T\u1EC3 N\u1EEDa B\xE0i Lv 1"
-  UISprite: {fileID: 21300000, guid: 3458c119c69e9bc4f9647599c2901dee, type: 3}
+  UISprite: {fileID: 21300000, guid: 793f30fac50c27346b15476b2b240326, type: 3}
   cooldownTime: 2
   description: "M\u1ED7i 2s Linh Lan s\u1EBD t\u1EA1o ra m\u1ED9t N\u1EECA l\xE0n
     s\xF3ng \xE2m nh\u1EA1c l\u1EDBn d\u1EA7n theo th\u1EDDi gian. M\u1ED7i k\u1EBB

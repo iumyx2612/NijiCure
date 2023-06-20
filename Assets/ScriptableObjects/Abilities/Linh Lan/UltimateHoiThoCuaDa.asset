@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 45
   canUseUltimate: {fileID: 11400000, guid: 5ab1c7b354838d943aad936e13e7403b, type: 2}
-  activeTime: 15
+  activeTime: 10
   cooldownReduction: 0.5
-  damageMultiplier: 1
+  damageMultiplier: 1.5
   knifeScaleMultiplier: 2
   knifeDistanceMultiplier: 2
-  knifeSpeedMultiplier: 2
+  knifeSpeedMultiplier: 3
+  currentAbilites: {fileID: 11400000, guid: 5192fad01cb6f0b4fb45b6602337b9b6, type: 2}

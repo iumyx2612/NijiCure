@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ChuaTeNuaBaiLv0
   m_EditorClassIdentifier: 
   abilityName: "Ch\xFAa T\u1EC3 N\u1EEDa B\xE0i"
-  UISprite: {fileID: 21300000, guid: 3458c119c69e9bc4f9647599c2901dee, type: 3}
+  UISprite: {fileID: 21300000, guid: 793f30fac50c27346b15476b2b240326, type: 3}
   cooldownTime: 3
   description: "M\u1ED7i 3s Linh Lan s\u1EBD t\u1EA1o ra m\u1ED9t N\u1EECA l\xE0n
     s\xF3ng \xE2m nh\u1EA1c l\u1EDBn d\u1EA7n theo th\u1EDDi gian. M\u1ED7i k\u1EBB
@@ -21,10 +21,10 @@ MonoBehaviour:
     10 s\xE1t th\u01B0\u01A1ng"
   currentLevel: 0
   currentCooldownTime: 3
-  internalCooldownTime: 0
+  internalCooldownTime: 2.1348314
   playerType: {fileID: 11400000, guid: cbe7559e02d45fb479fda40e78a01e1e, type: 2}
   weight: 5
-  state: 0
+  state: 2
   damage: 10
   currentDamage: 10
   sprite: {fileID: 21300000, guid: 41d1b9312bce36048949d8da37f6c300, type: 3}
