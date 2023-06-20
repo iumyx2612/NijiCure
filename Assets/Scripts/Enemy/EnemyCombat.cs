@@ -11,7 +11,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(BoxCollider2D))]
 public class EnemyCombat : MonoBehaviour
 {
-    public EnemyData enemyData;
+    private EnemyData enemyData;
     
     // Data
     private int damage;
@@ -37,10 +37,7 @@ public class EnemyCombat : MonoBehaviour
 
     private void OnEnable()
     {
-        if (enemyData != null)
-        {
-            LoadData(enemyData);
-        }
+        
     }
 
     // Update is called once per frame
@@ -52,10 +49,6 @@ public class EnemyCombat : MonoBehaviour
             internalDamageTime = 0f;
             canAttack = true;
         }
-    }
-
-    private void FixedUpdate()
-    {
         if (canAttack && isAlive)
         {
             Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(transform.position,
@@ -75,7 +68,7 @@ public class EnemyCombat : MonoBehaviour
         DamagePopupSequence(damage);
         if (enemyHealth <= 0)
         {
-            gameObject.GetComponent<EnemyMovement>().Dead();
+            gameObject.GetComponent<IBaseEnemyBehavior>().Dead(false);
         }
     }
 
@@ -91,13 +84,12 @@ public class EnemyCombat : MonoBehaviour
     private void DamagePopupSequence(int damage)
     {
         damageUIPopupText.text = damage.ToString();
-        GameObject damageUIPopupGO = damageUIPopupText.gameObject;
-        damageUIPopupGO.transform.position = transform.position;
-        float basePosY = damageUIPopupGO.transform.position.y;
-        damageUIPopupGO.SetActive(true);
+        damageUIPopupText.transform.position = transform.position;
+        float basePosY = transform.position.y;
+        damageUIPopupText.gameObject.SetActive(true);
         Sequence textSequence = DOTween.Sequence();
-        textSequence.Append(damageUIPopupGO.transform.DOMoveY(basePosY + 0.3f, 0.3f));
-        textSequence.Append(damageUIPopupGO.transform.DOMoveY(basePosY - 0.5f, 0.5f));
+        textSequence.Append(damageUIPopupText.transform.DOMoveY(basePosY + 0.3f, 0.3f));
+        textSequence.Append(damageUIPopupText.transform.DOMoveY(basePosY - 0.5f, 0.5f));
         textSequence.Join(damageUIPopupText.DOFade(0f, 0.7f));
         textSequence.OnComplete(RecoverDamagePopUpTextState);
     }

@@ -2,23 +2,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ScriptableObjectArchitecture;
 using DG.Tweening;
+using ScriptableObjectArchitecture;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
+public class TimeEventEnemyMovement : MonoBehaviour, IBaseEnemyBehavior
 {
-    private EnemyData enemyData;
-
+    private TimeEventEnemyData enemyData;
+    
     // Data
     private float speed;
+    private float lifeTime;
+    private float internalLifeTime;
+    private Vector2 destination;
+    private bool oneTime;
     private RuntimeAnimatorController animatorController;
     
+    private bool isAlive;
     private Vector2 direction;
     private bool isFacingRight;
-    private bool isAlive;
-
-    // Using GetComponent at Awake
+    
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private Rigidbody2D rb;
@@ -42,10 +44,17 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
         }
     }
 
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
         if (isAlive)
         {
+            internalLifeTime += Time.deltaTime;
+            if (internalLifeTime >= lifeTime)
+            {
+                isAlive = false;
+                Dead(true);
+            }
             // Going right but not facing right
             if (direction.x > 0 && !isFacingRight)
             {
@@ -58,24 +67,21 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
             }
         }
     }
-
+    
     private void FixedUpdate()
     {
         if (isAlive)
         {
-            direction = ((Vector2) player.position - rb.position).normalized;
+            // Constantly moving toward player
+            if (!oneTime)
+                direction = ((Vector2) player.position - rb.position).normalized;
+            // Move to pre-defined destination
+            else
+                direction = (destination - rb.position).normalized;
             rb.MovePosition(rb.position + direction * speed * Time.fixedDeltaTime);
         }
     }
-
-    public void LoadData(EnemyData data)
-    {
-        enemyData = data;
-        speed = data.speed;
-        spriteRenderer.sprite = data.sprite;
-        animatorController = data.animatorController;
-    }
-
+    
     private void Flip()
     {
         transform.Rotate(0f, 180f, 0f);
@@ -83,9 +89,20 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
         isFacingRight = !isFacingRight;
     }
 
+    public void LoadData(TimeEventEnemyData _data)
+    {
+        enemyData = _data;
+        speed = _data.speed;
+        lifeTime = _data.lifeTime;
+        spriteRenderer.sprite = _data.sprite;
+        animatorController = _data.animatorController;
+    }
+    
     public void Dead(bool outOfLifeTime)
     {
-        gameObject.GetComponent<EnemyDrop>().Drop(enemyData.expAmount);
+        // Only drop EXP when not die by out of life time
+        if (!outOfLifeTime)
+            gameObject.GetComponent<EnemyDrop>().Drop(enemyData.expAmount);
         Sequence deadSequence = DOTween.Sequence();
         deadSequence.Append(transform.DOMoveY(transform.position.y + 0.3f, 0.5f));
         deadSequence.Join(spriteRenderer.DOFade(0f, 0.5f));
@@ -96,7 +113,6 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
     {
         transform.parent.gameObject.SetActive(false);
         transform.localPosition = new Vector2(0, 0);
-        // Set alpha back to 1 since we set it to 0 in Dead()
         Color temp = spriteRenderer.color;
         temp.a = 1;
         spriteRenderer.color = temp;

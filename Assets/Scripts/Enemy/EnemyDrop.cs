@@ -44,7 +44,6 @@ public class EnemyDrop : MonoBehaviour
         if (!hasInactiveExpDrop)
         {
             GameObject expPickUp = Instantiate(expPickUpPrefab);
-            expPickUp.AddComponent<ExpPickUp>();
             expPickUp.transform.position = transform.position;
             expPickUpPool.Add(expPickUp);
             expPickUp.GetComponent<ExpPickUp>().LoadData(_expAmount);
@@ -77,7 +76,6 @@ public class EnemyDrop : MonoBehaviour
             {
                 GameObject healthPickUp = Instantiate(healthPickUpPrefab);
                 healthPickUp.transform.position = transform.position;
-                healthPickUp.AddComponent<HealPickUp>();
                 healthPickUpPool.Add(healthPickUp);
             }
         }

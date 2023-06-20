@@ -12,6 +12,7 @@ public class EnemySpawner : MonoBehaviour
     private EnemySpawnDataDistribution spawnDistribution;
     
     // Configurable in the editor
+    [Header("Normal Spawn")]
     [SerializeField] private GameObjectCollection enemyHolderPool;
     [SerializeField] private FloatVariable timeSinceGameStart; // Setup in GameManager.cs
     [SerializeField] private GameObject enemyHolderPrefab;
@@ -25,28 +26,42 @@ public class EnemySpawner : MonoBehaviour
     private float internalSpawnCooldown;
     [SerializeField] private int spawnCooldown; // how fast to spawn enemy
     [SerializeField] private int maxEnemyLimit; // For performance purpose and easy mode
-
+    
+    // For Time Event
+    [Header("Time Event")]
+    [SerializeField] private GameObject timeEventEnemyPrefab;
+    [SerializeField] private GameObjectCollection timeEventEnemyPool;
+    [SerializeField] private List<TimeEventSpawnDataBase> stageTimeEventSpawnData;
+    
 
     private void Awake()
     {
         enemyHolderPool.Clear();
+        timeEventEnemyPool.Clear();
         spawnDistribution = gameObject.GetComponent<EnemySpawnDataDistribution>();
+        foreach (TimeEventSpawnDataBase timeEventSpawn in stageTimeEventSpawnData)
+        {
+            timeEventSpawn.SetRequiresDataField();
+            timeEventSpawn.SetOccur(false);
+        }
     }
 
     private void Start()
     {
         InitializeEnemy();
+        InitializeEventEnemy();
         currentSpawnData.Add(stageSpawnData[0]); // Start the game with the first Spawn Data
         spawnDistribution.Add(stageSpawnData[0], stageSpawnData[0].weight);
     }
 
     private void Update()
     {
+        // --------------- Normal Spawn ---------------
         // At the last element of list
         if (index < stageSpawnData.Count - 1)
         {
-            // Check for next SpawnData.starTime, if meet requirement, add to currentSpawnData 
-            if (stageSpawnData[index + 1].starTime <= timeSinceGameStart.Value)
+            // Check for next SpawnData.startTime, if meet requirement, add to currentSpawnData 
+            if (stageSpawnData[index + 1].startTime <= timeSinceGameStart.Value)
             {
                 currentSpawnData.Add(stageSpawnData[index + 1]);
                 spawnDistribution.Add(stageSpawnData[index + 1], stageSpawnData[index + 1].weight);
@@ -71,16 +86,46 @@ public class EnemySpawner : MonoBehaviour
             SpawnEnemy();
             internalSpawnCooldown = 0f;
         }
-
+        
+        // --------------- Time Event ---------------
+        // Spawn Event Enemy
+        foreach (TimeEventSpawnDataBase timeEventSpawn in stageTimeEventSpawnData)
+        {
+            if (timeEventSpawn.startTime <= timeSinceGameStart.Value && !timeEventSpawn.HasOccured())
+            {
+                timeEventSpawn.SpawnTimeEventEnemy(timeEventEnemyPrefab);
+                timeEventSpawn.SetOccur(true);
+            }
+        }
+        // Remove to reduce the loop time when active Event
+        for (int i = stageTimeEventSpawnData.Count - 1; i >= 0; i--)
+        {
+            if (stageTimeEventSpawnData[i].HasOccured())
+            {
+                stageTimeEventSpawnData.RemoveAt(i);
+            }
+        }
     }
     
     private void InitializeEnemy()
     {
-        for (int i = 0; i < 50; i++)
+        GameObject temp = new GameObject("Enemy Holder");
+        for (int i = 0; i < 100; i++)
         {
-            GameObject enemyHolder = Instantiate(enemyHolderPrefab, transform);
+            GameObject enemyHolder = Instantiate(enemyHolderPrefab, temp.transform);
             enemyHolderPool.Add(enemyHolder);
             enemyHolder.SetActive(false);
+        }
+    }
+
+    private void InitializeEventEnemy()
+    {
+        GameObject temp = new GameObject("Time Event Enemy Holder");
+        for (int i = 0; i < 100; i++)
+        {
+            GameObject timeEventEnemyHolder = Instantiate(timeEventEnemyPrefab, temp.transform);
+            timeEventEnemyPool.Add(timeEventEnemyHolder);
+            timeEventEnemyHolder.SetActive(false);
         }
     }
     
@@ -134,6 +179,7 @@ public class EnemySpawner : MonoBehaviour
                 enemy.GetComponent<EnemyMovement>().LoadData(spawnData.enemyData);
                 enemy.GetComponent<EnemyCombat>().LoadData(spawnData.enemyData);
                 enemyHolder.transform.position = PickSpawnPosition();
+                enemyHolderPool.Add(enemyHolder);
             }
         }
     }
@@ -141,7 +187,6 @@ public class EnemySpawner : MonoBehaviour
     private Vector2 PickSpawnPosition()
     {
         Vector2 spawnPos = new Vector2();
-
         float randomNumber = Random.value;
         if (randomNumber > 0.5f)
         {
@@ -167,6 +212,7 @@ public class EnemySpawner : MonoBehaviour
         
         // Add it with the player player position -> Spawn enemy will always be around player
         spawnPos += playerPosRef.Value;
+
         return spawnPos;
     }
 }

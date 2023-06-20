@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "Enemy/Spawn Data")]
+[CreateAssetMenu(menuName = "Enemy/Spawn Data/Spawn Data")]
 public class SpawnData : ScriptableObject
 {
-    public float starTime;
+    public float startTime;
     public float endTime;
     public int spawnAmount;
     public EnemyData enemyData;
