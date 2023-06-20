@@ -24,10 +24,10 @@ public class PlayerPickUp : MonoBehaviour
     {
         pickUpCollider.radius = pickUpRadius.Value;
     }
-
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("PickUp"))
+        if (other.CompareTag("PickUp") || other.CompareTag("Heal"))
         {
             other.GetComponent<IPickUpItem>().OnPickUp(transform);
         }
