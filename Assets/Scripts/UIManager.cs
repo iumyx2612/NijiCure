@@ -32,6 +32,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private AbilityGameEvent modifyAbility; // Setup in AbilityManager.cs
     [SerializeField] private AbilityCollection abilitiesToPick; // Setup in AbilityManager.cs
     [SerializeField] private AbilityCollection currentAbilities; // Setup in AbilityManager.cs 
+
+    [SerializeField] private List<Image> countdownImages;
+    [SerializeField] private PassiveAbilityGameEvent activeCountdownImage; // Raised by some Passive Abilities
+    
     
     // Start is called before the first frame update
     void Awake()
@@ -39,6 +43,7 @@ public class UIManager : MonoBehaviour
         increaseExpUI.AddListener(ChangeExpBar);
         increaseLevelUI.AddListener(ChangeLevelDisplay);
         levelUpAbilityUIPopUp.AddListener(LevelUpAbilityUIPopUp);
+        activeCountdownImage.AddListener(ActiveCountdownImage);
     }
 
     private void OnDisable()
@@ -46,6 +51,7 @@ public class UIManager : MonoBehaviour
         increaseExpUI.RemoveListener(ChangeExpBar);
         increaseLevelUI.RemoveListener(ChangeLevelDisplay);
         levelUpAbilityUIPopUp.RemoveListener(LevelUpAbilityUIPopUp);
+        activeCountdownImage.RemoveListener(ActiveCountdownImage);
     }
 
     // Update is called once per frame
@@ -110,9 +116,37 @@ public class UIManager : MonoBehaviour
         }
         else
         {
+            // Loop through all button to unsubscribe event
+            foreach (Button btn in abilityPickerButtons)
+            {
+                btn.onClick.RemoveAllListeners();
+            }
             // Unpause the Game
             Time.timeScale = 1f;
             lvlUpPanel.SetActive(false);
+            
+        }
+    }
+
+    private void ActiveCountdownImage(PassiveAbilityInfo info)
+    {
+        for (int i = 0; i < countdownImages.Count; i++)
+        {
+            Image image = countdownImages[i];
+            CountdownImage cdImage = image.GetComponent<CountdownImage>();
+            // Check if the Ability call to this is already been displayed
+            if (info.UISprite == cdImage.GetSprite() && image.IsActive())
+            {
+                cdImage.ResetInternalDuration();
+                break;
+            }
+            if (!image.IsActive())
+            {
+                cdImage.SetSprite(info.UISprite);
+                cdImage.SetDuration(info.duration);
+                image.gameObject.SetActive(true);
+                break;
+            }
         }
     }
 }
