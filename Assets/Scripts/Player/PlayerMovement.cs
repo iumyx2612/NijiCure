@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2Variable playerPosRef; // Where the player is
     [SerializeField] private Vector2Variable playerDirectionRef; // Direction of the player
 
-    [SerializeField] private Canvas playerUICanvas; // For player UI element
+    [SerializeField] private Canvas playerUICanvas;
     
 
     private void Awake()
@@ -59,8 +59,8 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        Vector2 playerPos = transform.position;
-        directionIndicator.transform.position = playerPos + new Vector2(distanceFromPlayer, 0);
+        directionIndicator.transform.position = (Vector2) transform.position 
+                                                + new Vector2(distanceFromPlayer, 0);
     }
 
     private void OnEnable()

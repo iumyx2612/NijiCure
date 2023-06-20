@@ -52,12 +52,8 @@ public class PlayerUIManager : MonoBehaviour
     }
 
     private void Update()
-    {       
-        healthBarImageFull.transform.position = new Vector2(playerPosRef.Value.x,
-            playerPosRef.Value.y + baseHealthBarYPos); 
-        // To reduce the number of update called
-        // Health Bar Image
-        if (healthBarImageFull.gameObject.activeSelf)
+    { 
+        if (healthBarImageFull.IsActive())
         {
             internalDisplayTime += Time.deltaTime;
             if (internalDisplayTime >= displayTime)
@@ -87,11 +83,10 @@ public class PlayerUIManager : MonoBehaviour
         for (int i = 0; i < healthPopupTextArr.Length; i++)
         {
             TMP_Text healthPopupText = healthPopupTextArr[i];
-            if (!healthPopupText.gameObject.activeSelf)
+            if (!healthPopupText.IsActive())
             {
                 healthPopupText.text = Mathf.Abs(amount).ToString();
-                GameObject healthPopupTextGO = healthPopupText.gameObject;
-                healthPopupTextGO.transform.position = playerPosRef.Value;
+                healthPopupText.transform.position = playerPosRef.Value;
                 if (amount < 0)
                 {
                     healthPopupText.color = lowerHealthColor;
@@ -101,11 +96,11 @@ public class PlayerUIManager : MonoBehaviour
                     healthPopupText.color = increaseHealthColor;
                 }
 
-                float basePosY = healthPopupTextGO.transform.position.y;
-                float basePosX = healthPopupTextGO.transform.position.x;
-                healthPopupTextGO.SetActive(true);
+                float basePosY = playerPosRef.Value.y;
+                float basePosX = playerPosRef.Value.x;
+                healthPopupText.gameObject.SetActive(true);
                 Sequence textSequence = DOTween.Sequence();
-                textSequence.Append(healthPopupTextGO.transform.DOMove(new Vector2(basePosX + Random.Range(-0.2f, 0.2f),
+                textSequence.Append(healthPopupText.transform.DOMove(new Vector2(basePosX + Random.Range(-0.2f, 0.2f),
                     basePosY + 0.8f), 0.6f));
                 textSequence.OnComplete(()=>RecoverHealthPopUpText(healthPopupText));
                 break;
