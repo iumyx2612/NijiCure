@@ -1,9 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ScriptableObjectArchitecture;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
 public class LanKnife : MonoBehaviour
@@ -18,6 +16,8 @@ public class LanKnife : MonoBehaviour
     private float knifeSpeed;
     private float knifeDistance;
     private float knifeScale;
+    private float critChance;
+    private float multiplier;
 
     private Rigidbody2D rb;
     private Vector2 defaultScale;
@@ -90,6 +90,7 @@ public class LanKnife : MonoBehaviour
         knifeSpeed = data.currentKnifeSpeed;
         knifeDistance = data.currentKnifeDistance;
         knifeScale = data.currentKnifeScale;
+        critChance = data.currentCritChance;
     }
 
     private void FireBullet()
@@ -110,7 +111,16 @@ public class LanKnife : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Enemy"))
         {
-            collider.gameObject.GetComponent<EnemyCombat>().TakeDamage(damage);
+            float randomNumber = Random.Range(0f, 1f);
+            if (randomNumber <= critChance)
+            {
+                multiplier = 1.5f;
+            }
+            else
+            {
+                multiplier = 1f;
+            }
+            collider.gameObject.GetComponent<EnemyCombat>().TakeDamage(damage, multiplier);
         }
     }
 

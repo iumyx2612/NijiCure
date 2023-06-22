@@ -15,10 +15,9 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField] private Vector2Variable playerPosRef;
     [SerializeField] private IntVariable playerBaseHealth;
     [SerializeField] private IntVariable playerCurrentHealth;
-    [SerializeField] private Vector2GameEvent healthBarImageUpdate;
+    [SerializeField] private GameEvent healthBarImageUpdate;
     [SerializeField] private Image healthBarImageFilled;
     [SerializeField] private Image healthBarImageFull;
-    private float baseHealthBarYPos;
     
     private float internalDisplayTime;
     private float displayTime = 3f;
@@ -32,11 +31,6 @@ public class PlayerUIManager : MonoBehaviour
 
     private void Awake()
     {
-    }
-
-    private void Start()
-    {
-        baseHealthBarYPos = healthBarImageFull.transform.position.y;
     }
 
     private void OnEnable()
@@ -64,9 +58,8 @@ public class PlayerUIManager : MonoBehaviour
         }
     }
 
-    private void HealthBarImagePopUp(Vector2 position)
+    private void HealthBarImagePopUp()
     {
-        healthBarImageFull.transform.position = position;
         healthBarImageFull.gameObject.SetActive(true);
         UpdateHealthBar();
     }

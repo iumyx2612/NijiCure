@@ -9,7 +9,7 @@ public class PlayerData : ScriptableObject
     public int health;
     public float speed;
     public int rank;
-    public float critChance;
+    [Range(0f, 1f)] public float critChance;
     public RuntimeAnimatorController animatorController;
 
     public AbilityBase startingAbility;

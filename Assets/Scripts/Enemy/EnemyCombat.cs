@@ -28,6 +28,7 @@ public class EnemyCombat : MonoBehaviour
     [Header("UI")]
     [SerializeField] private IntGameEvent playerTakeDamage;
     [SerializeField] private TMP_Text damageUIPopupText;
+    [SerializeField] private Color critColor = new Color(255, 221, 90, 1f);
     
 
     private void Awake()
@@ -62,10 +63,13 @@ public class EnemyCombat : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage) // Will be called in Bullet scripts
+    public void TakeDamage(int damage, float multiplier) // Will be called in Bullet scripts
     {
-        enemyHealth -= damage;
-        DamagePopupSequence(damage);
+        // Is this memory efficient?
+        bool crit = multiplier > 1;
+        int actualDamage = (int) (damage * multiplier);
+        enemyHealth -= actualDamage;
+        DamagePopupSequence(actualDamage, crit);
         if (enemyHealth <= 0)
         {
             gameObject.GetComponent<IBaseEnemyBehavior>().Dead(false);
@@ -81,9 +85,15 @@ public class EnemyCombat : MonoBehaviour
         selfCollider.offset = data.shapeToColliderMapping[data.shape].Item2;
     }
 
-    private void DamagePopupSequence(int damage)
+    private void DamagePopupSequence(int damage, bool crit)
     {
         damageUIPopupText.text = damage.ToString();
+        if (crit)
+        {
+            damageUIPopupText.text = $"{damage}!";
+            damageUIPopupText.color = critColor;
+            damageUIPopupText.transform.localScale = new Vector2(1.5f, 1.5f);
+        }
         damageUIPopupText.transform.position = transform.position;
         float basePosY = transform.position.y;
         damageUIPopupText.gameObject.SetActive(true);
@@ -97,8 +107,13 @@ public class EnemyCombat : MonoBehaviour
     private void RecoverDamagePopUpTextState()
     {
         damageUIPopupText.gameObject.SetActive(false);
+        damageUIPopupText.transform.localScale = new Vector2(1f, 1f);
+        // Change color back to white (since we change it if crit)
         Color temp = damageUIPopupText.color;
         temp.a = 1;
+        temp.r = 255;
+        temp.g = 255;
+        temp.b = 255;
         damageUIPopupText.color = temp;
     }
 }

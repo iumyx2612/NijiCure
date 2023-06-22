@@ -8,42 +8,43 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
     public PlayerData playerData;
-    [SerializeField] private PlayerTypeAndStartingAbility mapping; // Reference by others' 
+    [SerializeField] private PlayerMapping mapping; // Reference by others' 
     
     // Data
     [SerializeField] private IntVariable playerBaseHealth;
     [SerializeField] private IntVariable playerCurrentHealth;
     private int rank;
-    private float critChance;
     private UltimateAbilityBase ultimateAbility;
     
     [SerializeField] private BoolVariable isAlive;
     [SerializeField] private GameEvent onPlayerKilled;
     [SerializeField] private IntGameEvent playerTakeDamage;
     
-    [SerializeField] private Vector2GameEvent healthBarImageUpdate;
+    [SerializeField] private GameEvent healthBarImageUpdate;
     [SerializeField] private IntGameEvent healthTextPopupGameEvent;
     [SerializeField] private IntGameEvent healPlayer;
 
     
     private void Awake()
     {
+        // Avoid error while testing
+        if (playerData != null)
+        {
+            LoadData(playerData);
+        }
         // Set up variables and stuff
         onPlayerKilled.AddListener(Dead);
         playerTakeDamage.AddListener(TakeDamage);
         healPlayer.AddListener(HealPlayer);
         mapping.playerType = playerData.type;
         mapping.startingAbility = playerData.startingAbility;
+        mapping.critChance = playerData.critChance;
     }
 
     private void OnEnable()
     {
         isAlive.Value = true;
-        if (playerData != null)
-        {
-            LoadData(playerData);
-            playerCurrentHealth.Value = playerBaseHealth.Value;
-        }
+        playerCurrentHealth.Value = playerBaseHealth.Value;
     }
 
     private void OnDisable()
@@ -56,7 +57,7 @@ public class PlayerCombat : MonoBehaviour
     private void TakeDamage(int damage)
     {
         playerCurrentHealth.Value -= damage;
-        healthBarImageUpdate.Raise(transform.position); // Check PlayerUIManager.cs
+        healthBarImageUpdate.Raise(); // Check PlayerUIManager.cs
         healthTextPopupGameEvent.Raise(-damage); // Check PlayerUIManager.cs
         if (playerCurrentHealth.Value <= 0)
         {
@@ -86,7 +87,7 @@ public class PlayerCombat : MonoBehaviour
         {
             playerCurrentHealth.Value = playerBaseHealth.Value;
         }
-        healthBarImageUpdate.Raise(transform.position); // Check PlayerUIManager.cs
+        healthBarImageUpdate.Raise(); // Check PlayerUIManager.cs
         healthTextPopupGameEvent.Raise(healAmount); // Check PlayerUIManager.cs
     }
 }

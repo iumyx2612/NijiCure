@@ -1,10 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using ScriptableObjectArchitecture;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 [RequireComponent(typeof (EdgeCollider2D))]
 public class ChuaTeNuaBai : MonoBehaviour
@@ -15,12 +13,14 @@ public class ChuaTeNuaBai : MonoBehaviour
     [SerializeField] private Vector2Variable playerPosRef;
     
     // Runtime Data
+    private float critChance; 
     private Vector2 baseScale;
     private SpriteRenderer spriteRenderer;
     private EdgeCollider2D selfCollider;
     private ParticleSystem _particleSystem;
     private float scale;
     private int damage;
+    private float multiplier;
     
     private enum Direction
     {
@@ -56,12 +56,11 @@ public class ChuaTeNuaBai : MonoBehaviour
 
         transform.position = playerPosRef.Value;
 
-        _particleSystem.Play();
         int rotation = GetRotation();
         transform.rotation = Quaternion.Euler(0f, 0f, rotation);
         Sequence sequence = DOTween.Sequence();
         sequence.Append(transform.DOScale(new Vector2(scale, scale), 1.5f));
-        sequence.Join(DOTween.To(PlayerParticleTween, 0, 1, _particleSystem.main.duration));
+        sequence.Join(DOTween.To(ParticleTween, 0, 1, _particleSystem.main.duration));
         sequence.Append(spriteRenderer.DOFade(0f, 0.2f));
         sequence.OnComplete(ResetBullet);
     }
@@ -70,7 +69,16 @@ public class ChuaTeNuaBai : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            other.GetComponent<EnemyCombat>().TakeDamage(damage);
+            float randomNumber = Random.Range(0f, 1f);
+            if (randomNumber <= critChance)
+            {
+                multiplier = 2f;
+            }
+            else
+            {
+                multiplier = 1f;
+            }
+            other.GetComponent<EnemyCombat>().TakeDamage(damage, multiplier);
         }
     }
     public void LoadData(ChuaTeNuaBaiData data)
@@ -84,6 +92,7 @@ public class ChuaTeNuaBai : MonoBehaviour
         // Things can changes during runtime
         scale = data.currentScale;
         damage = data.currentDamage;
+        critChance = data.currentCritChance;
     }
 
     private void ResetBullet()
@@ -106,7 +115,7 @@ public class ChuaTeNuaBai : MonoBehaviour
         damage += value;
     }
 
-    private void PlayerParticleTween(float duration)
+    private void ParticleTween(float duration)
     {
         if (!_particleSystem.isPlaying)
         {

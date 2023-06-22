@@ -26,7 +26,6 @@ public class LanKnifeData : DamageAbilityBase
 
     public override void Initialize()
     {
-        currentLevel = 0;
         internalCooldownTime = 0f;
         currentCooldownTime = cooldownTime;
 
@@ -34,6 +33,7 @@ public class LanKnifeData : DamageAbilityBase
         currentKnifeDistance = knifeDistance;
         currentKnifeSpeed = knifeSpeed;
         currentDamage = damage;
+        currentCritChance = critChance;
 
         state = AbilityState.cooldown;
         

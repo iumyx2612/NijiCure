@@ -13,7 +13,7 @@ public class AbilityManager : MonoBehaviour
     private List<AbilityBase> availableAbilities = new List<AbilityBase>(); // What Ability can appear in the Scene
 
     [Header("First and current Abilities")]
-    [SerializeField] private PlayerTypeAndStartingAbility mapping; // Mapping of PlayerType and Starting Ability
+    [SerializeField] private PlayerMapping mapping; // Mapping of PlayerType and Starting Ability
     [SerializeField] private AbilityCollection currentAbilities; // Current abilities that player have 
 
     [Header("Modify Abilities stuff")]
@@ -40,6 +40,10 @@ public class AbilityManager : MonoBehaviour
             {
                 ability.currentLevel = 0;
                 availableAbilities.Add(ability);
+                if (ability is DamageAbilityBase _damageAbility)
+                {
+                    _damageAbility.SetupCritChance(mapping.critChance);
+                }
             }
         }
         // Set up AbilityDistribution

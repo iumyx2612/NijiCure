@@ -446,6 +446,7 @@ MonoBehaviour:
     m_Bits: 64
   playerTakeDamage: {fileID: 11400000, guid: 846389cad684ae049a84fe2a0d826943, type: 2}
   damageUIPopupText: {fileID: 545334111227989041}
+  critColor: {r: 1, g: 0.6117647, b: 0, a: 1}
 --- !u!114 &3666581253804705689
 MonoBehaviour:
   m_ObjectHideFlags: 0

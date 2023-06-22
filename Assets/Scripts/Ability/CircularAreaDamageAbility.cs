@@ -91,13 +91,4 @@ public class CircularAreaDamageAbility : MonoBehaviour
         gameObject.SetActive(false);
         bulletData.state = AbilityBase.AbilityState.cooldown;
     }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            Debug.Log("Wah");
-            other.GetComponent<EnemyCombat>().TakeDamage(damage);
-        }
-    }
 }

@@ -279,7 +279,7 @@ MonoBehaviour:
   isAlive: {fileID: 11400000, guid: 66b9337ac36fe734a9953da1b7b9c105, type: 2}
   onPlayerKilled: {fileID: 11400000, guid: 09e3b63d80ac09d4dab5f6ddedffb105, type: 2}
   playerTakeDamage: {fileID: 11400000, guid: 846389cad684ae049a84fe2a0d826943, type: 2}
-  healthBarImageUpdate: {fileID: 11400000, guid: 2389daa6c19c7c24e941d6d3e9be0076,
+  healthBarImageUpdate: {fileID: 11400000, guid: ef9853fdfad52b44eaf6a746b492f35f,
     type: 2}
   healthTextPopupGameEvent: {fileID: 11400000, guid: 7691c7816f7b91d4785742bab09dbc84,
     type: 2}
@@ -300,7 +300,7 @@ MonoBehaviour:
   playerBaseHealth: {fileID: 11400000, guid: bca77cb2dd728544593f3458f4a4a5d9, type: 2}
   playerCurrentHealth: {fileID: 11400000, guid: 0e1ab485882557d488fecd23c0d64c86,
     type: 2}
-  healthBarImageUpdate: {fileID: 11400000, guid: 2389daa6c19c7c24e941d6d3e9be0076,
+  healthBarImageUpdate: {fileID: 11400000, guid: ef9853fdfad52b44eaf6a746b492f35f,
     type: 2}
   healthBarImageFilled: {fileID: 1519284876939431308}
   healthBarImageFull: {fileID: 1519284876287725364}
@@ -1452,9 +1452,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickUpRadius: {fileID: 11400000, guid: 537f8ccf7c1ffea4f9c8816f6df6e532, type: 2}
-  pickUpables:
-    serializedVersion: 2
-    m_Bits: 6144
 --- !u!1 &1519284877681342835
 GameObject:
   m_ObjectHideFlags: 0

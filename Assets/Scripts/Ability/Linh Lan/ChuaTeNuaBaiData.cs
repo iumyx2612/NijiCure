@@ -19,12 +19,13 @@ public class ChuaTeNuaBaiData : DamageAbilityBase
     
     public override void Initialize()
     {
-        currentLevel = 0;
         internalCooldownTime = 0f;
         currentCooldownTime = cooldownTime;
 
+        // Runtime data
         currentDamage = damage;
         currentScale = scale;
+        currentCritChance = critChance;
         
         state = AbilityState.cooldown;
         

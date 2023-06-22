@@ -6,7 +6,9 @@ public abstract class DamageAbilityBase : AbilityBase
 {
     public int damage;
     [HideInInspector] public int currentDamage; // For in-game upgrade
-
+    public float critChance; // Setup in AbilityManager.cs
+    public float currentCritChance; 
+    
     public override void Initialize()
     {
         throw new System.NotImplementedException();
@@ -23,4 +25,9 @@ public abstract class DamageAbilityBase : AbilityBase
     }
 
     public override void PartialModify(int value){}
+
+    public void SetupCritChance(float value)
+    {
+        critChance = value;
+    }
 }

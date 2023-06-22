@@ -22,7 +22,6 @@ public class NghienBunBoData : PassiveAbilityBase
     public override void Initialize()
     {
         base.Initialize();
-        currentLevel = 0;
         currentDamageIncrease = damageIncrease;
         currentDuration = duration;
     }
