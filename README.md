@@ -1,3 +1,6 @@
+# Changelog 23/6/2023:
+- Update Ban Mai idle and run animation
+
 # Changelog 22/6/2023: 
 ## Update player's UI
 - Change `healthBarImageUpdate` from Vector2GameEvent to GameEvent (see [PlayerUIManager.cs](Assets/Scripts/Player/PlayerUIManager.cs)
