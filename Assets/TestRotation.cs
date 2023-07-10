@@ -4,15 +4,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Mathematics;
 
 
 public class TestRotation : MonoBehaviour
 {
-    public TMP_Text text;
-    public Color newColor = new Color(255, 0, 0, 1);
+    public Rigidbody2D rb;
+    public Vector2 basePos;
     
-    private void Start()
+    private void OnEnable()
     {
-        text.color = newColor;
+        basePos = transform.position;
+    }
+
+    private void Update()
+    {
+        if (Vector2.Distance(basePos, transform.position) >= 2f)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + Vector2.right * Time.fixedDeltaTime * 5);
     }
 }

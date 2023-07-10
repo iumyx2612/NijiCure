@@ -7,7 +7,6 @@ using UnityEngine;
 [RequireComponent(typeof (EdgeCollider2D))]
 public class ChuaTeNuaBai : MonoBehaviour
 {
-    public ChuaTeNuaBaiData abilityData;
     private ChuaTeNuaBaiData baseData;
 
     [SerializeField] private Vector2Variable playerPosRef;
@@ -78,7 +77,7 @@ public class ChuaTeNuaBai : MonoBehaviour
             {
                 multiplier = 1f;
             }
-            other.GetComponent<EnemyCombat>().TakeDamage(damage, multiplier);
+            other.GetComponent<EnemyCombat>().TakeDamage(damage, multiplier, Vector2.zero, 0);
         }
     }
     public void LoadData(ChuaTeNuaBaiData data)
@@ -87,8 +86,6 @@ public class ChuaTeNuaBai : MonoBehaviour
         {
             baseData = data;
         }
-        abilityData = data;
-        spriteRenderer.sprite = data.sprite;
         // Things can changes during runtime
         scale = data.currentScale;
         damage = data.currentDamage;
@@ -108,11 +105,6 @@ public class ChuaTeNuaBai : MonoBehaviour
         int randomInt = Random.Range(1, 4);
         Direction direction = (Direction) randomInt;
         return directionToRotationMapping[direction];
-    }
-
-    public void ModifyDamage(int value)
-    {
-        damage += value;
     }
 
     private void ParticleTween(float duration)

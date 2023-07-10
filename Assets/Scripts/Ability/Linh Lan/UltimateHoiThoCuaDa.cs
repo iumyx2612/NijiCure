@@ -107,7 +107,6 @@ public class UltimateHoiThoCuaDa : MonoBehaviour
         ability.currentKnifeSpeed *= ultimateData.knifeSpeedMultiplier;
         GameObject bullet = ability.pool[0];
         bullet.GetComponent<LanKnife>().LoadData(ability);
-        Debug.Log("Upgraded");
     }
 
     private void LanKnifeDivider(LanKnifeData ability)
@@ -119,6 +118,5 @@ public class UltimateHoiThoCuaDa : MonoBehaviour
         ability.currentKnifeSpeed /= ultimateData.knifeSpeedMultiplier;
         GameObject bullet = ability.pool[0];
         bullet.GetComponent<LanKnife>().LoadData(ability);
-        Debug.Log("End");
     }
 }

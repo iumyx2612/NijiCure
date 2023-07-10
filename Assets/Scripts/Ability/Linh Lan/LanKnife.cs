@@ -6,12 +6,9 @@ using ScriptableObjectArchitecture;
 [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
 public class LanKnife : MonoBehaviour
 {
-    public LanKnifeData knifeData;
     private LanKnifeData baseData;
     
     // Data
-    private SpriteRenderer spriteRenderer;
-    private BoxCollider2D selfCollider;
     private int damage;
     private float knifeSpeed;
     private float knifeDistance;
@@ -28,7 +25,7 @@ public class LanKnife : MonoBehaviour
     [SerializeField] private Vector2Variable directionRef; // Direction to shoot 
     [SerializeField] private Vector2Variable defaultPosRef; // Start position to shoot from
     private Vector2 defaultPos; // The position when the bullet was fired from (to disable bullet if too far) 
-    private Vector2 bulletDirection; // Direction to shoot
+    public Vector2 bulletDirection; // Direction to shoot
     
     private readonly Dictionary<Vector2, Vector3> directionMapping = 
         new Dictionary<Vector2, Vector3>
@@ -47,9 +44,7 @@ public class LanKnife : MonoBehaviour
 
     private void Awake()
     {
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         rb = gameObject.GetComponent<Rigidbody2D>();
-        selfCollider = gameObject.GetComponent<BoxCollider2D>();
         defaultScale = transform.localScale;
     }
 
@@ -82,9 +77,6 @@ public class LanKnife : MonoBehaviour
         {
             baseData = data;
         }
-        knifeData = data;
-        spriteRenderer.sprite = data.sprite;
-        selfCollider.size = data.colliderSize;
         // Things can changes during runtime
         damage = data.currentDamage;
         knifeSpeed = data.currentKnifeSpeed;
@@ -120,12 +112,8 @@ public class LanKnife : MonoBehaviour
             {
                 multiplier = 1f;
             }
-            collider.gameObject.GetComponent<EnemyCombat>().TakeDamage(damage, multiplier);
+            collider.gameObject.GetComponent<EnemyCombat>().TakeDamage(damage, multiplier,
+                Vector2.zero, 0);
         }
-    }
-
-    public void ModifyDamage(int value)
-    {
-        damage += value;
     }
 }

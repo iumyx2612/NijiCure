@@ -302,7 +302,7 @@ Transform:
   m_GameObject: {fileID: 4202792173408076663}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6472155178054797947}
@@ -441,12 +441,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4092023c607b8634390581dec9fd524b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyData: {fileID: 0}
   playerMask:
     serializedVersion: 2
     m_Bits: 64
+  numCounters: 0
   playerTakeDamage: {fileID: 11400000, guid: 846389cad684ae049a84fe2a0d826943, type: 2}
   damageUIPopupText: {fileID: 545334111227989041}
   critColor: {r: 1, g: 0.6117647, b: 0, a: 1}
+  counterPanel: {fileID: 0}
+  counterImage: {fileID: 0}
+  numCounterText: {fileID: 0}
 --- !u!114 &3666581253804705689
 MonoBehaviour:
   m_ObjectHideFlags: 0

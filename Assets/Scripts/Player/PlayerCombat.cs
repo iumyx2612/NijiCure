@@ -71,13 +71,13 @@ public class PlayerCombat : MonoBehaviour
         gameObject.SetActive(false);
     }
     
-    public void LoadData(PlayerData data)
+    private void LoadData(PlayerData data)
     {
         playerData = data;
         playerBaseHealth.Value = data.health;
         rank = data.rank;
         ultimateAbility = data.ultimateAbility;
-        ultimateAbility.Initialize();
+        ultimateAbility.Initialize(gameObject);
     }
 
     private void HealPlayer(int healAmount)

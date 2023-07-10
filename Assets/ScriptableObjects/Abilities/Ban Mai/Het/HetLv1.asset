@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2423d5bd5af4e04e8dcd3a4f1906273, type: 3}
+  m_Name: HetLv1
+  m_EditorClassIdentifier: 
+  abilityName: "S\u01B0 t\u1EED h\u1ED1ng"
+  UISprite: {fileID: 0}
+  cooldownTime: 1
+  description: 
+  currentLevel: 0
+  currentCooldownTime: 1
+  internalCooldownTime: 0.59428626
+  playerType: {fileID: 11400000, guid: e8814abdea8216143b1d8343a509e13b, type: 2}
+  weight: 5
+  state: 2
+  damage: 0
+  currentDamage: 0
+  critChance: 0
+  currentCritChance: 0
+  knockbackForce: 0.5
+  scale: {x: 1, y: 1}
+  numAttack: 2
+  bulletPrefab: {fileID: 7959714450674388914, guid: 0f501950e5cedc54280455408cdf2c66,
+    type: 3}
+  upgradeDatas: []
+  pool: {fileID: 0}
+  currentKnockbackForce: 0.5
+  currentScale: {x: 1, y: 1}
+  currentNumAttack: 1
+  bar: 10
+  debuffDescription: 

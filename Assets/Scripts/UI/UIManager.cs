@@ -35,15 +35,27 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private List<Image> countdownImages;
     [SerializeField] private PassiveAbilityGameEvent activeCountdownImage; // Raised by some Passive Abilities
+
+    [Header("Coin and Kill Info")] 
+    [SerializeField] private GameEvent updateCoinInfo; // Raise in CoinPickUp.cs
+    [SerializeField] private IntVariable stageCoinAmount; // Setup in CoinPickUp.cs
+    [SerializeField] private TMP_Text coinAmountText;
+    [SerializeField] private GameEvent updateKillInfo; // Raise in EnemyMovement.cs
+    [SerializeField] private IntVariable stageKillAmount; // Setup in EnemyMovement.cs
+    [SerializeField] private TMP_Text killAmountText;
     
     
     // Start is called before the first frame update
     void Awake()
     {
+        stageKillAmount.Value = 0;
+//        stageCoinAmount.Value = 0;
         increaseExpUI.AddListener(ChangeExpBar);
         increaseLevelUI.AddListener(ChangeLevelDisplay);
         levelUpAbilityUIPopUp.AddListener(LevelUpAbilityUIPopUp);
         activeCountdownImage.AddListener(ActiveCountdownImage);
+//        updateCoinInfo.AddListener(UpdateCoinInfo);
+        updateKillInfo.AddListener(UpdateKillInfo);
     }
 
     private void OnDisable()
@@ -52,6 +64,8 @@ public class UIManager : MonoBehaviour
         increaseLevelUI.RemoveListener(ChangeLevelDisplay);
         levelUpAbilityUIPopUp.RemoveListener(LevelUpAbilityUIPopUp);
         activeCountdownImage.RemoveListener(ActiveCountdownImage);
+//        updateCoinInfo.RemoveListener(UpdateCoinInfo);
+        updateKillInfo.RemoveListener(UpdateKillInfo);
     }
 
     // Update is called once per frame
@@ -59,7 +73,8 @@ public class UIManager : MonoBehaviour
     {
         TimeFloatToString();
     }
-
+    
+    // --------------- EXP section ---------------
     private void ChangeExpBar()
     {
         float percentage = (float)currentExp.Value / expToNextLevel.Value;
@@ -71,15 +86,7 @@ public class UIManager : MonoBehaviour
         string levelString = "Lv: " + currentLevel.Value;
         levelDisplayText.text = levelString;
     }
-
-    private void TimeFloatToString()
-    {
-        int minutes = (int) timeSinceGameStart.Value / 60;
-        int seconds = (int) timeSinceGameStart.Value % 60;
-        string timeString = minutes.ToString("00") + " : " + seconds.ToString("00");
-        timeDisplayText.text = timeString;
-    }
-
+    
     private void LevelUpAbilityUIPopUp()
     {
         if (!lvlUpPanel.activeSelf)
@@ -124,10 +131,18 @@ public class UIManager : MonoBehaviour
             // Unpause the Game
             Time.timeScale = 1f;
             lvlUpPanel.SetActive(false);
-            
         }
     }
+    // --------------- Time ---------------
+    private void TimeFloatToString()
+    {
+        int minutes = (int) timeSinceGameStart.Value / 60;
+        int seconds = (int) timeSinceGameStart.Value % 60;
+        string timeString = minutes.ToString("00") + " : " + seconds.ToString("00");
+        timeDisplayText.text = timeString;
+    }
 
+    // --------------- Countdown Image ---------------
     private void ActiveCountdownImage(PassiveAbilityInfo info)
     {
         for (int i = 0; i < countdownImages.Count; i++)
@@ -149,4 +164,16 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+    
+    // --------------- Coin and Kill section ---------------
+    private void UpdateCoinInfo()
+    {
+        coinAmountText.text = stageCoinAmount.Value.ToString();
+    }
+
+    private void UpdateKillInfo()
+    {
+        killAmountText.text = stageKillAmount.Value.ToString();
+    }
+    
 }

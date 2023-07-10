@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdcb18274a3efc744b7d3139af0647c3, type: 3}
+  m_Name: Ngong
+  m_EditorClassIdentifier: 
+  abilityName: "Ng\u1ECDng"
+  UISprite: {fileID: 0}
+  cooldownTime: 0
+  description: 
+  currentLevel: 0
+  currentCooldownTime: 0
+  internalCooldownTime: 0
+  playerType: {fileID: 11400000, guid: e8814abdea8216143b1d8343a509e13b, type: 2}
+  weight: 4
+  state: 1
+  counterSprite: {fileID: 21300000, guid: 0a739604a069cb644b53199b5b98e442, type: 3}
+  damageIncrease: 1
+  placeChance: 1
+  counterDuration: 3
+  counterPrefab: {fileID: 3684697535945888153, guid: 9e25b2e451ee38e4ebc6139d54879142,
+    type: 3}
+  animationClip: {fileID: 7400000, guid: 7891e51e876b7b340a64b2314fb33592, type: 2}
+  hetBulletPool: {fileID: 11400000, guid: 17fadf4384f60344b92f091f1321fee0, type: 2}
+  upgradeDatas:
+  - {fileID: 11400000, guid: 7ebe865759aff74458ad09fbd548e32d, type: 2}
+  currentDamageIncrease: 1
+  currentPlaceChance: 1
+  currentCounterDuration: 3

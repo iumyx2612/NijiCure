@@ -16,7 +16,7 @@ MonoBehaviour:
   health: 50
   speed: 2.5
   rank: 0
-  critChance: 1
+  critChance: 0.1
   animatorController: {fileID: 9100000, guid: 3c77b387a9920ce4c910189b1f33905c, type: 2}
   startingAbility: {fileID: 11400000, guid: d22b31a8cc9bfc14a984e33fec9d701b, type: 2}
   ultimateAbility: {fileID: 11400000, guid: d8ac76264ec77664284ee1b451574c10, type: 2}

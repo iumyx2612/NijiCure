@@ -8,7 +8,7 @@ using DG.Tweening;
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
 {
-    private EnemyData enemyData;
+    public EnemyData enemyData;
 
     // Data
     private float speed;
@@ -17,12 +17,17 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
     private Vector2 direction;
     private bool isFacingRight;
     private bool isAlive;
+    private bool canMove;
 
     // Using GetComponent at Awake
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private Rigidbody2D rb;
     private Transform player;
+    
+    // UI stuff
+    [SerializeField] private IntVariable stageKillAmount;
+    [SerializeField] private GameEvent updateKillInfo;
 
 
     private void Awake()
@@ -31,11 +36,16 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        if (enemyData != null)
+        {
+            LoadData(enemyData);
+        }
     }
 
     private void OnEnable()
     {
         isAlive = true;
+        canMove = true;
         if (enemyData != null)
         {
             animator.runtimeAnimatorController = animatorController;
@@ -61,7 +71,7 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
 
     private void FixedUpdate()
     {
-        if (isAlive)
+        if (canMove)
         {
             direction = ((Vector2) player.position - rb.position).normalized;
             rb.MovePosition(rb.position + direction * speed * Time.fixedDeltaTime);
@@ -76,11 +86,19 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
         animatorController = data.animatorController;
     }
 
-    private void Flip()
+    public void Flip()
     {
         transform.Rotate(0f, 180f, 0f);
 
         isFacingRight = !isFacingRight;
+    }
+
+    public void KnockBack(Vector2 force, float duration)
+    {
+        canMove = false;
+        Sequence knockbackSequence = DOTween.Sequence();
+        knockbackSequence.Append(rb.DOMove(rb.position - force, duration));
+        knockbackSequence.OnComplete(() => { canMove = true; });
     }
 
     public void Dead(bool outOfLifeTime)
@@ -94,6 +112,9 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
 
     private void OnDeadComplete()
     {
+        // Update the UI Kill info
+        stageKillAmount.Value += 1;
+        updateKillInfo.Raise();
         transform.parent.gameObject.SetActive(false);
         transform.localPosition = new Vector2(0, 0);
         // Set alpha back to 1 since we set it to 0 in Dead()

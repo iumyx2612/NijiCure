@@ -8,12 +8,17 @@ public class EnemyDrop : MonoBehaviour
     [Header("Drop Exp")] 
     [SerializeField] private GameObjectCollection expPickUpPool; // Setup in ItemDropSystem.cs
     [SerializeField] private GameObject expPickUpPrefab;
-    private int expAmount;
 
     [Header("Drop Healing")] 
     [SerializeField] private FloatVariable healthDropChance; // Setup in ItemDropSystem.cs 
     [SerializeField] private GameObjectCollection healthPickUpPool; // Setup in ItemDropSystem.cs 
     [SerializeField] private GameObject healthPickUpPrefab;
+
+    [Header("Drop Coin")]
+    [SerializeField] private FloatVariable coinDropChance;
+    [SerializeField] private GameObjectCollection coinPickUpPool;
+    [SerializeField] private GameObject coinPickUpPrefab;
+    
     
     
     // ------------ Drop General stuff ------------
@@ -24,9 +29,8 @@ public class EnemyDrop : MonoBehaviour
     }
     
     // ------------ Drop Exp stuff ------------
-    public void DropExp(int _expAmount)
+    private void DropExp(int _expAmount)
     {
-        expAmount = _expAmount;
         bool hasInactiveExpDrop = false;
         for (int i = 0; i < expPickUpPool.Count; i++)
         {
@@ -79,5 +83,11 @@ public class EnemyDrop : MonoBehaviour
                 healthPickUpPool.Add(healthPickUp);
             }
         }
+    }
+    
+    // ------------ Drop Coin stuff -----------------
+    private void DropCoin()
+    {
+        
     }
 }

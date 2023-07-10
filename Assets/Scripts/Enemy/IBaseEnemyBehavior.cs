@@ -9,4 +9,8 @@ using UnityEngine;
 public interface IBaseEnemyBehavior
 {
     void Dead(bool outOfLifeTime);
+    void KnockBack(Vector2 force, float duration);
+    void Flip();
+
+//    void ModifySpeed(float amount, bool isIncrease);
 }

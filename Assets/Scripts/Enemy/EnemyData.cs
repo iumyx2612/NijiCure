@@ -25,6 +25,6 @@ public class EnemyData : ScriptableObject
         {
             {Shape.horizontal, (new Vector2(0.33f, 0.2f), new Vector2(0, -0.06f))},
             {Shape.vertical, (new Vector2(0.24f, 0.13f), new Vector2(0, -0.08f))},
-            {Shape.square, (new Vector2(0.24f, 0.22f), new Vector2(0, -0.8f))}
+            {Shape.square, (new Vector2(0.24f, 0.22f), new Vector2(0, -0.08f))}
         };
 }

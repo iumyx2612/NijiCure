@@ -8,7 +8,7 @@ using UnityEngine;
 // When Linh Lan eats, she will gain damage buff for x seconds
 public class NghienBunBoData : PassiveAbilityBase
 {
-    public int damageIncrease;
+    [Range(0f, 1f)] public int damageIncrease;
     public float duration;
     public AbilityCollection currentAbilities;
     public PassiveAbilityGameEvent activeCountdownImage;
@@ -19,9 +19,12 @@ public class NghienBunBoData : PassiveAbilityBase
     [HideInInspector] public float currentDuration;
     [HideInInspector] public int currentDamageIncrease;
 
+    private GameObject player;
+    
     public override void Initialize()
     {
-        base.Initialize();
+        player = GameObject.FindGameObjectWithTag("Player");
+        AddAndLoadComponent(player);
         currentDamageIncrease = damageIncrease;
         currentDuration = duration;
     }
@@ -40,10 +43,10 @@ public class NghienBunBoData : PassiveAbilityBase
         return upgradeDatas[currentLevel];
     }
 
-    public override void AddAndLoadComponent(GameObject player)
+    public override void AddAndLoadComponent(GameObject objectToAdd)
     {
-        player.AddComponent<NghienBunBo>();
-        player.GetComponent<NghienBunBo>().LoadData(this);
+        objectToAdd.AddComponent<NghienBunBo>();
+        objectToAdd.GetComponent<NghienBunBo>().LoadData(this);
     }
     
     public override bool IsMaxLevel()

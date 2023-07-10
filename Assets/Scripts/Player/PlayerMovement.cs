@@ -151,7 +151,7 @@ public class PlayerMovement : MonoBehaviour
         isFacingRight = !isFacingRight;
     }
 
-    public void LoadData(PlayerData data)
+    private void LoadData(PlayerData data)
     {
         playerData = data;
         speed = data.speed;

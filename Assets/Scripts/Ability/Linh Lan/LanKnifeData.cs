@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ScriptableObjectArchitecture;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [CreateAssetMenu(menuName = "Ability/Linh Lan/Lan Knife")]
 public class LanKnifeData : DamageAbilityBase
 {
-    public Sprite sprite;
+    [Header("Normal")]
     public float knifeSpeed;
     public float knifeDistance;
     public float knifeScale;
@@ -20,9 +22,12 @@ public class LanKnifeData : DamageAbilityBase
     [HideInInspector] public float currentKnifeScale;  
     [HideInInspector] public float currentKnifeDistance;  
     [HideInInspector] public float currentKnifeSpeed;  
-
-    // Fixed
-    [HideInInspector] public Vector2 colliderSize = new Vector2(0.2f, 0.15f);
+    
+    // Debuff
+    [Header("Debuff")]
+    public string debuffDescription;
+    public int numToDebuff;
+    private int internalNumToDebuff;
 
     public override void Initialize()
     {
@@ -35,6 +40,8 @@ public class LanKnifeData : DamageAbilityBase
         currentDamage = damage;
         currentCritChance = critChance;
 
+        internalNumToDebuff = 0;
+
         state = AbilityState.cooldown;
         
         pool = new List<GameObject>();
@@ -46,9 +53,26 @@ public class LanKnifeData : DamageAbilityBase
     }
 
     public override void TriggerAbility()
-    {
+    {    
+        internalNumToDebuff += 1;
         GameObject bullet = pool[0];
-        bullet.SetActive(true);
+        bullet.SetActive(true);   
+        // Debuff Attack
+        if (internalNumToDebuff >= numToDebuff)
+        {
+            Vector2 randomDirection = new Vector2();
+            // Random direction
+            if (Random.value < 0.5f)
+            {
+                randomDirection = new Vector2(1, Random.Range(-1, 1));
+            }
+            else
+            {
+                randomDirection = new Vector2(-1, Random.Range(-1, 1));
+            }
+            bullet.GetComponent<LanKnife>().bulletDirection = randomDirection;
+            internalNumToDebuff = 0;
+        }
     }
 
     public override void UpgradeAbility()
@@ -71,10 +95,11 @@ public class LanKnifeData : DamageAbilityBase
         return upgradeDatas[currentLevel];
     }
 
-    public override void PartialModify(int value)
+    public override void ModifyDamage(float percentage, bool increase)
     {
+        BaseModifyDamage(percentage, increase);
         GameObject bullet = pool[0];
-        bullet.GetComponent<LanKnife>().ModifyDamage(value);
+        bullet.GetComponent<LanKnife>().LoadData(this);
     }
     
     public override bool IsMaxLevel()

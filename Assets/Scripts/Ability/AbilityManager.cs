@@ -77,6 +77,7 @@ public class AbilityManager : MonoBehaviour
             if (ability.state == AbilityBase.AbilityState.ready)
             {
                 ability.TriggerAbility();
+                ability.state = AbilityBase.AbilityState.active;
             }
 
             if (ability.state == AbilityBase.AbilityState.cooldown)

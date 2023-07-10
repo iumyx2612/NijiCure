@@ -18,6 +18,7 @@ public class TimeEventEnemyMovement : MonoBehaviour, IBaseEnemyBehavior
     private RuntimeAnimatorController animatorController;
     
     private bool isAlive;
+    private bool canMove;
     private Vector2 direction;
     private bool isFacingRight;
     
@@ -38,6 +39,7 @@ public class TimeEventEnemyMovement : MonoBehaviour, IBaseEnemyBehavior
     private void OnEnable()
     {
         isAlive = true;
+        canMove = true;
         if (enemyData != null)
         {
             animator.runtimeAnimatorController = animatorController;
@@ -70,7 +72,7 @@ public class TimeEventEnemyMovement : MonoBehaviour, IBaseEnemyBehavior
     
     private void FixedUpdate()
     {
-        if (isAlive)
+        if (canMove)
         {
             // Constantly moving toward player
             if (!oneTime)
@@ -82,7 +84,7 @@ public class TimeEventEnemyMovement : MonoBehaviour, IBaseEnemyBehavior
         }
     }
     
-    private void Flip()
+    public void Flip()
     {
         transform.Rotate(0f, 180f, 0f);
 
@@ -96,6 +98,14 @@ public class TimeEventEnemyMovement : MonoBehaviour, IBaseEnemyBehavior
         lifeTime = _data.lifeTime;
         spriteRenderer.sprite = _data.sprite;
         animatorController = _data.animatorController;
+    }
+    
+    public void KnockBack(Vector2 force, float duration)
+    {
+        canMove = false;
+        Sequence knockbackSequence = DOTween.Sequence();
+        knockbackSequence.Append(rb.DOMove(rb.position - force, duration));
+        knockbackSequence.OnComplete(() => { canMove = true; });
     }
     
     public void Dead(bool outOfLifeTime)

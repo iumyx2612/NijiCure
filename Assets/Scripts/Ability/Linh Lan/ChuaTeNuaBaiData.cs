@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Ability/Linh Lan/Chua Te Nua Bai")]
 public class ChuaTeNuaBaiData : DamageAbilityBase
 {
-    public Sprite sprite;
     public float scale;
     public GameObject prefab;
     
@@ -62,10 +61,11 @@ public class ChuaTeNuaBaiData : DamageAbilityBase
         return upgradeDatas[currentLevel];
     }
 
-    public override void PartialModify(int value)
+    public override void ModifyDamage(float percentage, bool increase)
     {
+        BaseModifyDamage(percentage, increase);
         GameObject bullet = pool[0];
-        bullet.GetComponent<ChuaTeNuaBai>().ModifyDamage(value);
+        bullet.GetComponent<ChuaTeNuaBai>().LoadData(this);
     }
 
     public override bool IsMaxLevel()

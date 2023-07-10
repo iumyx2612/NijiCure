@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player/Player Data")]
 public class PlayerData : ScriptableObject
 {
+    public Sprite playerIcon;
     public PlayerType type;
     public int health;
     public float speed;
@@ -14,4 +15,15 @@ public class PlayerData : ScriptableObject
 
     public AbilityBase startingAbility;
     public UltimateAbilityBase ultimateAbility;
+
+    public void Set(PlayerData _data)
+    {
+        type = _data.type;
+        health = _data.health;
+        speed = _data.speed;
+        critChance = _data.critChance;
+        animatorController = _data.animatorController;
+        startingAbility = _data.startingAbility;
+        ultimateAbility = _data.ultimateAbility;
+    }
 }

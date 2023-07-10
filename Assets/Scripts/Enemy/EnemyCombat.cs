@@ -11,7 +11,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(BoxCollider2D))]
 public class EnemyCombat : MonoBehaviour
 {
-    private EnemyData enemyData;
+    public EnemyData enemyData;
+    private IBaseEnemyBehavior enemyMovement;
     
     // Data
     private int damage;
@@ -23,17 +24,35 @@ public class EnemyCombat : MonoBehaviour
     private float damageTime = 1f;
     private float internalDamageTime;
     private bool canAttack = true;
+    private bool crit;
+    private int actualDamageTaken;
     [SerializeField] private LayerMask playerMask;
     
+    // For counters that placed onto the Enemy
+    // One can have multiple type of counters
+    [HideInInspector] public int numCounters = 0; // Need to be accessed by Abilities
+    private float counterTimer;  
+    private float internalCounterTimer;
+    private Sprite counterSprite;
+    
     [Header("UI")]
+    // Damage UI
     [SerializeField] private IntGameEvent playerTakeDamage;
     [SerializeField] private TMP_Text damageUIPopupText;
     [SerializeField] private Color critColor = new Color(255, 221, 90, 1f);
+    // Counter UI
+    [SerializeField] private GameObject counterPanel;
+    [SerializeField] private Image counterImage;
+    [SerializeField] private TMP_Text numCounterText;
     
-
     private void Awake()
     {
         selfCollider = gameObject.GetComponent<BoxCollider2D>();
+        enemyMovement = GetComponent<IBaseEnemyBehavior>();
+        if (enemyData != null)
+        {
+            LoadData(enemyData);
+        }
     }
 
     private void OnEnable()
@@ -61,15 +80,27 @@ public class EnemyCombat : MonoBehaviour
 
             canAttack = false;
         }
+
+        if (numCounters > 0)
+        {
+            internalCounterTimer += Time.deltaTime;
+            if (internalCounterTimer >= counterTimer)
+            {
+                numCounters = 0;
+                CounterUIUpdate(false);
+            }
+        }
     }
 
-    public void TakeDamage(int damage, float multiplier) // Will be called in Bullet scripts
+    public void TakeDamage(int damage, float multiplier, Vector2 knockbackForce, float knockbackDur) // Will be called in Bullet scripts
     {
         // Is this memory efficient?
-        bool crit = multiplier > 1;
-        int actualDamage = (int) (damage * multiplier);
-        enemyHealth -= actualDamage;
-        DamagePopupSequence(actualDamage, crit);
+        crit = multiplier > 1;
+        actualDamageTaken = (int) (damage * multiplier);
+        // Apply knockback
+        enemyMovement.KnockBack(knockbackForce, knockbackDur);
+        enemyHealth -= actualDamageTaken;
+        DamagePopupSequence(actualDamageTaken, crit);
         if (enemyHealth <= 0)
         {
             gameObject.GetComponent<IBaseEnemyBehavior>().Dead(false);
@@ -84,6 +115,42 @@ public class EnemyCombat : MonoBehaviour
         selfCollider.size = data.shapeToColliderMapping[data.shape].Item1;
         selfCollider.offset = data.shapeToColliderMapping[data.shape].Item2;
     }
+    
+    // ------------------ Counter stuff ------------------
+    public void ModifyCounter(int _numCounters, float _counterTimer, Sprite _counterSprite)
+    {
+        counterSprite = _counterSprite;
+        numCounters += _numCounters;
+        counterTimer = _counterTimer;
+        // Reset timer of existing counters
+        if (_numCounters > 0)
+            internalCounterTimer = 0f;
+        
+        CounterUIUpdate(true);
+    }
+
+    private void CounterUIUpdate(bool update)
+    {
+        // De-active if run out of counter
+        if (counterPanel.activeSelf && !update)
+        {
+            counterPanel.SetActive(false);
+        }
+        // Update the display of counter
+        else if (counterPanel.activeSelf && update)
+        {
+            numCounterText.text = numCounters.ToString();
+        }
+        // Display the counter if not active
+        else
+        {
+            counterPanel.SetActive(true);
+            counterImage.sprite = counterSprite;
+            numCounterText.text = numCounters.ToString();
+        }
+    }
+    
+    // ------------------ UI Animation ------------------
 
     private void DamagePopupSequence(int damage, bool crit)
     {

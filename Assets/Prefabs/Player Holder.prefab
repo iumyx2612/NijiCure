@@ -251,7 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 856a51fb243f21e4abf073927f5f4808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 11400000, guid: a22eace179051884b9aaf3a4f252e306, type: 2}
+  playerData: {fileID: 11400000, guid: 1fff90af9ca5a704b91899c5d1da941e, type: 2}
   directionIndicator: {fileID: 1519284877681342835}
   arrowSprites:
   - {fileID: 21300000, guid: 337967dcdcace56449656ab959157a12, type: 3}
@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e40d13bb920ff54c8af5fd07d37ba62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 11400000, guid: a22eace179051884b9aaf3a4f252e306, type: 2}
+  playerData: {fileID: 11400000, guid: 1fff90af9ca5a704b91899c5d1da941e, type: 2}
   mapping: {fileID: 11400000, guid: 35cf456ac2ce50f4fbf003819e15c352, type: 2}
   playerBaseHealth: {fileID: 11400000, guid: bca77cb2dd728544593f3458f4a4a5d9, type: 2}
   playerCurrentHealth: {fileID: 11400000, guid: 0e1ab485882557d488fecd23c0d64c86,
@@ -1138,9 +1138,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1519284877417298877}
   - component: {fileID: 1519284877417298874}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player Shadow
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1464,7 +1464,7 @@ GameObject:
   - component: {fileID: 1519284877681342833}
   m_Layer: 6
   m_Name: Arrow Indicator
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

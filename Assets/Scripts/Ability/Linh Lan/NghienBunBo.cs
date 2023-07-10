@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class NghienBunBo : MonoBehaviour
 {
-    public NghienBunBoData abilityData;
     private NghienBunBoData baseData;
     private AbilityCollection currentAbilities;
     private List<DamageAbilityBase> damageAbilities = new List<DamageAbilityBase>();
@@ -44,7 +43,7 @@ public class NghienBunBo : MonoBehaviour
                 internalDuration = 0f;
                 foreach (DamageAbilityBase ability in damageAbilities)
                 {
-                    ability.PartialModify(-damageIncrease);
+                    ability.ModifyDamage(damageIncrease, false);
                 }
                 havingBuff = false;
                 damageAbilities.Clear();
@@ -65,7 +64,7 @@ public class NghienBunBo : MonoBehaviour
                     if (ability is DamageAbilityBase damageAbilityBase)
                     {
                         damageAbilities.Add(damageAbilityBase);
-                        damageAbilityBase.PartialModify(damageIncrease);
+                        damageAbilityBase.ModifyDamage(damageIncrease, true);
                     }
                 }
                 havingBuff = true;
@@ -84,7 +83,6 @@ public class NghienBunBo : MonoBehaviour
             baseData = data;
         }
 
-        abilityData = data;
         currentAbilities = data.currentAbilities;
         activeCountdownImage = data.activeCountdownImage;
         // Things can change during runtime
