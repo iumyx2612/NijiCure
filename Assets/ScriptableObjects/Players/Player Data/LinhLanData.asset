@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe4741fafb837d4e9f1110ee9e4295c, type: 3}
   m_Name: LinhLanData
   m_EditorClassIdentifier: 
+  characterName: Nika Linh Lan
+  playerIcon: {fileID: 21300000, guid: 0f5f97a9b5ff8d44e872fbc843ee105e, type: 3}
   type: {fileID: 11400000, guid: cbe7559e02d45fb479fda40e78a01e1e, type: 2}
   health: 50
   speed: 2.5

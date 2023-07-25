@@ -26,6 +26,11 @@ public class TimeEventEnemyMovement : MonoBehaviour, IBaseEnemyBehavior
     private Animator animator;
     private Rigidbody2D rb;
     private Transform player;
+    
+    // Cache
+    private EnemyDrop enemyDropScript;
+    
+    [SerializeField] private Transform enemyUICanvas;
 
 
     private void Awake()
@@ -33,7 +38,8 @@ public class TimeEventEnemyMovement : MonoBehaviour, IBaseEnemyBehavior
         animator = gameObject.GetComponent<Animator>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         rb = gameObject.GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform; // Huge performance issue
+        enemyDropScript = GetComponent<EnemyDrop>();
     }
 
     private void OnEnable()
@@ -49,6 +55,7 @@ public class TimeEventEnemyMovement : MonoBehaviour, IBaseEnemyBehavior
     // Update is called once per frame
     void Update()
     {
+        enemyUICanvas.position = transform.position;
         if (isAlive)
         {
             internalLifeTime += Time.deltaTime;
@@ -98,6 +105,7 @@ public class TimeEventEnemyMovement : MonoBehaviour, IBaseEnemyBehavior
         lifeTime = _data.lifeTime;
         spriteRenderer.sprite = _data.sprite;
         animatorController = _data.animatorController;
+        destination = _data.destination;
     }
     
     public void KnockBack(Vector2 force, float duration)
@@ -112,7 +120,7 @@ public class TimeEventEnemyMovement : MonoBehaviour, IBaseEnemyBehavior
     {
         // Only drop EXP when not die by out of life time
         if (!outOfLifeTime)
-            gameObject.GetComponent<EnemyDrop>().Drop(enemyData.expAmount);
+            enemyDropScript.Drop(enemyData.expAmount);
         Sequence deadSequence = DOTween.Sequence();
         deadSequence.Append(transform.DOMoveY(transform.position.y + 0.3f, 0.5f));
         deadSequence.Join(spriteRenderer.DOFade(0f, 0.5f));

@@ -21,6 +21,10 @@ MonoBehaviour:
   timeEventEnemyPool: {fileID: 11400000, guid: 0866aa6b63bcde244b0e22e36ff075ec, type: 2}
   lifeTime: Infinity
   oneTime: 0
+  destination:
+    _useConstant: 0
+    _constantValue: {x: 0, y: 0}
+    _variable: {fileID: 0}
   radius: 2
   playerPosRef: {fileID: 11400000, guid: 432f3cca538fe954dbf9e0ef7b9efa91, type: 2}
   baseSpawnArea: {x: 10, y: 8}

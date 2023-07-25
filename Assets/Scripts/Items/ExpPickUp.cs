@@ -26,9 +26,9 @@ public class ExpPickUp : MonoBehaviour, IPickUpItem
 
     private void Awake()
     {
-        selfCollider = gameObject.GetComponent<CircleCollider2D>();
+        selfCollider = GetComponent<CircleCollider2D>();
         selfCollider.isTrigger = true;
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         baseScale = transform.localScale;
     }
 

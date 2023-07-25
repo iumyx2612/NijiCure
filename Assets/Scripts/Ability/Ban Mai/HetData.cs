@@ -16,7 +16,7 @@ public class HetData : DamageAbilityBase
 
     public List<HetData> upgradeDatas;
 
-    public GameObjectCollection pool;
+    private List<GameObject> pool;
 
     [HideInInspector] public float currentKnockbackForce;
     [HideInInspector] public Vector2 currentScale;
@@ -25,11 +25,9 @@ public class HetData : DamageAbilityBase
     // Debuff
     [Header("Debuff")] 
     public int bar = 10;
-    public string debuffDescription;
 
     public override void Initialize()
     {
-        pool.Clear();
         internalCooldownTime = 0f;
         currentCooldownTime = cooldownTime;
 
@@ -41,6 +39,7 @@ public class HetData : DamageAbilityBase
  
         state = AbilityState.cooldown;
         
+        pool = new List<GameObject>();
         GameObject abilityHolder = new GameObject(abilityName + " Holder");
         GameObject bullet = Instantiate(bulletPrefab, abilityHolder.transform);
         bullet.GetComponent<Het>().LoadData(this);
@@ -107,5 +106,14 @@ public class HetData : DamageAbilityBase
     public override AbilityBase GetUpgradeDataInfo()
     {
         return upgradeDatas[currentLevel];
+    }
+    
+    // ----------- For Ngong Ability (Check NgongData.cs) -----------
+    public void NgongAbilityUpdate(NgongData _ngongData)
+    {
+        foreach (GameObject bullet in pool)
+        {
+            bullet.GetComponent<Het>().LoadNgongData(_ngongData);
+        }
     }
 }

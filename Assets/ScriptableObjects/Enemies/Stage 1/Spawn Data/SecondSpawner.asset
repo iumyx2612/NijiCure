@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dfa0bf4169e21e49b17973f0665b754, type: 3}
   m_Name: SecondSpawner
   m_EditorClassIdentifier: 
-  startTime: 30
+  startTime: 10
   endTime: 300
   spawnAmount: 2
   enemyData: {fileID: 11400000, guid: 0ee893bce25574c498dde26a81b746b6, type: 2}

@@ -11,12 +11,14 @@ using UnityEngine.SceneManagement;
 public class CharSelectButton : MonoBehaviour, ISelectHandler
 {
     private Button _this;
+    [SerializeField] private Image playerIcon;
     [SerializeField] private PlayerData stagePlayerData;
     [SerializeField] private PlayerData playerData;
     [SerializeField] private RuntimeAnimatorController animatorController;
     [SerializeField] private GameObject charImage;
     
     // Data Display Component
+    [SerializeField] private TMP_Text textCharName;
     [SerializeField] private TMP_Text textHPAmount;
     [SerializeField] private TMP_Text textSpdAmount;
     [SerializeField] private TMP_Text textCritAmount;
@@ -25,6 +27,7 @@ public class CharSelectButton : MonoBehaviour, ISelectHandler
     [SerializeField] private Image abilityImage;
     [SerializeField] private TMP_Text abilityName;
     [SerializeField] private TMP_Text abilityDesc;
+    [SerializeField] private TMP_Text debuffDesc;
     
     // Ultimate Display Component
     [SerializeField] private Image ultimateImage;
@@ -36,6 +39,7 @@ public class CharSelectButton : MonoBehaviour, ISelectHandler
     {
         _this = GetComponent<Button>();
         _this.onClick.AddListener(OnPlayerPicked);
+        playerIcon.sprite = playerData.playerIcon;
     }
 
     private void OnDisable()
@@ -48,13 +52,15 @@ public class CharSelectButton : MonoBehaviour, ISelectHandler
     {
         charImage.GetComponent<Animator>().runtimeAnimatorController = animatorController;
         // Update Data
+        textCharName.text = playerData.characterName;
         textHPAmount.text = playerData.health.ToString();
         textSpdAmount.text = playerData.speed.ToString();
-        textCritAmount.text = playerData.critChance.ToString();
+        textCritAmount.text = playerData.critChance * 100 + "%";
         // Update Ability
-        abilityImage.sprite = playerData.startingAbility.UISprite;
+        abilityImage.sprite = playerData.startingAbility.abilityIcon;
         abilityName.text = playerData.startingAbility.abilityName;
         abilityDesc.text = playerData.startingAbility.description;
+        debuffDesc.text = playerData.startingAbility.debuffDesc;
         // Update Ultimate
 //        ultimateImage.sprite = playerData.ultimateAbility.
         ultimateName.text = playerData.ultimateAbility.ultimateName;

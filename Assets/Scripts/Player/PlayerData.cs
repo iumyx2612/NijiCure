@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player/Player Data")]
 public class PlayerData : ScriptableObject
 {
+    public string characterName;
     public Sprite playerIcon;
     public PlayerType type;
     public int health;
@@ -18,6 +19,7 @@ public class PlayerData : ScriptableObject
 
     public void Set(PlayerData _data)
     {
+        playerIcon = _data.playerIcon;
         type = _data.type;
         health = _data.health;
         speed = _data.speed;

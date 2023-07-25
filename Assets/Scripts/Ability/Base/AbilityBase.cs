@@ -6,9 +6,10 @@ public abstract class AbilityBase : ScriptableObject
 {
     [Header("Base")]
     public string abilityName;
-    public Sprite UISprite;
+    public Sprite abilityIcon;
     public float cooldownTime;
     public string description;
+    public string debuffDesc; // Only use in starting Ability
     [HideInInspector] public int currentLevel; // Setup in AbilityManager.cs
     [HideInInspector] public float currentCooldownTime;
     [HideInInspector] public float internalCooldownTime; // This increment every update function to meet cooldownTime (if ability has cooldown)

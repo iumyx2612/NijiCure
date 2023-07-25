@@ -7,7 +7,7 @@ namespace ScriptableObjectArchitecture
     [System.Serializable]
     [CreateAssetMenu(
         fileName = "AbilityGameEvent.asset",
-        menuName = SOArchitecture_Utility.GAME_EVENT + "Ability")]
+        menuName = "Ability/Ability Game Event")]
     public class AbilityGameEvent : GameEventBase<AbilityBase>
     {
         

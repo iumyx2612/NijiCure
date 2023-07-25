@@ -18,14 +18,15 @@ public class EnemyDrop : MonoBehaviour
     [SerializeField] private FloatVariable coinDropChance;
     [SerializeField] private GameObjectCollection coinPickUpPool;
     [SerializeField] private GameObject coinPickUpPrefab;
-    
-    
+
+    [HideInInspector] public List<ItemDropCounter> itemDropCounters; // Modified by EnemyCounter.cs
     
     // ------------ Drop General stuff ------------
     public void Drop(int _expAmount)
     {
         DropExp(_expAmount);
         DropHealing();
+        DropFromCounters();
     }
     
     // ------------ Drop Exp stuff ------------
@@ -60,7 +61,7 @@ public class EnemyDrop : MonoBehaviour
         // Sample random number
         float randomNumber = Random.Range(0f, 1f);
         // If satisfy, then drop Heal
-        if (randomNumber > healthDropChance.Value)
+        if (randomNumber < healthDropChance.Value)
         {
             bool hasInactiveHealingPickUp = false;
             for (int i = 0; i < healthPickUpPool.Count; i++)
@@ -89,5 +90,15 @@ public class EnemyDrop : MonoBehaviour
     private void DropCoin()
     {
         
+    }
+    
+    // ------------ Item Drop from Counters ------------
+    private void DropFromCounters()
+    {
+        for (int i = 0; i < itemDropCounters.Count; i++)
+        {
+            ItemDropCounter counter = itemDropCounters[i];
+            counter.Drop(transform.position);
+        }
     }
 }

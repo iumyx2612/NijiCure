@@ -17,6 +17,7 @@ public class TimeEventEnemyData : EnemyData
     ///    public RuntimeAnimatorController animatorController;
     /// </summary>
     // Setup by TimeEventSpawnData ScriptableObject
+    [HideInInspector] public Vector2 destination;
     [HideInInspector] public float lifeTime;
     [HideInInspector] public bool oneTime;
 }

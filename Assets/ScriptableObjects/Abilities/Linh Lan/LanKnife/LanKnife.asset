@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: LanKnife
   m_EditorClassIdentifier: 
   abilityName: Yandere Mode
-  UISprite: {fileID: 21300000, guid: 28a3627de74b1144b97dfe99ab3594d6, type: 3}
+  abilityIcon: {fileID: 21300000, guid: 28a3627de74b1144b97dfe99ab3594d6, type: 3}
   cooldownTime: 1
   description: "Linh Lan n\xE9m dao theo h\u01B0\u1EDBng di chuy\u1EC3n c\u1EE7a
     c\xF4. Dao g\xE2y 12 s\xE1t th\u01B0\u01A1ng cho m\u1ED7i k\u1EBB \u0111\u1ECBch
     ch\u1EA1m ph\u1EA3i"
+  debuffDesc: "Sau m\u1ED7i 7 \u0111\xF2n \u0111\xE1nh, h\u01B0\u1EDBng n\xE9m dao
+    s\u1EBD b\u1ECB l\u1EC7ch do say r\u01B0\u1EE3u"
   currentLevel: 0
   currentCooldownTime: 1
   internalCooldownTime: 0
@@ -41,5 +43,4 @@ MonoBehaviour:
   currentKnifeScale: 1
   currentKnifeDistance: 7
   currentKnifeSpeed: 12
-  debuffDescription: 
   numToDebuff: 7

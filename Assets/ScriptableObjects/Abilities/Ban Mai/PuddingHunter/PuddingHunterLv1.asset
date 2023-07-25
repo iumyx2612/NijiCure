@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 301e8c46a3f55aa42980e01de1a4f729, type: 3}
+  m_Name: PuddingHunterLv1
+  m_EditorClassIdentifier: 
+  abilityName: "K\u1EBB s\u0103n Pudding"
+  abilityIcon: {fileID: 21300000, guid: 72de6c1a8f0fe0049a2adb9c372eec94, type: 3}
+  cooldownTime: 0
+  description: 
+  debuffDesc: 
+  currentLevel: 0
+  currentCooldownTime: 0
+  internalCooldownTime: 0
+  playerType: {fileID: 11400000, guid: e8814abdea8216143b1d8343a509e13b, type: 2}
+  weight: 0
+  state: 1
+  radius: 2
+  buffTime: 3
+  puddingHunterGameEvent: {fileID: 11400000, guid: e292cbdc65b6ee94f90d0a167cd794b2,
+    type: 2}
+  baseHetAbility: {fileID: 11400000, guid: 24c9e944e93d3de46bed21fba95a8265, type: 2}
+  damageIncrease: 0.1
+  healthIncrease: 2
+  dropChance: 0.5
+  activeCountdownImage: {fileID: 0}
+  puddingPrefab: {fileID: 3983803558927920023, guid: bb2bf72a26a4c3349a93e97114b21669,
+    type: 3}
+  itemDropCounter: {fileID: 11400000, guid: 77559a39dfbdead4c92bbe1ac524bdd7, type: 2}
+  upgradeDatas: []

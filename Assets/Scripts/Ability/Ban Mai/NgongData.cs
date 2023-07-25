@@ -6,49 +6,61 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
+/// <summary>
+/// Kẻ địch khi nhận sát thương từ Het có khả năng bị dính Ngọng counter
+/// Sát thương của Hét lên kẻ địch có Ngọng được tăng lên theo số Counter
+/// </summary>
 [CreateAssetMenu(menuName = "Ability/Ban Mai/Ngong")]
 public class NgongData : PassiveAbilityBase
 {
     [Header("Normal")]
-    public Sprite counterSprite; // Sprite to display on the enemy
-    [Range(0, 1)] public float damageIncrease;
+    [Range(0, 1)] public float damageBuff;
     [Range(0, 1)] public float placeChance;
-    public float counterDuration;
-    public GameObject counterPrefab;
-    public AnimationClip animationClip;
-    private List<GameObject> counterPool;
 
-    public GameObjectCollection hetBulletPool;
+    [Header("Counter")] 
+    public DamageBuffCounter dmgBuffCounter;
+    public float counterDuration;
+    public int maxNumCounter;
+    public GameObject counterPrefab;
+    private List<GameObject> counterPool;
+    
+    public HetData baseHetData;
     
     public List<NgongData> upgradeDatas;
 
-    [HideInInspector] public float currentDamageIncrease;
+    [HideInInspector] public float currentDamageBuff;
     [HideInInspector] public float currentPlaceChance;
     [HideInInspector] public float currentCounterDuration;
+    [HideInInspector] public int currentMaxNumCounter;
 
     public override void Initialize()
     {
-        internalCooldownTime = 0f;
-        currentCooldownTime = cooldownTime;
-        
-        currentDamageIncrease = damageIncrease;
+        base.Initialize();
+        currentDamageBuff = damageBuff;
         currentPlaceChance = placeChance;
         currentCounterDuration = counterDuration;
+        currentMaxNumCounter = maxNumCounter;
         
-        // Init the Counter
-        GameObject counterHolder = new GameObject(abilityName + " Counter");
+        // Init the Counter GameObject that holds animation\
+        counterPool = new List<GameObject>();
+        GameObject counterHolder = new GameObject(abilityName + " Counters");
         for (int i = 0; i < 20; i++)
         {
             GameObject counter = Instantiate(counterPrefab, counterHolder.transform);
-            counter.GetComponent<CounterObject>().AddAnim(animationClip, "Ngong"); 
             counterPool.Add(counter);
             counter.SetActive(false);
         }
         
-        foreach (GameObject bullet in hetBulletPool)
-        {
-            bullet.GetComponent<Het>().LoadNgongData(this);
-        }
+        // Parse the data to Ngong
+        baseHetData.NgongAbilityUpdate(this);
+        
+        // Parse the data to Counter
+        dmgBuffCounter.abilityName = abilityName;
+        dmgBuffCounter.existTime = currentCounterDuration;
+        dmgBuffCounter.maxNum = currentMaxNumCounter;
+        dmgBuffCounter.counterPrefab = counterPrefab;
+        dmgBuffCounter.counterPool.Clear();
+        dmgBuffCounter.counterPool = counterPool;
     }
 
     public override void AddAndLoadComponent(GameObject objectToAdd) {}
@@ -58,13 +70,14 @@ public class NgongData : PassiveAbilityBase
         NgongData upgradeData = upgradeDatas[currentLevel];
         // Update current
         currentCounterDuration = upgradeData.counterDuration;
-        currentDamageIncrease = upgradeData.damageIncrease;
+        currentDamageBuff = upgradeData.damageBuff;
         currentPlaceChance = upgradeData.placeChance;
-        // Apply the upgrade 
-        foreach (GameObject bullet in hetBulletPool)
-        {
-            bullet.GetComponent<Het>().LoadNgongData(this);
-        }
+        currentMaxNumCounter = upgradeData.maxNumCounter;
+        // Apply upgrade on Bullet
+        baseHetData.NgongAbilityUpdate(this);
+        // Apply upgrade on Counter
+        dmgBuffCounter.existTime = currentCounterDuration;
+        dmgBuffCounter.maxNum = currentMaxNumCounter;
     }
 
     public override bool IsMaxLevel()

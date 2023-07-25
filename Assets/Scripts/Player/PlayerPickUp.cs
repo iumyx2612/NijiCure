@@ -12,6 +12,8 @@ public class PlayerPickUp : MonoBehaviour
     
     private CircleCollider2D pickUpCollider;
 
+    [SerializeField] public string[] colliderTags;
+
 
     private void Awake()
     {
@@ -27,9 +29,12 @@ public class PlayerPickUp : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("PickUp") || other.CompareTag("Heal"))
+        for (int i = 0; i < colliderTags.Length; i++)
         {
-            other.GetComponent<IPickUpItem>().OnPickUp(transform);
+            if (other.CompareTag(colliderTags[i]))
+            {
+                other.GetComponent<IPickUpItem>().OnPickUp(transform);
+            }
         }
     }
 }

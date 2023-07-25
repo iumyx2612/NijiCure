@@ -14,19 +14,19 @@ public class TestRotation : MonoBehaviour
     
     private void OnEnable()
     {
-        basePos = transform.position;
+       rb.velocity = Vector2.right;
     }
 
     private void Update()
     {
-        if (Vector2.Distance(basePos, transform.position) >= 2f)
-        {
-            gameObject.SetActive(false);
-        }
+//        if (Vector2.Distance(basePos, transform.position) >= 2f)
+//        {
+//            gameObject.SetActive(false);
+//        }
     }
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + Vector2.right * Time.fixedDeltaTime * 5);
+//        rb.MovePosition(rb.position + Vector2.right * Time.fixedDeltaTime * 5);
     }
 }

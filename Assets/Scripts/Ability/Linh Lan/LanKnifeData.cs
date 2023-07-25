@@ -25,7 +25,6 @@ public class LanKnifeData : DamageAbilityBase
     
     // Debuff
     [Header("Debuff")]
-    public string debuffDescription;
     public int numToDebuff;
     private int internalNumToDebuff;
 

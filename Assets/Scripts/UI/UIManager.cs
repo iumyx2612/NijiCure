@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private AbilityCollection abilitiesToPick; // Setup in AbilityManager.cs
     [SerializeField] private AbilityCollection currentAbilities; // Setup in AbilityManager.cs 
 
+    [Header("Timer for Passive Abilities")]
     [SerializeField] private List<Image> countdownImages;
     [SerializeField] private PassiveAbilityGameEvent activeCountdownImage; // Raised by some Passive Abilities
 
@@ -43,7 +44,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameEvent updateKillInfo; // Raise in EnemyMovement.cs
     [SerializeField] private IntVariable stageKillAmount; // Setup in EnemyMovement.cs
     [SerializeField] private TMP_Text killAmountText;
-    
+
+    [Header("Player Panel Info")] 
+    [SerializeField] private PlayerData stagePlayerData;
+    [SerializeField] private Image charIcon;
+    [SerializeField] private List<Image> abilityIcons;
+    [SerializeField] private AbilityGameEvent updateAbilityPanel; // Called in AbilityManager.cs
     
     // Start is called before the first frame update
     void Awake()
@@ -56,6 +62,12 @@ public class UIManager : MonoBehaviour
         activeCountdownImage.AddListener(ActiveCountdownImage);
 //        updateCoinInfo.AddListener(UpdateCoinInfo);
         updateKillInfo.AddListener(UpdateKillInfo);
+        updateAbilityPanel.AddListener(UpdateAbilityPanel);
+    }
+
+    private void Start()
+    {
+        UpdateCharIcon();
     }
 
     private void OnDisable()
@@ -66,6 +78,7 @@ public class UIManager : MonoBehaviour
         activeCountdownImage.RemoveListener(ActiveCountdownImage);
 //        updateCoinInfo.RemoveListener(UpdateCoinInfo);
         updateKillInfo.RemoveListener(UpdateKillInfo);
+        updateAbilityPanel.RemoveListener(UpdateAbilityPanel);
     }
 
     // Update is called once per frame
@@ -102,7 +115,7 @@ public class UIManager : MonoBehaviour
                 TMP_Text abilityPickerName = abilityPickerNames[i];
                 TMP_Text abilityPickerDesc = abilityPickerDescs[i];
 
-                abilityPickerImg.sprite = ability.UISprite;
+                abilityPickerImg.sprite = ability.abilityIcon;
                 abilityPickerName.text = ability.abilityName;
                 abilityPickerDesc.text = ability.description;
 
@@ -111,7 +124,7 @@ public class UIManager : MonoBehaviour
                 {
                     // If yes, display the upgrade info
                     AbilityBase _ability = ability.GetUpgradeDataInfo();
-                    abilityPickerImg.sprite = _ability.UISprite;
+                    abilityPickerImg.sprite = _ability.abilityIcon;
                     abilityPickerName.text = _ability.abilityName;
                     abilityPickerDesc.text = _ability.description;
                 }
@@ -176,4 +189,22 @@ public class UIManager : MonoBehaviour
         killAmountText.text = stageKillAmount.Value.ToString();
     }
     
+    // --------------- Char Info section ---------------
+    private void UpdateCharIcon()
+    {
+        charIcon.sprite = stagePlayerData.playerIcon;
+    }
+
+    private void UpdateAbilityPanel(AbilityBase ability)
+    {
+        for (int i = 0; i < abilityIcons.Count; i++)
+        {
+            Image abilityIcon = abilityIcons[i];
+            if (abilityIcon.sprite != ability.abilityIcon)
+            {
+                abilityIcon.sprite = ability.abilityIcon;
+                break;
+            }
+        }
+    }
 }

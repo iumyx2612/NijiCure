@@ -23,6 +23,7 @@ public class NghienBunBoData : PassiveAbilityBase
     
     public override void Initialize()
     {
+        base.Initialize();
         player = GameObject.FindGameObjectWithTag("Player");
         AddAndLoadComponent(player);
         currentDamageIncrease = damageIncrease;

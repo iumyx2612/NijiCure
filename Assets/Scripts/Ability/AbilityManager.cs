@@ -22,7 +22,9 @@ public class AbilityManager : MonoBehaviour
     [SerializeField] private AbilityCollection abilitiesToPick; // List of 4 Abilities to pick when LvlUp
     [SerializeField] private GameEvent levelUpAbilityUIPopUp; // Setup in UIManager.cs
     [SerializeField] private AbilityDistribution _abilityDistribution; // Act as a reference to abilityDistribution
+    [SerializeField] private AbilityGameEvent updateAbilityPanel; // Setup in UIManager.cs
     private AbilityDistribution abilityDistribution;
+    
     
     
     private void Awake()
@@ -58,6 +60,7 @@ public class AbilityManager : MonoBehaviour
     {
         currentAbilities.Add(mapping.startingAbility);
         currentAbilities[0].Initialize();
+        updateAbilityPanel.Raise(mapping.startingAbility);
     }
 
     private void OnDisable()
@@ -104,6 +107,8 @@ public class AbilityManager : MonoBehaviour
             // Create a new BulletPool for this ability and add it to the List
             currentAbilities.Add(ability);
             ability.Initialize();
+            // Update the Ability panel
+            updateAbilityPanel.Raise(ability);
         }
         // If player already has this ability
         else

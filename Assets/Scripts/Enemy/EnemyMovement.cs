@@ -24,8 +24,10 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
     private Animator animator;
     private Rigidbody2D rb;
     private Transform player;
+    private EnemyDrop enemyDropScript;
     
     // UI stuff
+    [SerializeField] private Transform enemyUICanvas;
     [SerializeField] private IntVariable stageKillAmount;
     [SerializeField] private GameEvent updateKillInfo;
 
@@ -35,7 +37,8 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
         animator = gameObject.GetComponent<Animator>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         rb = gameObject.GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform; // Performance issue
+        enemyDropScript = GetComponent<EnemyDrop>();
         if (enemyData != null)
         {
             LoadData(enemyData);
@@ -54,6 +57,7 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
 
     private void Update()
     {
+        enemyUICanvas.position = transform.position;
         if (isAlive)
         {
             // Going right but not facing right
@@ -103,7 +107,7 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
 
     public void Dead(bool outOfLifeTime)
     {
-        gameObject.GetComponent<EnemyDrop>().Drop(enemyData.expAmount);
+        enemyDropScript.Drop(enemyData.expAmount);
         Sequence deadSequence = DOTween.Sequence();
         deadSequence.Append(transform.DOMoveY(transform.position.y + 0.3f, 0.5f));
         deadSequence.Join(spriteRenderer.DOFade(0f, 0.5f));

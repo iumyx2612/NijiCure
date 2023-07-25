@@ -27,12 +27,11 @@ public class Het : MonoBehaviour
     private int bar;
     private int randomDamage;
     
-    // For Ngong counters
-    private Sprite counterSprite;
-    private bool hasNgongPassiveAbility;
+    // For Ngong Ability
+    private DamageBuffCounter ngongBuffCounter;
+    private bool hasNgongAbility;
+    private float damageBuffPerCounter;
     private float counterPlaceChance;
-    private float counterDuration;
-    private float damageIncreasePerCounter;
     
     // Movement
     [SerializeField] private Vector2Variable playerPosRef; // Where to shoot ability from
@@ -95,11 +94,10 @@ public class Het : MonoBehaviour
 
     public void LoadNgongData(NgongData _data)
     {
-        hasNgongPassiveAbility = true;
-        counterSprite = _data.counterSprite;
+        hasNgongAbility = true;
         counterPlaceChance = _data.currentPlaceChance;
-        counterDuration = _data.currentCounterDuration;
-        damageIncreasePerCounter = _data.currentDamageIncrease;
+        damageBuffPerCounter = _data.currentDamageBuff;
+        ngongBuffCounter = _data.dmgBuffCounter;
     }
     
     private void ResetBullet()
@@ -114,10 +112,15 @@ public class Het : MonoBehaviour
         if (collider.CompareTag("Enemy"))
         {
             // Only call to GetComponent
-            EnemyCombat script = collider.GetComponent<EnemyCombat>();
+            EnemyCombat combatScript = collider.GetComponent<EnemyCombat>();
+            EnemyCounter counterScript = collider.GetComponent<EnemyCounter>();
 
             // For Ngong counters
-            int numCounters = script.numCounters;
+            int numCounters = 0;
+            if (hasNgongAbility)
+            {
+                numCounters = counterScript.GetNumDmgBuffCounter(ngongBuffCounter);
+            }
             
             // For crit
             float critRandom = Random.Range(0f, 1f);
@@ -131,16 +134,17 @@ public class Het : MonoBehaviour
             }
 
             randomDamage = Random.Range(damage - bar, damage + bar);
-            script.TakeDamage(
-                (int)(randomDamage + randomDamage * damageIncreasePerCounter * numCounters),
+            combatScript.TakeDamage(
+                (int)(randomDamage + randomDamage * damageBuffPerCounter * numCounters),
                 multiplier,knockbackForce * direction, knockbackDuration);
             // Apply counter after dealing damage
-            if (hasNgongPassiveAbility)
+            if (hasNgongAbility)
             {
                 float counterRandom = Random.Range(0f, 1f);
                 if (counterRandom <= counterPlaceChance)
                 {
-                    script.ModifyCounter(1, counterDuration, counterSprite);
+                    counterScript.AddDmgBuffCounter(ngongBuffCounter);
+                    ngongBuffCounter.CounterActive(collider.transform.position);
                 }
             }
         }

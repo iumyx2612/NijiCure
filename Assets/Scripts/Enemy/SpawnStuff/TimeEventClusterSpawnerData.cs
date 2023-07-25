@@ -25,6 +25,7 @@ public class TimeEventClusterSpawnerData : TimeEventSpawnDataBase
 
     public override void SpawnTimeEventEnemy(GameObject enemyPrefab)
     {
+        timeEventEnemyData.destination = destination.Value;
         List<Vector2> spawnPositions = SampleSpawnPosition();
         // Check for number of inactive Enemy Prefab
         int numInActive = 0;
@@ -66,7 +67,8 @@ public class TimeEventClusterSpawnerData : TimeEventSpawnDataBase
         {
             for (int i = 0; i < spawnAmount; i++)
             {
-                GameObject enemyHolder = Instantiate(enemyPrefab);
+                GameObject holder = GameObject.Find("Time Event Enemy Holder");
+                GameObject enemyHolder = Instantiate(enemyPrefab, holder.transform);
                 GameObject enemy = enemyHolder.transform.GetChild(0).gameObject;
                 enemy.GetComponent<TimeEventEnemyMovement>().LoadData(timeEventEnemyData);
                 enemy.GetComponent<EnemyCombat>().LoadData(timeEventEnemyData);

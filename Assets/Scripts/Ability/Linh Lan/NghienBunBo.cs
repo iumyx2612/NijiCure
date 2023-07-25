@@ -14,11 +14,10 @@ public class NghienBunBo : MonoBehaviour
     // Data
     private int damageIncrease;
     private float duration;
-    private float internalDuration;
 
     // Act as state management system
-    private bool havingBuff = false;
-    private bool justReceivedBuff = false;
+    private bool havingBuff;
+    private float internalDuration;
     
     // For UI Stuff
     private PassiveAbilityGameEvent activeCountdownImage; // Setup in UIManager.cs
@@ -28,14 +27,6 @@ public class NghienBunBo : MonoBehaviour
     {
         if (havingBuff)
         {
-            // If we receive buff while buff still exists
-            if (justReceivedBuff)
-            {
-                // Reset buff timer
-                internalDuration = 0f;
-                // Immediately reset this or internalDuration will forever be 0
-                justReceivedBuff = false;
-            }
             internalDuration += Time.deltaTime;
             // Ran out of buff time
             if (internalDuration >= duration)
@@ -69,10 +60,10 @@ public class NghienBunBo : MonoBehaviour
                 }
                 havingBuff = true;
             }
-            // Change state to justReceivedBuff
-            justReceivedBuff = true;
+            // Reset buff
+            internalDuration = 0f;
             // Active the UI 
-            activeCountdownImage.Raise(new PassiveAbilityInfo(duration, baseData.UISprite));
+            activeCountdownImage.Raise(new PassiveAbilityInfo(duration, baseData.abilityIcon));
         }
     }
 

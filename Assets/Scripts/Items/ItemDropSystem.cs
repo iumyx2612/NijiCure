@@ -21,7 +21,7 @@ public class ItemDropSystem : MonoBehaviour
         // Setup ScriptableObject Variables
         expPickUpPool.Clear();
         healPickUpPool.Clear();
-        healthDropChance.Value = 1 / 2f;
+        healthDropChance.Value = 1 / 200f;
 
         // Other initialization
         SpawnExpPool();

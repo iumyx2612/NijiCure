@@ -10,7 +10,7 @@ public class ChuaTeNuaBaiData : DamageAbilityBase
     
     public List<ChuaTeNuaBaiData> upgradeDatas;
 
-    [HideInInspector] public List<GameObject> pool;
+    private List<GameObject> pool;
     
     // For Upgrade
     [HideInInspector] public float currentScale;
