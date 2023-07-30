@@ -31,7 +31,7 @@ public class EnemyCombat : MonoBehaviour
     private IBaseEnemyBehavior enemyMovement;
     
     // For counters that placed onto the Enemy
-    [HideInInspector] public List<DamageBuffCounter> dmgBuffCounters;
+    [HideInInspector] public List<DamageBuffCounter> dmgBuffCounters = new List<DamageBuffCounter>();
     private float counterDmgMultiplier;
     
     [Header("UI")]
@@ -85,7 +85,7 @@ public class EnemyCombat : MonoBehaviour
         foreach (DamageBuffCounter counter in dmgBuffCounters)
         {
             // If the counter is set to increase damage of ALL ABILITIES
-            if (!counter.singleAbiity)
+            if (!counter.singleAbility)
                 counterDmgMultiplier += counter.damageBuff;
         }
         actualDamageTaken = (int) (damage * multiplier * counterDmgMultiplier);

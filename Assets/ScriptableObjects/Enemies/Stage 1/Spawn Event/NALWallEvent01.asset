@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea709faf47060444bc204a7da42dfd6, type: 3}
   m_Name: NALWallEvent01
   m_EditorClassIdentifier: 
-  startTime: 10
+  startTime: 7
   endTime: 0
   spawnAmount: 20
   enemyData: {fileID: 0}
   weight: 0
-  timeEventEnemyData: {fileID: 11400000, guid: 8e78413b2534148468fc2ad6a3cf87ab, type: 2}
+  timeEventEnemyData: {fileID: 11400000, guid: 2c666e100575cd54b81ead54e88c03da, type: 2}
   timeEventEnemyPool: {fileID: 11400000, guid: 0866aa6b63bcde244b0e22e36ff075ec, type: 2}
   lifeTime: 5
   oneTime: 1

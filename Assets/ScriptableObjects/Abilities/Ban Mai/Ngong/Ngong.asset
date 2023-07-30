@@ -17,7 +17,7 @@ MonoBehaviour:
   cooldownTime: 0
   description: "M\u1ED7i k\u1EBB \u0111\u1ECBch tr\xFAng \"S\u01B0 t\u1EED h\u1ED1ng\"
     s\u1EBD c\xF3 15% b\u1ECB d\xEDnh Ng\u1ECDng trong v\xF2ng 3s (t\u1ED1i \u0111a
-    2 l\u1EA7n). S\xE1t th\u01B0\u01A1ng c\u1EE7a \"S\u01B0 t\u1EED h\u1ED1ng\" nh\u1EADn
+    1 l\u1EA7n). S\xE1t th\u01B0\u01A1ng c\u1EE7a \"S\u01B0 t\u1EED h\u1ED1ng\" nh\u1EADn
     v\xE0o t\u0103ng l\xEAn 40% v\u1EDBi m\u1ED7i l\u1EA7n d\xEDnh Ng\u1ECDng"
   debuffDesc: 
   currentLevel: 0
@@ -28,15 +28,15 @@ MonoBehaviour:
   state: 1
   damageBuff: 0.4
   placeChance: 0.15
-  dmgBuffCounter: {fileID: 11400000, guid: 7eab9b6b755ee2d4c8649fa2b3c8a473, type: 2}
+  dmgBuffCounterData: {fileID: 11400000, guid: 7e005f5108e70eb4fbc595fa525a49b3, type: 2}
   counterDuration: 3
-  maxNumCounter: 2
+  maxNumCounter: 1
   counterPrefab: {fileID: 499635798831949371, guid: f156f349824ee044c9f02f12bf34ce61,
     type: 3}
   baseHetData: {fileID: 11400000, guid: 24c9e944e93d3de46bed21fba95a8265, type: 2}
   upgradeDatas:
   - {fileID: 11400000, guid: c4008e71bfc204a4c87772ac5b8faf27, type: 2}
-  currentDamageBuff: 0.4
-  currentPlaceChance: 0.9
-  currentCounterDuration: 3
+  currentDamageBuff: 1
+  currentPlaceChance: 1
+  currentCounterDuration: 10
   currentMaxNumCounter: 2

@@ -35,6 +35,7 @@ public class Rage : MonoBehaviour
             if (internalBuffTime >= buffTime)
             {
                 internalBuffTime = 0f;
+                havingBuff = false;
                 baseHetData.ModifyDamage(damageBuff, false);
             }
         }
@@ -43,9 +44,10 @@ public class Rage : MonoBehaviour
     private void Buff()
     {
         activeCountdownImage.Raise(new PassiveAbilityInfo(buffTime, abilityIcon));
-        havingBuff = true;
         internalBuffTime = 0f;
-        baseHetData.ModifyDamage(damageBuff, true);
+        if (!havingBuff)
+            baseHetData.ModifyDamage(damageBuff, true);
+        havingBuff = true;
     }
 
     public void LoadData(RageData _data)
@@ -57,12 +59,14 @@ public class Rage : MonoBehaviour
             baseHetData = _data.baseHetData;
         if (playerTakeDamage == null)
         {
-            abilityIcon = _data.abilityIcon;
             playerTakeDamage = _data.playerTakeDamage;
             playerTakeDamage.AddListener(Buff);
         }
         if (activeCountdownImage == null)
+        {
+            abilityIcon = _data.abilityIcon;
             activeCountdownImage = _data.activeCountdownImage;
+        }
     }
     
 }

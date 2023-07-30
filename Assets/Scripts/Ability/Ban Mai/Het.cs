@@ -28,7 +28,7 @@ public class Het : MonoBehaviour
     private int randomDamage;
     
     // For Ngong Ability
-    private DamageBuffCounter ngongBuffCounter;
+    private DamageBuffCounterData ngongBuffCounterData;
     private bool hasNgongAbility;
     private float damageBuffPerCounter;
     private float counterPlaceChance;
@@ -97,7 +97,7 @@ public class Het : MonoBehaviour
         hasNgongAbility = true;
         counterPlaceChance = _data.currentPlaceChance;
         damageBuffPerCounter = _data.currentDamageBuff;
-        ngongBuffCounter = _data.dmgBuffCounter;
+        ngongBuffCounterData = _data.dmgBuffCounterData;
     }
     
     private void ResetBullet()
@@ -119,7 +119,7 @@ public class Het : MonoBehaviour
             int numCounters = 0;
             if (hasNgongAbility)
             {
-                numCounters = counterScript.GetNumDmgBuffCounter(ngongBuffCounter);
+                numCounters = counterScript.GetNumDmgBuffCounter(ngongBuffCounterData);
             }
             
             // For crit
@@ -143,8 +143,9 @@ public class Het : MonoBehaviour
                 float counterRandom = Random.Range(0f, 1f);
                 if (counterRandom <= counterPlaceChance)
                 {
-                    counterScript.AddDmgBuffCounter(ngongBuffCounter);
-                    ngongBuffCounter.CounterActive(collider.transform.position);
+                    counterScript.AddDmgBuffCounter(ngongBuffCounterData);
+                    DamageBuffCounter counter = counterScript.GetDmgBuffCounter(ngongBuffCounterData);
+                    counter.Active(collider.transform.position);
                 }
             }
         }

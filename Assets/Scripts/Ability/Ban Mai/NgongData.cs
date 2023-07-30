@@ -18,7 +18,7 @@ public class NgongData : PassiveAbilityBase
     [Range(0, 1)] public float placeChance;
 
     [Header("Counter")] 
-    public DamageBuffCounter dmgBuffCounter;
+    public DamageBuffCounterData dmgBuffCounterData;
     public float counterDuration;
     public int maxNumCounter;
     public GameObject counterPrefab;
@@ -55,12 +55,12 @@ public class NgongData : PassiveAbilityBase
         baseHetData.NgongAbilityUpdate(this);
         
         // Parse the data to Counter
-        dmgBuffCounter.abilityName = abilityName;
-        dmgBuffCounter.existTime = currentCounterDuration;
-        dmgBuffCounter.maxNum = currentMaxNumCounter;
-        dmgBuffCounter.counterPrefab = counterPrefab;
-        dmgBuffCounter.counterPool.Clear();
-        dmgBuffCounter.counterPool = counterPool;
+        dmgBuffCounterData.abilityName = abilityName;
+        dmgBuffCounterData.existTime = currentCounterDuration;
+        dmgBuffCounterData.maxNum = currentMaxNumCounter;
+        dmgBuffCounterData.counterPrefab = counterPrefab;
+        dmgBuffCounterData.counterPool.Clear();
+        dmgBuffCounterData.counterPool = counterPool;
     }
 
     public override void AddAndLoadComponent(GameObject objectToAdd) {}
@@ -76,8 +76,8 @@ public class NgongData : PassiveAbilityBase
         // Apply upgrade on Bullet
         baseHetData.NgongAbilityUpdate(this);
         // Apply upgrade on Counter
-        dmgBuffCounter.existTime = currentCounterDuration;
-        dmgBuffCounter.maxNum = currentMaxNumCounter;
+        dmgBuffCounterData.existTime = currentCounterDuration;
+        dmgBuffCounterData.maxNum = currentMaxNumCounter;
     }
 
     public override bool IsMaxLevel()

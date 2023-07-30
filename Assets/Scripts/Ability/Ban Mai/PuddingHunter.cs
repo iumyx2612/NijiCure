@@ -15,7 +15,7 @@ public class PuddingHunter : MonoBehaviour
     private GameEvent puddingHunterGameEvent; // Raise in BanMaiPudding.cs
     private float radius;
     private float damageIncrease;
-    private ItemDropCounter counter;
+    private ItemDropCounterData counterData;
     private float buffTime;
     private float internalBuffTime;
     private HetData baseHetAbility; // We take the Base Ability of Het
@@ -24,6 +24,7 @@ public class PuddingHunter : MonoBehaviour
     private bool havingBuff;
     
     // UI
+    private Sprite abilityIcon;
     private PassiveAbilityGameEvent activeCountdownImage; // Setup in UIManager.cs
     
     private void Awake()
@@ -54,6 +55,8 @@ public class PuddingHunter : MonoBehaviour
 
     private void TriggerBuff()
     {
+        // UI
+        activeCountdownImage.Raise(new PassiveAbilityInfo(buffTime, abilityIcon));
         // Reset buff time
         internalBuffTime = 0f;
 
@@ -70,7 +73,7 @@ public class PuddingHunter : MonoBehaviour
         if (collider.CompareTag("Enemy"))
         {
             EnemyCounter script = collider.GetComponent<EnemyCounter>();
-            script.AddItemDropCounter(counter);
+            script.AddItemDropCounter(counterData);
         }
     }
 
@@ -79,7 +82,7 @@ public class PuddingHunter : MonoBehaviour
         if (collider.CompareTag("Enemy"))
         {
             EnemyCounter script = collider.GetComponent<EnemyCounter>();
-            script.RemoveItemDropCounter(counter);
+            script.RemoveItemDropCounter(counterData);
         }
     }
 
@@ -87,7 +90,7 @@ public class PuddingHunter : MonoBehaviour
     {
         radius = _data.radius;
         selfCollider.radius = radius;
-        counter = _data.itemDropCounter;
+        counterData = _data.itemDropCounterData;
         buffTime = _data.buffTime;
         damageIncrease = _data.damageIncrease;
         if (baseHetAbility == null)
@@ -96,6 +99,12 @@ public class PuddingHunter : MonoBehaviour
         {
             puddingHunterGameEvent = _data.puddingHunterGameEvent;
             puddingHunterGameEvent.AddListener(TriggerBuff);   
+        }
+
+        if (activeCountdownImage == null)
+        {
+            abilityIcon = _data.abilityIcon;
+            activeCountdownImage = _data.activeCountdownImage;
         }
     }
 }

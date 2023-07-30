@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class EnemyCounter : MonoBehaviour
     [SerializeField] private Image spdCounterImage;
     [SerializeField] private Image dmgCounterImage;
     [SerializeField] private Image itemDropCounterImage;
+    [SerializeField] private TMP_Text counterTimer;
     
     private IBaseEnemyBehavior iBaseEnemyBehaviorScript;
     private EnemyCombat enemyCombatScript;
@@ -34,6 +36,8 @@ public class EnemyCounter : MonoBehaviour
     // Reset all UI elements
     private void OnDisable()
     {
+        ClearDmgBuffCounters();
+        ClearItemDropCounters();
         dmgCounterImage.gameObject.SetActive(false);
         itemDropCounterImage.gameObject.SetActive(false);
     }
@@ -66,6 +70,7 @@ public class EnemyCounter : MonoBehaviour
             string counterName = stringToDmgBuffCounter.Keys.ElementAt(i);
             // We use reverse order since we want to remove the Counter if time reach
             DamageBuffCounter dmgBuffCounter = stringToDmgBuffCounter.Values.ElementAt(i);
+            counterTimer.text = dmgBuffCounter.internalTime.ToString("0.00");
             dmgBuffCounter.internalTime += Time.deltaTime;
             if (dmgBuffCounter.internalTime >= dmgBuffCounter.existTime)
             {
@@ -80,7 +85,7 @@ public class EnemyCounter : MonoBehaviour
     }
 
     // ------------------ Item Drop Counter ------------------
-    public int GetNumItemDropCounter(ItemDropCounter _counter)
+    public int GetNumItemDropCounter(ItemDropCounterData _counter)
     {
         if (stringToItemDropCounter.ContainsKey(_counter.counterName))
         {
@@ -90,9 +95,15 @@ public class EnemyCounter : MonoBehaviour
 
         return 0;
     }
-    
-    public void AddItemDropCounter(ItemDropCounter _counter)
+
+    public ItemDropCounter GetItemDropCounter(ItemDropCounterData _counter)
     {
+        return stringToItemDropCounter[_counter.counterName];
+    }
+    
+    public void AddItemDropCounter(ItemDropCounterData _counter)
+    {
+        // Make a copy of the counter
         // If the added Counter exists
         if (stringToItemDropCounter.ContainsKey(_counter.counterName))
         {
@@ -107,14 +118,17 @@ public class EnemyCounter : MonoBehaviour
         }
         else
         {
-            stringToItemDropCounter.Add(_counter.counterName, _counter);
+            ItemDropCounter addedCounter = new ItemDropCounter();
+            addedCounter.SetData(_counter);
+            addedCounter.currentNum += 1;
+            stringToItemDropCounter.Add(addedCounter.counterName, addedCounter);
             // Update the List in EnemyDrop cuz it has new Counter
             UpdateItemDropCounter();
         }
         UpdateItemDropCounterUI();
     }
 
-    public void RemoveItemDropCounter(ItemDropCounter _counter)
+    public void RemoveItemDropCounter(ItemDropCounterData _counter)
     {
         if (stringToItemDropCounter.ContainsKey(_counter.counterName))
         {
@@ -145,9 +159,14 @@ public class EnemyCounter : MonoBehaviour
             }
         }
     }
+
+    private void ClearItemDropCounters()
+    {
+        stringToItemDropCounter.Clear();
+    }
     
     // ------------------ Damage Buff Counter ------------------
-    public int GetNumDmgBuffCounter(DamageBuffCounter _counter)
+    public int GetNumDmgBuffCounter(DamageBuffCounterData _counter)
     {
         if (stringToDmgBuffCounter.ContainsKey(_counter.counterName))
         {
@@ -158,7 +177,12 @@ public class EnemyCounter : MonoBehaviour
         return 0;
     }
     
-    public void AddDmgBuffCounter(DamageBuffCounter _counter)
+    public DamageBuffCounter GetDmgBuffCounter(DamageBuffCounterData _counter)
+    {
+        return stringToDmgBuffCounter[_counter.counterName];
+    }
+    
+    public void AddDmgBuffCounter(DamageBuffCounterData _counter)
     {
         // If the added Counter exists
         if (stringToDmgBuffCounter.ContainsKey(_counter.counterName))
@@ -174,13 +198,17 @@ public class EnemyCounter : MonoBehaviour
         }
         else
         {
-            stringToDmgBuffCounter.Add(_counter.counterName, _counter);
+            // Make a copy of the counter
+            DamageBuffCounter addedCounter = new DamageBuffCounter();
+            addedCounter.SetData(_counter);
+            addedCounter.currentNum += 1;
+            stringToDmgBuffCounter.Add(addedCounter.counterName, addedCounter);
             // Update the List in EnemyDrop cuz it has new Counter
             UpdateDmgBuffCounter();
         }
     }
 
-    public void RemoveDmgBuffCounter(DamageBuffCounter _counter)
+    public void RemoveDmgBuffCounter(DamageBuffCounterData _counter)
     {
         if (stringToDmgBuffCounter.ContainsKey(_counter.counterName))
         {
@@ -210,5 +238,10 @@ public class EnemyCounter : MonoBehaviour
                 dmgCounterImage.gameObject.SetActive(false);   
             }
         }
+    }
+    
+    private void ClearDmgBuffCounters()
+    {
+        stringToDmgBuffCounter.Clear();
     }
 }

@@ -28,7 +28,7 @@ MonoBehaviour:
   state: 1
   damageBuff: 0.4
   placeChance: 0.2
-  dmgBuffCounter: {fileID: 11400000, guid: 7eab9b6b755ee2d4c8649fa2b3c8a473, type: 2}
+  dmgBuffCounterData: {fileID: 11400000, guid: 7e005f5108e70eb4fbc595fa525a49b3, type: 2}
   counterDuration: 3
   maxNumCounter: 2
   counterPrefab: {fileID: 499635798831949371, guid: f156f349824ee044c9f02f12bf34ce61,

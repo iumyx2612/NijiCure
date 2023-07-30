@@ -22,63 +22,8 @@ public class TimeEventClusterSpawnerData : TimeEventSpawnDataBase
     public float radius; // How big the square
     public Vector2Variable playerPosRef;
     public Vector2 baseSpawnArea;
-
-    public override void SpawnTimeEventEnemy(GameObject enemyPrefab)
-    {
-        timeEventEnemyData.destination = destination.Value;
-        List<Vector2> spawnPositions = SampleSpawnPosition();
-        // Check for number of inactive Enemy Prefab
-        int numInActive = 0;
-        foreach (GameObject enemyHolder in timeEventEnemyPool)
-        {
-            if (!enemyHolder.activeSelf)
-            {
-                numInActive += 1;
-                if (numInActive >= spawnAmount)
-                {
-                    break;
-                }
-            }
-        }
-        int numRequired = 0;
-        // If numInActive is large enough to support Instantiate from Pool
-        if (numInActive >= spawnAmount)
-        {
-            // Grab Prefab from Pool to active
-            for (int i = 0; i < timeEventEnemyPool.Count; i++)
-            {
-                GameObject timeEventEnemyHolder = timeEventEnemyPool[i];
-                if (!timeEventEnemyHolder.activeSelf)
-                {
-                    GameObject timeEventEnemy = timeEventEnemyHolder.transform.GetChild(0).gameObject;
-                    timeEventEnemy.GetComponent<TimeEventEnemyMovement>().LoadData(timeEventEnemyData);
-                    timeEventEnemy.GetComponent<EnemyCombat>().LoadData(timeEventEnemyData);
-                    timeEventEnemyHolder.transform.position = spawnPositions[i];
-                    timeEventEnemyHolder.SetActive(true);
-                    numRequired += 1;
-                    if (numRequired >= spawnAmount)
-                    {
-                        break;
-                    }
-                }
-            }   
-        }
-        else
-        {
-            for (int i = 0; i < spawnAmount; i++)
-            {
-                GameObject holder = GameObject.Find("Time Event Enemy Holder");
-                GameObject enemyHolder = Instantiate(enemyPrefab, holder.transform);
-                GameObject enemy = enemyHolder.transform.GetChild(0).gameObject;
-                enemy.GetComponent<TimeEventEnemyMovement>().LoadData(timeEventEnemyData);
-                enemy.GetComponent<EnemyCombat>().LoadData(timeEventEnemyData);
-                enemyHolder.transform.position = spawnPositions[i];
-                timeEventEnemyPool.Add(enemyHolder);
-            }
-        }
-    }
     
-    private List<Vector2> SampleSpawnPosition()
+    protected override List<Vector2> SampleSpawnPosition()
     {
         List<Vector2> spawnPositions = new List<Vector2>();
         Vector2 spawnPos = PickBasePosition();

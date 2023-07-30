@@ -34,9 +34,11 @@ MonoBehaviour:
   damageIncrease: 0.15
   healthIncrease: 3
   dropChance: 0.15
-  activeCountdownImage: {fileID: 0}
+  activeCountdownImage: {fileID: 11400000, guid: 3e165fcbbe9aa5f43ad9354ca89b2705,
+    type: 2}
   puddingPrefab: {fileID: 3983803558927920023, guid: bb2bf72a26a4c3349a93e97114b21669,
     type: 3}
-  itemDropCounter: {fileID: 11400000, guid: 77559a39dfbdead4c92bbe1ac524bdd7, type: 2}
+  itemDropCounterData: {fileID: 11400000, guid: 41eed160433f9bf4c8bec98dd7aa86b9,
+    type: 2}
   upgradeDatas:
   - {fileID: 11400000, guid: 22597c9868ed9114e91ee2c08db2b9f0, type: 2}

@@ -2,27 +2,32 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using Unity.Mathematics;
+using AngleCalculation;
 
 
 public class TestRotation : MonoBehaviour
 {
-    public Rigidbody2D rb;
-    public Vector2 basePos;
-    
-    private void OnEnable()
+    public Vector2 direction;
+    public float angle;
+    public Vector2 finalDirection;
+
+
+    private void OnDrawGizmosSelected()
     {
-       rb.velocity = Vector2.right;
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, finalDirection);
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(transform.position, direction);
     }
 
     private void Update()
     {
-//        if (Vector2.Distance(basePos, transform.position) >= 2f)
-//        {
-//            gameObject.SetActive(false);
-//        }
+        int mult = 1;
+        if (direction.x < 0)
+        {
+            mult = -1;
+        }
+        finalDirection = AngleCal.DegreeToVector2(direction, angle * mult);
     }
 
     private void FixedUpdate()

@@ -19,7 +19,7 @@ public class EnemyDrop : MonoBehaviour
     [SerializeField] private GameObjectCollection coinPickUpPool;
     [SerializeField] private GameObject coinPickUpPrefab;
 
-    [HideInInspector] public List<ItemDropCounter> itemDropCounters; // Modified by EnemyCounter.cs
+    [HideInInspector] public List<ItemDropCounter> itemDropCounters = new List<ItemDropCounter>(); // Modified by EnemyCounter.cs
     
     // ------------ Drop General stuff ------------
     public void Drop(int _expAmount)
@@ -98,7 +98,7 @@ public class EnemyDrop : MonoBehaviour
         for (int i = 0; i < itemDropCounters.Count; i++)
         {
             ItemDropCounter counter = itemDropCounters[i];
-            counter.Drop(transform.position);
+            counter.Active(transform.position);
         }
     }
 }

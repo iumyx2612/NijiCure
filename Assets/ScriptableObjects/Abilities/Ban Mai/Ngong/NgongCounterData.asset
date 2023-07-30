@@ -9,36 +9,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d24100755a53164d8420df13c15b2fe, type: 3}
-  m_Name: PuddingDropCounter
+  m_Script: {fileID: 11500000, guid: f41e620e1592f1c47a1896868952ceea, type: 3}
+  m_Name: NgongCounterData
   m_EditorClassIdentifier: 
-  counterName: PuddingDrop
-  maxNum: 1
-  existTime: Infinity
-  internalTime: 220.54678
+  counterName: Ngong
+  maxNum: 2
+  existTime: 10
+  internalTime: 0
   currentNum: 0
-  abilityName: "K\u1EBB s\u0103n Pudding"
-  itemDropPrefab: {fileID: 3983803558927920023, guid: bb2bf72a26a4c3349a93e97114b21669,
+  singleAbility: 1
+  damageBuff: 0
+  abilityName: "Ng\u1ECDng"
+  counterPool:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  counterPrefab: {fileID: 499635798831949371, guid: f156f349824ee044c9f02f12bf34ce61,
     type: 3}
-  dropChance: 0.5
-  itemDropPool:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}

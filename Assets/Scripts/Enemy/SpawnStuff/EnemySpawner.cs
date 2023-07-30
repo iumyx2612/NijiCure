@@ -26,6 +26,7 @@ public class EnemySpawner : MonoBehaviour
     private float internalSpawnCooldown;
     [SerializeField] private int spawnCooldown; // how fast to spawn enemy
     [SerializeField] private int maxEnemyLimit; // For performance purpose and easy mode
+    [SerializeField] private int numEnemyOnScreen;
     
     // For Time Event
     [Header("Time Event")]
@@ -56,37 +57,40 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        // --------------- Normal Spawn ---------------
-        // At the last element of list
-        if (index < stageSpawnData.Count - 1)
+        numEnemyOnScreen = GetNumActiveEnemies();
+        if (numEnemyOnScreen <= maxEnemyLimit)
         {
-            // Check for next SpawnData.startTime, if meet requirement, add to currentSpawnData 
-            if (stageSpawnData[index + 1].startTime <= timeSinceGameStart.Value)
+            // --------------- Normal Spawn ---------------
+            // At the last element of list
+            if (index < stageSpawnData.Count - 1)
             {
-                currentSpawnData.Add(stageSpawnData[index + 1]);
-                spawnDistribution.Add(stageSpawnData[index + 1], stageSpawnData[index + 1].weight);
-                index += 1;
+                // Check for next SpawnData.startTime, if meet requirement, add to currentSpawnData 
+                if (stageSpawnData[index + 1].startTime <= timeSinceGameStart.Value)
+                {
+                    currentSpawnData.Add(stageSpawnData[index + 1]);
+                    spawnDistribution.Add(stageSpawnData[index + 1], stageSpawnData[index + 1].weight);
+                    index += 1;
+                }
+            }
+            // Check for SpawnData.endTime, if meet requirement, remove from currentSpawnData
+            // Reverse order since we have to remove things from List 
+            for (int i = currentSpawnData.Count - 1; i >= 0; i--)
+            {
+                if (currentSpawnData[i].endTime < timeSinceGameStart.Value)
+                {
+                    currentSpawnData.RemoveAt(i);
+                    spawnDistribution.RemoveAt(i);
+                }
+            }
+            
+            // Spawn enemy
+            internalSpawnCooldown += Time.deltaTime;
+            if (internalSpawnCooldown >= spawnCooldown)
+            {
+                SpawnEnemy();
+                internalSpawnCooldown = 0f;
             }
         }
-        // Check for SpawnData.endTime, if meet requirement, remove from currentSpawnData
-        // Reverse order since we have to remove things from List 
-        for (int i = currentSpawnData.Count - 1; i >= 0; i--)
-        {
-            if (currentSpawnData[i].endTime < timeSinceGameStart.Value)
-            {
-                currentSpawnData.RemoveAt(i);
-                spawnDistribution.RemoveAt(i);
-            }
-        }
-        
-        // Spawn enemy
-        internalSpawnCooldown += Time.deltaTime;
-        if (internalSpawnCooldown >= spawnCooldown)
-        {
-            SpawnEnemy();
-            internalSpawnCooldown = 0f;
-        }
-        
         // --------------- Time Event ---------------
         // Spawn Event Enemy
         foreach (TimeEventSpawnDataBase timeEventSpawn in stageTimeEventSpawnData)
@@ -214,5 +218,19 @@ public class EnemySpawner : MonoBehaviour
         spawnPos += playerPosRef.Value;
 
         return spawnPos;
+    }
+
+    private int GetNumActiveEnemies()
+    {
+        numEnemyOnScreen = 0;
+        for (int i = 0; i < enemyHolderPool.Count; i++)
+        {
+            if (enemyHolderPool[i].activeSelf)
+            {
+                numEnemyOnScreen += 1;
+            }
+        }
+
+        return numEnemyOnScreen;
     }
 }

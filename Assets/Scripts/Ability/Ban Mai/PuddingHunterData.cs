@@ -32,7 +32,7 @@ public class PuddingHunterData : PassiveAbilityBase
     
     public GameObject puddingPrefab;
     private List<GameObject> puddingPool;
-    public ItemDropCounter itemDropCounter;
+    public ItemDropCounterData itemDropCounterData;
 
     public List<PuddingHunterData> upgradeDatas;
 
@@ -57,11 +57,11 @@ public class PuddingHunterData : PassiveAbilityBase
             itemDrop.SetActive(false);
         }
         // Parse the data to Counter
-        itemDropCounter.abilityName = abilityName;
-        itemDropCounter.itemDropPrefab = puddingPrefab;
-        itemDropCounter.itemDropPool.Clear();
-        itemDropCounter.itemDropPool = puddingPool;
-        itemDropCounter.dropChance = dropChance;
+        itemDropCounterData.abilityName = abilityName;
+        itemDropCounterData.itemDropPrefab = puddingPrefab;
+        itemDropCounterData.itemDropPool.Clear();
+        itemDropCounterData.itemDropPool = puddingPool;
+        itemDropCounterData.dropChance = dropChance;
     }
 
     /// <summary>

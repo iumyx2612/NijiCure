@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: LanKnifeLv1
   m_EditorClassIdentifier: 
   abilityName: Yandere Mode Lv 1
-  UISprite: {fileID: 21300000, guid: 28a3627de74b1144b97dfe99ab3594d6, type: 3}
+  abilityIcon: {fileID: 21300000, guid: 23d36a5cef6de114f92e8720faa9bc5c, type: 3}
   cooldownTime: 0.8
   description: "Gi\u1EA3m th\u1EDDi gian m\u1ED7i l\u1EA7n n\xE9m dao \u0111i 20%"
+  debuffDesc: 
   currentLevel: 0
   currentCooldownTime: 0
   internalCooldownTime: 0
@@ -24,7 +25,8 @@ MonoBehaviour:
   state: 0
   damage: 12
   currentDamage: 0
-  sprite: {fileID: 21300000, guid: 28a3627de74b1144b97dfe99ab3594d6, type: 3}
+  critChance: 0
+  currentCritChance: 0
   knifeSpeed: 12
   knifeDistance: 7
   knifeScale: 1
@@ -35,4 +37,4 @@ MonoBehaviour:
   currentKnifeScale: 0
   currentKnifeDistance: 0
   currentKnifeSpeed: 0
-  colliderSize: {x: 0.2, y: 0.15}
+  numToDebuff: 0

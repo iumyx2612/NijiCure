@@ -10646,13 +10646,12 @@ MonoBehaviour:
   playerPosRef: {fileID: 11400000, guid: 432f3cca538fe954dbf9e0ef7b9efa91, type: 2}
   baseSpawnArea: {x: 11, y: 7}
   spawnCooldown: 3
-  maxEnemyLimit: 0
+  maxEnemyLimit: 1
+  numEnemyOnScreen: 0
   timeEventEnemyPrefab: {fileID: 545334111410856653, guid: 045ef2f9577d7b344adf180d4f072fe8,
     type: 3}
   timeEventEnemyPool: {fileID: 11400000, guid: 0866aa6b63bcde244b0e22e36ff075ec, type: 2}
-  stageTimeEventSpawnData:
-  - {fileID: 11400000, guid: 6ad07c9f0c5eb0345ad0c8a6a6418af2, type: 2}
-  - {fileID: 11400000, guid: 6702dbd19abcaa1459005e1f693de0ee, type: 2}
+  stageTimeEventSpawnData: []
 --- !u!4 &687961372
 Transform:
   m_ObjectHideFlags: 0
@@ -10747,6 +10746,15 @@ MonoBehaviour:
   killAmountText: {fileID: 2114779171}
   stagePlayerData: {fileID: 11400000, guid: 1fff90af9ca5a704b91899c5d1da941e, type: 2}
   charIcon: {fileID: 7946617}
+  abilityIcons:
+  - {fileID: 1381445487}
+  - {fileID: 728932304}
+  - {fileID: 1651802052}
+  - {fileID: 1698244727}
+  - {fileID: 1461045542}
+  - {fileID: 1276160995}
+  - {fileID: 0}
+  updateAbilityPanel: {fileID: 11400000, guid: 9c327f377f4f7054ab04403558abbf05, type: 2}
 --- !u!4 &702947927
 Transform:
   m_ObjectHideFlags: 0
@@ -34811,6 +34819,7 @@ MonoBehaviour:
   levelUpAbilityUIPopUp: {fileID: 11400000, guid: 6e7d8110003a91a469e2dbd6dc4c6e94,
     type: 2}
   _abilityDistribution: {fileID: 2091127160}
+  updateAbilityPanel: {fileID: 11400000, guid: 9c327f377f4f7054ab04403558abbf05, type: 2}
 --- !u!4 &1651686993
 Transform:
   m_ObjectHideFlags: 0

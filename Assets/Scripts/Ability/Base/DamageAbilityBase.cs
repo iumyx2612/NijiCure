@@ -31,11 +31,11 @@ public abstract class DamageAbilityBase : AbilityBase
     {
         if (increase)
         {
-            currentDamage = (int) ((1 + percentage) * currentDamage);
+            currentDamage = Mathf.RoundToInt( (1 + percentage) * currentDamage);
         }
         else
         {
-            currentDamage = (int) (currentDamage / (1 + percentage));
+            currentDamage = Mathf.RoundToInt(currentDamage / (1 + percentage));
         }
     }
 
