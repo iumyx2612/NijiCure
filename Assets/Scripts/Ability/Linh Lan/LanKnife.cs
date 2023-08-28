@@ -112,7 +112,7 @@ public class LanKnife : MonoBehaviour
             {
                 multiplier = 1f;
             }
-            collider.gameObject.GetComponent<EnemyCombat>().TakeDamage(damage, multiplier,
+            collider.GetComponent<EnemyCombat>().TakeDamage(damage, multiplier,
                 Vector2.zero, 0);
         }
     }

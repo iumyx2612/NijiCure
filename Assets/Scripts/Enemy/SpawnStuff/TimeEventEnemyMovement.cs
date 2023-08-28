@@ -31,6 +31,9 @@ public class TimeEventEnemyMovement : MonoBehaviour, IBaseEnemyBehavior
     private EnemyDrop enemyDropScript;
     
     [SerializeField] private Transform enemyUICanvas;
+    
+    // Counter
+    private List<MoveSpeedCounter> spdCounters;
 
 
     private void Awake()
@@ -106,6 +109,7 @@ public class TimeEventEnemyMovement : MonoBehaviour, IBaseEnemyBehavior
         spriteRenderer.sprite = _data.sprite;
         animatorController = _data.animatorController;
         destination = _data.destination;
+        oneTime = _data.oneTime;
     }
     
     public void KnockBack(Vector2 force, float duration)
@@ -134,5 +138,33 @@ public class TimeEventEnemyMovement : MonoBehaviour, IBaseEnemyBehavior
         Color temp = spriteRenderer.color;
         temp.a = 1;
         spriteRenderer.color = temp;
+    }
+    
+    public void ModifySpdCounter(List<MoveSpeedCounter> counters)
+    {
+        spdCounters = new List<MoveSpeedCounter>(counters);
+        float percentage = 0f;
+        for (int i = 0; i < spdCounters.Count; i++)
+        {
+            MoveSpeedCounter counter = spdCounters[i];
+            // TODO: Is this math correct?
+            if (counter.increase)
+                percentage += counter.percentage;
+            else
+                percentage -= counter.percentage;
+        }
+        ModifySpeed(percentage, false);
+    }
+    
+    public void ModifySpeed(float percentage, bool toBase)
+    {
+        if (!toBase)
+        {
+            speed = (percentage + 1) * speed;
+        }
+        else
+        {
+            speed = speed / (1 + percentage);
+        }
     }
 }

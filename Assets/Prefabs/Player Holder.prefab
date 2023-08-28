@@ -252,6 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 1fff90af9ca5a704b91899c5d1da941e, type: 2}
+  speed: {fileID: 11400000, guid: f24a24d4801d2044592cf2cb22bf66fe, type: 2}
   directionIndicator: {fileID: 1519284877681342835}
   arrowSprites:
   - {fileID: 21300000, guid: 337967dcdcace56449656ab959157a12, type: 3}
@@ -279,6 +280,7 @@ MonoBehaviour:
   isAlive: {fileID: 11400000, guid: 66b9337ac36fe734a9953da1b7b9c105, type: 2}
   onPlayerKilled: {fileID: 11400000, guid: 09e3b63d80ac09d4dab5f6ddedffb105, type: 2}
   playerTakeDamage: {fileID: 11400000, guid: 846389cad684ae049a84fe2a0d826943, type: 2}
+  playerDodgeChance: {fileID: 11400000, guid: 25a91315e2252cd4bb6294996f1a5276, type: 2}
   healthBarImageUpdate: {fileID: 11400000, guid: ef9853fdfad52b44eaf6a746b492f35f,
     type: 2}
   healthTextPopupGameEvent: {fileID: 11400000, guid: 7691c7816f7b91d4785742bab09dbc84,

@@ -45,6 +45,6 @@ public class BanMaiPudding : MonoBehaviour, IPickUpItem
 
     public void LoadData(PuddingHunterData _data)
     {
-        healthIncrease = _data.healthIncrease;
+        healthIncrease = _data.currentHealthIncrease;
     }
 }

@@ -36,7 +36,10 @@ public class NghienBunBoData : PassiveAbilityBase
         // Update current
         currentDuration = upgradeData.duration;
         currentDamageIncrease = upgradeData.damageIncrease;
+        // Apply upgrade
         player.GetComponent<NghienBunBo>().LoadData(this);
+        
+        currentLevel += 1;
     }
     
     public override AbilityBase GetUpgradeDataInfo()

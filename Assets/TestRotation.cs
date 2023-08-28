@@ -7,31 +7,42 @@ using AngleCalculation;
 
 public class TestRotation : MonoBehaviour
 {
-    public Vector2 direction;
-    public float angle;
-    public Vector2 finalDirection;
+    public Vector2 firstPoint;
+    public Vector2 center;
+    private Vector2 direction;
+    public List<Vector2> points = new List<Vector2>();
+    public float dist;
+    public float offsetAngle;
+    public int numPoints;
 
+    private void Start()
+    {
+        direction = Vector2.right;
+        firstPoint = center + direction * dist;
+        points.Add(firstPoint);
+    }
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, finalDirection);
-        Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position, direction);
+        for (int i = 0; i < points.Count; i++)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(points[i], 0.1f);
+        }
     }
 
     private void Update()
     {
-        int mult = 1;
-        if (direction.x < 0)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            mult = -1;
+            Debug.Log("A");
+            points.Clear();
+            offsetAngle = 360f / numPoints;
+            for (int i = 1; i < numPoints; i++)
+            {
+                direction = AngleCal.DegreeToVector2(direction, offsetAngle);
+                points.Add(center + direction * dist);
+            }
         }
-        finalDirection = AngleCal.DegreeToVector2(direction, angle * mult);
-    }
-
-    private void FixedUpdate()
-    {
-//        rb.MovePosition(rb.position + Vector2.right * Time.fixedDeltaTime * 5);
     }
 }

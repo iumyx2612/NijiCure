@@ -30,6 +30,9 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
     [SerializeField] private Transform enemyUICanvas;
     [SerializeField] private IntVariable stageKillAmount;
     [SerializeField] private GameEvent updateKillInfo;
+    
+    // Speed counter
+    private List<MoveSpeedCounter> spdCounters;
 
 
     private void Awake()
@@ -107,7 +110,8 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
 
     public void Dead(bool outOfLifeTime)
     {
-        enemyDropScript.Drop(enemyData.expAmount);
+        if (!outOfLifeTime)
+            enemyDropScript.Drop(enemyData.expAmount);
         Sequence deadSequence = DOTween.Sequence();
         deadSequence.Append(transform.DOMoveY(transform.position.y + 0.3f, 0.5f));
         deadSequence.Join(spriteRenderer.DOFade(0f, 0.5f));
@@ -125,5 +129,33 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
         Color temp = spriteRenderer.color;
         temp.a = 1;
         spriteRenderer.color = temp;
+    }
+
+    public void ModifySpdCounter(List<MoveSpeedCounter> counters)
+    {
+        spdCounters = new List<MoveSpeedCounter>(counters);
+        float percentage = 0f;
+        for (int i = 0; i < spdCounters.Count; i++)
+        {
+            MoveSpeedCounter counter = spdCounters[i];
+            // TODO: Is this math correct?
+            if (counter.increase)
+                percentage += counter.percentage;
+            else
+                percentage -= counter.percentage;
+        }
+        ModifySpeed(percentage, false);
+    }
+
+    public void ModifySpeed(float percentage, bool toBase)
+    {
+        if (!toBase)
+        {
+            speed = (percentage + 1) * speed;
+        }
+        else
+        {
+            speed = speed / (1 + percentage);
+        }
     }
 }

@@ -197,14 +197,14 @@ public class UIManager : MonoBehaviour
 
     private void UpdateAbilityPanel(AbilityBase ability)
     {
-        for (int i = 0; i < abilityIcons.Count; i++)
-        {
-            Image abilityIcon = abilityIcons[i];
-            if (abilityIcon.sprite != ability.abilityIcon)
-            {
-                abilityIcon.sprite = ability.abilityIcon;
-                break;
-            }
-        }
+//        for (int i = 0; i < abilityIcons.Count; i++)
+//        {
+//            Image abilityIcon = abilityIcons[i];
+//            if (abilityIcon.sprite != ability.abilityIcon)
+//            {
+//                abilityIcon.sprite = ability.abilityIcon;
+//                break;
+//            }
+//        }
     }
 }

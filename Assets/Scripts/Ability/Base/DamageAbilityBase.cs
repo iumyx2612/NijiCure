@@ -12,7 +12,12 @@ public abstract class DamageAbilityBase : AbilityBase
     
     public override void Initialize()
     {
-        throw new System.NotImplementedException();
+        internalCooldownTime = 0f;
+        currentCooldownTime = cooldownTime;
+        currentDamage = damage;
+        currentCritChance = critChance;
+
+        state = AbilityState.cooldown;
     }
 
     public override void TriggerAbility()

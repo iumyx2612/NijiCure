@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public PlayerData playerData;
     
     // Movement stuff
-    private float speed;
+    [SerializeField] private FloatVariable speed;
     private Rigidbody2D rb;
     private Vector2 movement;
     private Vector2 oldMovement; // To check if player has changed position
@@ -129,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         // Handle physics
-        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movement * speed.Value * Time.fixedDeltaTime);
     }
     
     private bool isMoving(Vector2 movement)
@@ -154,7 +154,7 @@ public class PlayerMovement : MonoBehaviour
     private void LoadData(PlayerData data)
     {
         playerData = data;
-        speed = data.speed;
+        speed.Value = data.speed;
         animatorController = data.animatorController;
     }
 }

@@ -18,15 +18,9 @@ public class ChuaTeNuaBaiData : DamageAbilityBase
     
     public override void Initialize()
     {
-        internalCooldownTime = 0f;
-        currentCooldownTime = cooldownTime;
-
-        // Runtime data
-        currentDamage = damage;
-        currentScale = scale;
-        currentCritChance = critChance;
+        base.Initialize();
         
-        state = AbilityState.cooldown;
+        currentScale = scale;
         
         pool = new List<GameObject>();
         GameObject abilityHolder = new GameObject( " Holder");

@@ -8,9 +8,9 @@ using UnityEngine;
 /// This is basically Okayu's starting ability
 /// Du Ca can hurt herself cuz she's Ngố
 /// </summary>
+[CreateAssetMenu(menuName = "Ability/Du Ca/Nem Dau")]
 public class NemDauData : DamageAbilityBase
 {
-    public List<float> angles;
     public Vector2 scale;
     public int numBullets;
     public GameObject bulletPrefab;
@@ -19,7 +19,6 @@ public class NemDauData : DamageAbilityBase
 
     [HideInInspector] public List<GameObject> pool;
 
-    [HideInInspector] public List<float> currentAngles;
     [HideInInspector] public Vector2 currentScale;
     [HideInInspector] public int currentNumBullets;
 
@@ -29,15 +28,8 @@ public class NemDauData : DamageAbilityBase
     
     public override void Initialize()
     {
-        internalCooldownTime = 0f;
-        currentCooldownTime = cooldownTime;
-        state = AbilityState.cooldown;
-
-        currentDamage = damage;
-        currentCritChance = critChance;
+        base.Initialize();
         
-        List<float> temp = new List<float>(angles);
-        currentAngles = temp;
         currentScale = scale;
         currentNumBullets = numBullets;
         
@@ -46,7 +38,7 @@ public class NemDauData : DamageAbilityBase
         for (int i = 0; i < numBullets; i++)
         {
             GameObject bullet = Instantiate(bulletPrefab, abilityHolder.transform);
-            bullet.GetComponent<NemDau>().LoadData(this, i);
+            bullet.GetComponent<NemDau>().LoadData(this);
             pool.Add(bullet);
             bullet.SetActive(false);
         }
@@ -72,21 +64,49 @@ public class NemDauData : DamageAbilityBase
 
     public override void UpgradeAbility()
     {
-        base.UpgradeAbility();
+        NemDauData upgradeData = upgradeDatas[currentLevel];
+        // Update current
+        currentDamage = upgradeData.damage;
+        currentCooldownTime = upgradeData.cooldownTime;
+        currentScale = upgradeData.scale;
+        if (upgradeData.numBullets > currentNumBullets)
+        {
+            GameObject abilityHolder = GameObject.Find(abilityName + " Holder");
+            GameObject bullet = Instantiate(bulletPrefab, abilityHolder.transform);
+            pool.Add(bullet);
+            bullet.SetActive(false);
+        }
+        currentNumBullets = upgradeData.numBullets;
+        // Apply
+        foreach (GameObject bullet in pool)
+        {
+            bullet.GetComponent<NemDau>().LoadData(this);
+        }
+
+        currentLevel += 1;
     }
 
     public override void ModifyDamage(float percentage, bool increase)
     {
-        throw new System.NotImplementedException();
+        BaseModifyDamage(percentage, increase);
+        foreach (GameObject bullet in pool)
+        {
+            bullet.GetComponent<NemDau>().LoadData(this);
+        }
     }
 
     public override AbilityBase GetUpgradeDataInfo()
     {
-        throw new System.NotImplementedException();
+        return upgradeDatas[currentLevel];
     }
 
     public override bool IsMaxLevel()
     {
-        throw new System.NotImplementedException();
+        if (currentLevel >= upgradeDatas.Count && currentLevel >= 1)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

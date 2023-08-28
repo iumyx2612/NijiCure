@@ -11,6 +11,6 @@ public interface IBaseEnemyBehavior
     void Dead(bool outOfLifeTime);
     void KnockBack(Vector2 force, float duration);
     void Flip();
-
-//    void ModifySpeed(float amount, bool isIncrease);
+    void ModifySpdCounter(List<MoveSpeedCounter> counters);
+    void ModifySpeed(float percentage, bool toBase); // toBase: return to normal speed
 }

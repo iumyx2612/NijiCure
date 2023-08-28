@@ -25,7 +25,7 @@ public class DamageBuffCounter : Counter<DamageBuffCounterData>
     public float internalTime = 0;
     public int currentNum = 0;
     
-    // Damge Buff
+    // Damage Buff
     public bool singleAbility;
     public float damageBuff;
     public string abilityName;

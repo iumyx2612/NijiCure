@@ -20,9 +20,9 @@ public abstract class TimeEventSpawnDataBase : SpawnData
     // Pass to TimeEventEnemyData
     public float lifeTime;
     public bool oneTime;
-    public Vector2Reference destination; // if oneTime is set then this is ignored
+    public Vector2Reference destination;
 
-    public void SetRequiresDataField()
+    public void SetRequiresDataField() // Called by EnemySpawner.cs
     {
         timeEventEnemyData.lifeTime = lifeTime;
         timeEventEnemyData.oneTime = oneTime;

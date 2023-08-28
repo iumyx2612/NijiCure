@@ -18,12 +18,13 @@ public class RageData : PassiveAbilityBase
     [HideInInspector] public float currentBuffTime;
     [HideInInspector] public float currentDamageBuff;
     [HideInInspector] public Vector2 currentScaleBuff;
-    
 
+    private GameObject player;
+    
     public override void Initialize()
     {
         base.Initialize();
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
         AddAndLoadComponent(player);
         currentBuffTime = buffTime;
         currentDamageBuff = damageBuff;
@@ -43,7 +44,15 @@ public class RageData : PassiveAbilityBase
 
     public override void UpgradeAbility()
     {
-        base.UpgradeAbility();
+        RageData upgradeData = upgradeDatas[currentLevel];
+        // Update current
+        currentDamageBuff = upgradeData.damageBuff;
+        currentBuffTime = upgradeData.buffTime;
+        currentScaleBuff = upgradeData.scaleBuff;
+        // Apply 
+        player.GetComponent<Rage>().LoadData(this);
+
+        currentLevel += 1;
     }
 
     public override bool IsMaxLevel()

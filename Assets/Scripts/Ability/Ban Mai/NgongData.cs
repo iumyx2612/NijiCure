@@ -78,6 +78,8 @@ public class NgongData : PassiveAbilityBase
         // Apply upgrade on Counter
         dmgBuffCounterData.existTime = currentCounterDuration;
         dmgBuffCounterData.maxNum = currentMaxNumCounter;
+
+        currentLevel += 1;
     }
 
     public override bool IsMaxLevel()

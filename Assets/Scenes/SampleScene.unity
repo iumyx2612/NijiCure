@@ -10651,7 +10651,8 @@ MonoBehaviour:
   timeEventEnemyPrefab: {fileID: 545334111410856653, guid: 045ef2f9577d7b344adf180d4f072fe8,
     type: 3}
   timeEventEnemyPool: {fileID: 11400000, guid: 0866aa6b63bcde244b0e22e36ff075ec, type: 2}
-  stageTimeEventSpawnData: []
+  stageTimeEventSpawnData:
+  - {fileID: 11400000, guid: 222898349b92ff14eba9fbfaed728848, type: 2}
 --- !u!4 &687961372
 Transform:
   m_ObjectHideFlags: 0
@@ -45046,13 +45047,13 @@ PrefabInstance:
         type: 3}
       propertyPath: playerData
       value: 
-      objectReference: {fileID: 11400000, guid: 004312ef81c8b2f468c246e37a00db54,
+      objectReference: {fileID: 11400000, guid: 55f1c38c0b601234eb3d61706e6c4bae,
         type: 2}
     - target: {fileID: 1519284876341926261, guid: 76e2de575f0c7c84db3d0bed2d4ed9c6,
         type: 3}
       propertyPath: playerData
       value: 
-      objectReference: {fileID: 11400000, guid: 004312ef81c8b2f468c246e37a00db54,
+      objectReference: {fileID: 11400000, guid: 55f1c38c0b601234eb3d61706e6c4bae,
         type: 2}
     - target: {fileID: 1519284876563121282, guid: 76e2de575f0c7c84db3d0bed2d4ed9c6,
         type: 3}

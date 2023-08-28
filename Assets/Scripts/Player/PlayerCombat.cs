@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using ScriptableObjectArchitecture;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 public class PlayerCombat : MonoBehaviour
@@ -15,10 +16,12 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private IntVariable playerCurrentHealth;
     private int rank;
     private UltimateAbilityBase ultimateAbility;
-    
+    [HideInInspector] public Action afterDodgeAction;
+
     [SerializeField] private BoolVariable isAlive;
     [SerializeField] private GameEvent onPlayerKilled;
     [SerializeField] private IntGameEvent playerTakeDamage;
+    [SerializeField] private FloatVariable playerDodgeChance;
     
     [SerializeField] private GameEvent healthBarImageUpdate;
     [SerializeField] private IntGameEvent healthTextPopupGameEvent;
@@ -39,6 +42,7 @@ public class PlayerCombat : MonoBehaviour
         mapping.playerType = playerData.type;
         mapping.startingAbility = playerData.startingAbility;
         mapping.critChance = playerData.critChance;
+        playerDodgeChance.Value = 0f;
     }
 
     private void OnEnable()
@@ -56,9 +60,17 @@ public class PlayerCombat : MonoBehaviour
 
     private void TakeDamage(int damage)
     {
-        playerCurrentHealth.Value -= damage;
-        healthBarImageUpdate.Raise(); // Check PlayerUIManager.cs
-        healthTextPopupGameEvent.Raise(-damage); // Check PlayerUIManager.cs
+        float randomNumber = Random.Range(0f, 1f);
+        if (randomNumber < playerDodgeChance.Value)
+        {
+            afterDodgeAction();
+        }
+        else
+        {
+            playerCurrentHealth.Value -= damage;
+            healthBarImageUpdate.Raise(); // Check PlayerUIManager.cs
+            healthTextPopupGameEvent.Raise(-damage); // Check PlayerUIManager.cs
+        }
         if (playerCurrentHealth.Value <= 0)
         {
             onPlayerKilled.Raise();

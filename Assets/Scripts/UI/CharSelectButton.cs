@@ -8,7 +8,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class CharSelectButton : MonoBehaviour, ISelectHandler
+public class CharSelectButton : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     private Button _this;
     [SerializeField] private Image playerIcon;
@@ -33,13 +33,13 @@ public class CharSelectButton : MonoBehaviour, ISelectHandler
     [SerializeField] private Image ultimateImage;
     [SerializeField] private TMP_Text ultimateName;
     [SerializeField] private TMP_Text ultimateDesc;
-    
 
     private void Awake()
     {
         _this = GetComponent<Button>();
         _this.onClick.AddListener(OnPlayerPicked);
         playerIcon.sprite = playerData.playerIcon;
+        AudioManager.Instance.AddSound(playerData.playerSound);
     }
 
     private void OnDisable()
@@ -65,6 +65,13 @@ public class CharSelectButton : MonoBehaviour, ISelectHandler
 //        ultimateImage.sprite = playerData.ultimateAbility.
         ultimateName.text = playerData.ultimateAbility.ultimateName;
         ultimateDesc.text = playerData.ultimateAbility.ultimateDescription;
+
+        AudioManager.Instance.Play(playerData.playerSound.audioName);
+    }
+
+    public void OnDeselect(BaseEventData eventData)
+    {
+        AudioManager.Instance.Stop(playerData.playerSound.audioName);
     }
 
     private void OnPlayerPicked()

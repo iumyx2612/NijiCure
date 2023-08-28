@@ -25,26 +25,48 @@ public class PuddingHunterData : PassiveAbilityBase
     public HetData baseHetAbility; // To PuddingHunter.cs
     [Range(0f, 1f)] public float damageIncrease; // To PuddingHunter.cs
     public int healthIncrease; // To BanMaiPudding.cs
-    [Range(0f, 1f)] public float dropChance; // To ItemDropCounter.cs
+    [Range(0f, 1f)] public float dropChance; // To ItemDropCounterData.cs
 
     [Header("UI")]
     public PassiveAbilityGameEvent activeCountdownImage; // To PuddingHunter.cs
     
     public GameObject puddingPrefab;
+    private GameObject holder;
     private List<GameObject> puddingPool;
     public ItemDropCounterData itemDropCounterData;
 
     public List<PuddingHunterData> upgradeDatas;
 
+    [HideInInspector] public float currentRadius;
+    [HideInInspector] public float currentBuffTime;
+    [HideInInspector] public float currentDamageIncrease;
+    [HideInInspector] public int currentHealthIncrease;
+    [HideInInspector] public float currentDropChance;
+
     public override void Initialize()
     {
         base.Initialize();
+
+        currentRadius = radius;
+        currentBuffTime = buffTime;
+        currentDamageIncrease = damageIncrease;
+        currentHealthIncrease = healthIncrease;
+        currentDropChance = dropChance;
+        
+        // Parse the data to Counter
+        itemDropCounterData.abilityName = abilityName;
+        itemDropCounterData.itemDropPrefab = puddingPrefab;
+        itemDropCounterData.itemDropPool.Clear();
+        itemDropCounterData.itemDropPool = puddingPool;
+        itemDropCounterData.dropChance = currentDropChance;
+        
         // Attach the GameObject with PuddingHunter script to Player
         Transform player = GameObject.FindGameObjectWithTag("Player").transform;
-        GameObject holder = new GameObject(abilityName + " Holder");
-        holder.transform.parent = player;
-        holder.transform.localPosition = Vector2.zero;
-        AddAndLoadComponent(holder);
+        GameObject _holder = new GameObject(abilityName + " Holder");
+        _holder.transform.parent = player;
+        _holder.transform.localPosition = Vector2.zero;
+        AddAndLoadComponent(_holder);
+        holder = _holder;
         
         // Pool the item drop
         puddingPool = new List<GameObject>();
@@ -56,12 +78,6 @@ public class PuddingHunterData : PassiveAbilityBase
             puddingPool.Add(itemDrop);
             itemDrop.SetActive(false);
         }
-        // Parse the data to Counter
-        itemDropCounterData.abilityName = abilityName;
-        itemDropCounterData.itemDropPrefab = puddingPrefab;
-        itemDropCounterData.itemDropPool.Clear();
-        itemDropCounterData.itemDropPool = puddingPool;
-        itemDropCounterData.dropChance = dropChance;
     }
 
     /// <summary>
@@ -76,8 +92,28 @@ public class PuddingHunterData : PassiveAbilityBase
     }
     
     public override void TriggerAbility() {}
-    
-    public override void UpgradeAbility() {}
+
+    public override void UpgradeAbility()
+    {
+        PuddingHunterData upgradeData = upgradeDatas[currentLevel];
+        // Update current
+        currentRadius = upgradeData.radius;
+        currentBuffTime = upgradeData.buffTime;
+        currentDamageIncrease = upgradeData.damageIncrease;
+        currentDropChance = upgradeData.dropChance;
+        currentHealthIncrease = upgradeData.healthIncrease;
+        // Apply the upgrade on PuddingHunter.cs
+        holder.GetComponent<PuddingHunter>().LoadData(this);
+        // Apply the upgrade on BanMaiPudding.cs
+        foreach (GameObject pudding in puddingPool)
+        {
+            pudding.GetComponent<BanMaiPudding>().LoadData(this);
+        }
+        // Apply the upgrade on ItemDropCounterData.cs
+        itemDropCounterData.dropChance = currentDropChance;
+
+        currentLevel += 1;
+    }
 
     public override bool IsMaxLevel()
     {

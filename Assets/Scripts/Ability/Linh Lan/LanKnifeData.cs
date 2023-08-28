@@ -30,19 +30,13 @@ public class LanKnifeData : DamageAbilityBase
 
     public override void Initialize()
     {
-        internalCooldownTime = 0f;
-        currentCooldownTime = cooldownTime;
+        base.Initialize();
 
+        internalNumToDebuff = 0;
         currentKnifeScale = knifeScale;
         currentKnifeDistance = knifeDistance;
         currentKnifeSpeed = knifeSpeed;
-        currentDamage = damage;
-        currentCritChance = critChance;
 
-        internalNumToDebuff = 0;
-
-        state = AbilityState.cooldown;
-        
         pool = new List<GameObject>();
         GameObject abilityHolder = new GameObject(abilityName + " Holder");
         GameObject bullet = Instantiate(bulletPrefab, abilityHolder.transform);

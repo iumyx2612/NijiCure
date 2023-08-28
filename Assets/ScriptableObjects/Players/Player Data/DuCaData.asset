@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfe4741fafb837d4e9f1110ee9e4295c, type: 3}
+  m_Name: DuCaData
+  m_EditorClassIdentifier: 
+  characterName: Hibiki Du Ca
+  playerIcon: {fileID: 21300000, guid: 404bf2d034e7f724fb62692f023e43e2, type: 3}
+  type: {fileID: 11400000, guid: 294f93b64a84a1949b2ec5b9a336a043, type: 2}
+  health: 100
+  speed: 2.2
+  rank: 0
+  critChance: 0.02
+  animatorController: {fileID: 9100000, guid: eed953d4b9352d64e8e4572d83fab168, type: 2}
+  startingAbility: {fileID: 11400000, guid: 2ce5dcef5775dae459ebef61cd61d622, type: 2}
+  ultimateAbility: {fileID: 11400000, guid: d8ac76264ec77664284ee1b451574c10, type: 2}
+  playerSound:
+    audioSource: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: fdf4ef800761cab4894bb4c8f1ba4abf, type: 3}
+    isSfx: 1
+    keep: 0
+    audioName: DuCaIntro
+    loop: 0
+    playOnAwake: 0
+    volume: 0

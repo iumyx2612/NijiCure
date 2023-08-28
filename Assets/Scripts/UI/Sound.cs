@@ -5,11 +5,13 @@ using UnityEngine;
 [System.Serializable]
 public class Sound
 {
-    public AudioSource audioSource;
+    [HideInInspector] public AudioSource audioSource;
     
     public AudioClip audioClip;
+    public bool isSfx;
+    public bool keep; // Keep the audio alive throughout scenes
     public string audioName;
     public bool loop;
     public bool playOnAwake;
-    [Range(0f, 1f)] public float volume;
+    [HideInInspector] public float volume;
 }

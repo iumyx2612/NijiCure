@@ -11,7 +11,6 @@ public class PuddingHunter : MonoBehaviour
     private CircleCollider2D selfCollider;
     
     // Data
-    private SpriteRenderer spriteRenderer; // To display the area of effect
     private GameEvent puddingHunterGameEvent; // Raise in BanMaiPudding.cs
     private float radius;
     private float damageIncrease;
@@ -29,7 +28,6 @@ public class PuddingHunter : MonoBehaviour
     
     private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
         selfCollider = GetComponent<CircleCollider2D>();
         selfCollider.isTrigger = true;
     }
@@ -88,11 +86,11 @@ public class PuddingHunter : MonoBehaviour
 
     public void LoadData(PuddingHunterData _data)
     {
-        radius = _data.radius;
+        radius = _data.currentRadius;
         selfCollider.radius = radius;
         counterData = _data.itemDropCounterData;
-        buffTime = _data.buffTime;
-        damageIncrease = _data.damageIncrease;
+        buffTime = _data.currentBuffTime;
+        damageIncrease = _data.currentDamageIncrease;
         if (baseHetAbility == null)
             baseHetAbility = _data.baseHetAbility;
         if (puddingHunterGameEvent == null)

@@ -25,6 +25,10 @@ public class EnemyCounter : MonoBehaviour
     private Dictionary<string, DamageBuffCounter> stringToDmgBuffCounter = new 
         Dictionary<string, DamageBuffCounter>();
     
+    // Move speed Counters
+    private Dictionary<string, MoveSpeedCounter> stringToMoveSpdCounter = new 
+        Dictionary<string, MoveSpeedCounter>();
+    
     
     private void Awake()
     {
@@ -38,8 +42,10 @@ public class EnemyCounter : MonoBehaviour
     {
         ClearDmgBuffCounters();
         ClearItemDropCounters();
+        ClearMoveSpdCounters();
         dmgCounterImage.gameObject.SetActive(false);
         itemDropCounterImage.gameObject.SetActive(false);
+        spdCounterImage.gameObject.SetActive(false);
     }
 
     // Use LateUpdate here since Counter will be placed by Abilities during Update
@@ -82,6 +88,24 @@ public class EnemyCounter : MonoBehaviour
             }
         }
         UpdateDmgBuffCounterUI();
+        // -------------- Update timer of MoveSpeedCounter --------------
+        for (int i = stringToMoveSpdCounter.Count - 1; i >= 0; i--)
+        {
+            string counterName = stringToMoveSpdCounter.Keys.ElementAt(i);
+            // We use reverse order since we want to remove the Counter if time reach
+            MoveSpeedCounter moveSpdCounter = stringToMoveSpdCounter.Values.ElementAt(i);
+            counterTimer.text = moveSpdCounter.internalTime.ToString("0.00");
+            moveSpdCounter.internalTime += Time.deltaTime;
+            if (moveSpdCounter.internalTime >= moveSpdCounter.existTime)
+            {
+                moveSpdCounter.currentNum = 0;
+                moveSpdCounter.internalTime = 0f;
+                stringToMoveSpdCounter.Remove(counterName);
+                // Update the List in EnemyCombat cuz it lose Counter
+                UpdateMoveSpdCounter();
+            }
+        }
+        UpdateMoveSpdCounterUI();
     }
 
     // ------------------ Item Drop Counter ------------------
@@ -125,7 +149,6 @@ public class EnemyCounter : MonoBehaviour
             // Update the List in EnemyDrop cuz it has new Counter
             UpdateItemDropCounter();
         }
-        UpdateItemDropCounterUI();
     }
 
     public void RemoveItemDropCounter(ItemDropCounterData _counter)
@@ -243,5 +266,85 @@ public class EnemyCounter : MonoBehaviour
     private void ClearDmgBuffCounters()
     {
         stringToDmgBuffCounter.Clear();
+    }
+    
+    // ------------------ Move Speed Counter ------------------
+    public int GetNumMoveSpdCounter(MoveSpeedCounterData _counter)
+    {
+        if (stringToMoveSpdCounter.ContainsKey(_counter.counterName))
+        {
+            MoveSpeedCounter counter = stringToMoveSpdCounter[_counter.counterName];
+            return counter.currentNum;   
+        }
+
+        return 0;
+    }
+    
+    public MoveSpeedCounter GetMoveSpdCounter(MoveSpeedCounterData _counter)
+    {
+        return stringToMoveSpdCounter[_counter.counterName];
+    }
+    
+    public void AddMoveSpdCounter(MoveSpeedCounterData _counter)
+    {
+        // If the added Counter exists
+        if (stringToMoveSpdCounter.ContainsKey(_counter.counterName))
+        {
+            MoveSpeedCounter counter = stringToMoveSpdCounter[_counter.counterName];
+            // If the Counter hasn't reach the limit
+            if (counter.currentNum < counter.maxNum)
+            {
+                counter.currentNum += 1;
+            }
+            // Reset the counter timer
+            counter.internalTime = 0f;
+        }
+        else
+        {
+            // Make a copy of the counter
+            MoveSpeedCounter addedCounter = new MoveSpeedCounter();
+            addedCounter.SetData(_counter);
+            addedCounter.currentNum += 1;
+            stringToMoveSpdCounter.Add(addedCounter.counterName, addedCounter);
+            // Update the List in EnemyDrop cuz it has new Counter
+            UpdateMoveSpdCounter();
+        }
+    }
+
+    public void RemoveMoveSpdCounter(MoveSpeedCounterData _counter)
+    {
+        if (stringToMoveSpdCounter.ContainsKey(_counter.counterName))
+        {
+            stringToMoveSpdCounter.Remove(_counter.counterName);
+        }
+    }
+    
+    private void UpdateMoveSpdCounter()
+    {
+        List<MoveSpeedCounter> values = stringToMoveSpdCounter.Values.ToList();
+        iBaseEnemyBehaviorScript.ModifySpdCounter(values);
+    }
+    
+    private void UpdateMoveSpdCounterUI()
+    {
+        // If the Image is not active, we simply active it
+        if (!spdCounterImage.IsActive() && stringToMoveSpdCounter.Count > 0)
+        {
+            spdCounterImage.gameObject.SetActive(true);
+        }
+        // If the Image is already active
+        else
+        {
+            // Check if Enemy still have Counters
+            if (stringToDmgBuffCounter.Count <= 0)
+            {
+                spdCounterImage.gameObject.SetActive(false);   
+            }
+        }
+    }
+    
+    private void ClearMoveSpdCounters()
+    {
+        stringToMoveSpdCounter.Clear();
     }
 }

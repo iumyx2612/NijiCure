@@ -28,16 +28,11 @@ public class HetData : DamageAbilityBase
 
     public override void Initialize()
     {
-        internalCooldownTime = 0f;
-        currentCooldownTime = cooldownTime;
+        base.Initialize();
 
         currentKnockbackForce = knockbackForce;
         currentScale = scale;
         currentNumAttack = numAttack;
-        currentDamage = damage;
-        currentCritChance = critChance;
- 
-        state = AbilityState.cooldown;
         
         pool = new List<GameObject>();
         GameObject abilityHolder = new GameObject(abilityName + " Holder");

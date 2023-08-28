@@ -17,6 +17,8 @@ public class PlayerData : ScriptableObject
     public AbilityBase startingAbility;
     public UltimateAbilityBase ultimateAbility;
 
+    public Sound playerSound;
+
     public void Set(PlayerData _data)
     {
         playerIcon = _data.playerIcon;
