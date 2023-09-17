@@ -12,15 +12,20 @@ using UnityEngine.SceneManagement;
 public class UICancelNavigation : MonoBehaviour
 {
     public GameObject previousPanel;
+    [SerializeField] private bool goBack; // Go back to previous Scene
     [SerializeField] private bool isButton;
     [SerializeField] private GameObject startingGameObject;
 
     private void OnEnable()
     {
-        if (isButton)
-            startingGameObject.GetComponent<Button>().Select();    
-        else if (!isButton)
-            startingGameObject.GetComponent<Slider>().Select();
+        if (startingGameObject != null)
+        {
+            if (isButton)
+                startingGameObject.GetComponent<Button>().Select();    
+            else if (!isButton)
+                startingGameObject.GetComponent<Slider>().Select();
+        }
+
         if (UINavigation.Instance != null)
             UINavigation.Instance.inputAction.UI.Cancel.performed += OnCancel;
     }
@@ -34,10 +39,12 @@ public class UICancelNavigation : MonoBehaviour
     public void OnCancel(InputAction.CallbackContext ctx)
     {
         gameObject.SetActive(false);
-        if (previousPanel != null)
+        if (previousPanel != null && !goBack)
+        {
             previousPanel.SetActive(true);
+        }
         // Go back to previous Scene
-        else
+        else if (previousPanel == null && goBack)
         {
             int sceneIndex = SceneManager.GetActiveScene().buildIndex;
             SceneManager.LoadScene(sceneIndex - 1);

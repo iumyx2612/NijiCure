@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a836740047002924992a980bb114e9ef, type: 3}
+  m_Name: DuCa_ChongQuocDan
+  m_EditorClassIdentifier: 
+  abilityName: "Ch\u1ED3ng Qu\u1ED1c D\xE2n"
+  abilityIcon: {fileID: 0}
+  cooldownTime: 3
+  description: 
+  debuffDesc: 
+  currentLevel: 0
+  currentCooldownTime: 3
+  internalCooldownTime: 0
+  playerType: {fileID: 11400000, guid: 294f93b64a84a1949b2ec5b9a336a043, type: 2}
+  weight: 6
+  state: 1
+  damage: 20
+  currentDamage: 20
+  critChance: 0.02
+  currentCritChance: 0.02
+  zonePrefab: {fileID: 3876873068962442114, guid: 300913f5be8e16b4cb96bbcfbfb92a32,
+    type: 3}
+  zoneDistFromPlayer: {x: 6, y: 4}
+  convertChance: 0.5
+  zoneRadius: 1
+  cukaPrefab: {fileID: 7499376920000213662, guid: 94695a80302215d4ba0b11bfd2fefd88,
+    type: 3}
+  cukaDamage: 10
+  cukaRange: 0.5
+  cukaAttackTimer: 0.8
+  cukaLifeTime: 5
+  playerPosRef: {fileID: 11400000, guid: 432f3cca538fe954dbf9e0ef7b9efa91, type: 2}
+  cukaPool: {fileID: 11400000, guid: 2b5173b40270a8e479e70a1010f8cf41, type: 2}
+  upgradeDatas: []
+  currentConvertChance: 0.5
+  currentZoneRadius: 1
+  currentCukaDamage: 10
+  currentCukaAtkTimer: 0.8

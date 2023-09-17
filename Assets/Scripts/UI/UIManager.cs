@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using ScriptableObjectArchitecture;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class UIManager : MonoBehaviour
 {
@@ -51,6 +52,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<Image> abilityIcons;
     [SerializeField] private AbilityGameEvent updateAbilityPanel; // Called in AbilityManager.cs
     
+    [Header("Pause Menu")]
+    [SerializeField] private BoolVariable gameIsPause;
+    [SerializeField] private GameObject pausePanel;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -63,6 +68,8 @@ public class UIManager : MonoBehaviour
 //        updateCoinInfo.AddListener(UpdateCoinInfo);
         updateKillInfo.AddListener(UpdateKillInfo);
         updateAbilityPanel.AddListener(UpdateAbilityPanel);
+        gameIsPause.Value = false;
+        UINavigation.Instance.inputAction.UI.Cancel.performed += PauseOrUnpause;
     }
 
     private void Start()
@@ -79,6 +86,7 @@ public class UIManager : MonoBehaviour
 //        updateCoinInfo.RemoveListener(UpdateCoinInfo);
         updateKillInfo.RemoveListener(UpdateKillInfo);
         updateAbilityPanel.RemoveListener(UpdateAbilityPanel);
+        UINavigation.Instance.inputAction.UI.Cancel.performed -= PauseOrUnpause;
     }
 
     // Update is called once per frame
@@ -206,5 +214,22 @@ public class UIManager : MonoBehaviour
 //                break;
 //            }
 //        }
+    }
+    
+    // --------------- Pause section ---------------
+    private void PauseOrUnpause(InputAction.CallbackContext ctx)
+    {
+        if (!gameIsPause.Value && !pausePanel.activeSelf) // Game is not pause
+        {
+            gameIsPause.Value = true;
+            pausePanel.SetActive(true);
+            Time.timeScale = 0f;
+        }
+        else if (gameIsPause.Value && pausePanel.activeSelf)
+        {
+            gameIsPause.Value = false;
+            pausePanel.SetActive(false);
+            Time.timeScale = 1f;
+        }
     }
 }

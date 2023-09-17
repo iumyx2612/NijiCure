@@ -22,3 +22,12 @@ MonoBehaviour:
   animatorController: {fileID: 9100000, guid: a208d0fbaecccf147a7db5d5d3aa4f84, type: 2}
   startingAbility: {fileID: 11400000, guid: 24c9e944e93d3de46bed21fba95a8265, type: 2}
   ultimateAbility: {fileID: 11400000, guid: d8ac76264ec77664284ee1b451574c10, type: 2}
+  playerSound:
+    audioSource: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 52221fe8f5858a448a62110754b2cea0, type: 3}
+    isSfx: 1
+    keep: 0
+    audioName: BanMaiIntro
+    loop: 0
+    playOnAwake: 0
+    volume: 0

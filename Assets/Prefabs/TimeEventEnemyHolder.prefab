@@ -385,7 +385,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e63647d173eaf50499bc1c48b68ff892, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4a4a7e3b30a147e4ca3d7e4b34823acd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -798,7 +798,6 @@ MonoBehaviour:
   playerMask:
     serializedVersion: 2
     m_Bits: 64
-  dmgBuffCounters: []
   playerTakeDamage: {fileID: 11400000, guid: 846389cad684ae049a84fe2a0d826943, type: 2}
   damageUIPopupText: {fileID: 545334111227989041}
   critColor: {r: 1, g: 0.6117647, b: 0, a: 1}
@@ -824,7 +823,6 @@ MonoBehaviour:
   coinDropChance: {fileID: 0}
   coinPickUpPool: {fileID: 0}
   coinPickUpPrefab: {fileID: 0}
-  itemDropCounters: []
 --- !u!114 &1910969421059372563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -853,6 +851,7 @@ MonoBehaviour:
   spdCounterImage: {fileID: 7105140563232341951}
   dmgCounterImage: {fileID: 5340215015221227958}
   itemDropCounterImage: {fileID: 1097478885945436700}
+  counterTimer: {fileID: 0}
 --- !u!1 &7244351086694668811
 GameObject:
   m_ObjectHideFlags: 0
@@ -919,7 +918,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e63647d173eaf50499bc1c48b68ff892, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 20c76ac78ace9cd42bb9aeaa68332440, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

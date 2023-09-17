@@ -20,7 +20,7 @@ MonoBehaviour:
   rank: 0
   critChance: 0.02
   animatorController: {fileID: 9100000, guid: eed953d4b9352d64e8e4572d83fab168, type: 2}
-  startingAbility: {fileID: 11400000, guid: 2ce5dcef5775dae459ebef61cd61d622, type: 2}
+  startingAbility: {fileID: 11400000, guid: 2c1d39e7ee1ffac44a4e21ef0f858031, type: 2}
   ultimateAbility: {fileID: 11400000, guid: d8ac76264ec77664284ee1b451574c10, type: 2}
   playerSound:
     audioSource: {fileID: 0}
@@ -30,4 +30,3 @@ MonoBehaviour:
     audioName: DuCaIntro
     loop: 0
     playOnAwake: 0
-    volume: 0

@@ -17,7 +17,7 @@ public class ChongQuocDanData : DamageAbilityBase
     public GameObject zonePrefab;
     public Vector2 zoneDistFromPlayer; // Unchanged
     [Range(0f, 1f)] public float convertChance;
-    public IntVariable activeCuka; 
+    public float zoneRadius;
 
     [Header("Cuka")] 
     public GameObject cukaPrefab;
@@ -35,31 +35,34 @@ public class ChongQuocDanData : DamageAbilityBase
     public List<ChongQuocDanData> upgradeDatas;
 
     [HideInInspector] public float currentConvertChance;
+    [HideInInspector] public float currentZoneRadius;
     [HideInInspector] public int currentCukaDamage;
     [HideInInspector] public float currentCukaAtkTimer;
-
+    
     public override void Initialize()
     {
         base.Initialize();
 
         currentConvertChance = convertChance;
+        currentZoneRadius = 1;
         currentCukaDamage = cukaDamage;
         currentCukaAtkTimer = cukaAttackTimer;
         
         // Married Cuka pool
         cukaPool.Clear();
-        activeCuka.Value = 0;
         cukaHolder = new GameObject("MarriedCukaHolder");
         for (int i = 0; i < 20; i++)
         {
             GameObject cuka = Instantiate(cukaPrefab, cukaHolder.transform);
             cuka.GetComponent<MarriedCuka>().LoadData(this);
             cukaPool.Add(cuka);
+            cuka.SetActive(false);
         }
         
         // Init the zone
         zoneGameObject = Instantiate(zonePrefab);
         zoneGameObject.GetComponent<ChongQuocDan>().LoadData(this);
+        zoneGameObject.SetActive(false);
     }
 
     private Vector2 SampleZonePosition()
@@ -89,6 +92,7 @@ public class ChongQuocDanData : DamageAbilityBase
         ChongQuocDanData upgradeData = upgradeDatas[currentLevel];
         // Update current
         currentConvertChance = upgradeData.convertChance;
+        currentZoneRadius = upgradeData.zoneRadius;
         currentCukaDamage = upgradeData.cukaDamage;
         currentCukaAtkTimer = upgradeData.cukaAttackTimer;
         currentDamage = upgradeData.currentDamage;

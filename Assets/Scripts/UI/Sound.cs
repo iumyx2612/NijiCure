@@ -13,5 +13,4 @@ public class Sound
     public string audioName;
     public bool loop;
     public bool playOnAwake;
-    [HideInInspector] public float volume;
 }

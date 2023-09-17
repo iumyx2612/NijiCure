@@ -41,6 +41,7 @@ public class AbilityManager : MonoBehaviour
             if (ability.playerType == runtimePlayerType || ability.playerType == typeAny)
             {
                 ability.currentLevel = 0;
+                ability.isInitialized = false;
                 availableAbilities.Add(ability);
                 if (ability is DamageAbilityBase _damageAbility)
                 {
@@ -125,11 +126,15 @@ public class AbilityManager : MonoBehaviour
     {
         // Init Referenced Distribution
         _abilityDistribution.SetItems(abilityDistribution.Items);
-        // Check if any Abilities has reach its max level
+        // Check if Abilities meets requirements to be picked 
+        // Loop through all Abilities
         for (int i = _abilityDistribution.Items.Count - 1; i >= 0; i--)
         {
             AbilityBase ability = _abilityDistribution.Items[i].Value;
-            if (ability.IsMaxLevel())
+            // Perform the check:
+            // 1. If max level
+            // 2. If not ready to be init
+            if (ability.IsMaxLevel() || !ability.CanBeInit())
             {
                 int index = _abilityDistribution.IndexOf(ability);
                 _abilityDistribution.RemoveAt(index);

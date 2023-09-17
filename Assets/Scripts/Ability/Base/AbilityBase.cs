@@ -16,6 +16,7 @@ public abstract class AbilityBase : ScriptableObject
     
     public PlayerType playerType;
     public float weight; // Chances to appear when leveled up
+    [HideInInspector] public bool isInitialized;
     
     public enum AbilityState
     {
@@ -35,9 +36,15 @@ public abstract class AbilityBase : ScriptableObject
     // Apply upgrade on to the entire Ability
     public abstract void UpgradeAbility();
 
+    // If an Ability is dependent on another Ability 
+    // Then it must re-implement this method
+    public abstract bool CanBeInit();
+
+    // -------------------------------------------------------
     // Access the generic info of UpgradeData like description, name, UISprite
     // THIS IS USED ONLY IN UIManager.cs TO DISPLAY THE UPGRADE INFO
     public abstract AbilityBase GetUpgradeDataInfo();
 
     public abstract bool IsMaxLevel();
+    // -------------------------------------------------------
 }

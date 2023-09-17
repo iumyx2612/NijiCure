@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: All Abilities
   m_EditorClassIdentifier: 
   _list:
-  - {fileID: 11400000, guid: 788c44748bfd83f48ac2916a8c856331, type: 2}
-  - {fileID: 11400000, guid: d22b31a8cc9bfc14a984e33fec9d701b, type: 2}
-  - {fileID: 11400000, guid: 94615bc0916bf3346b8af10f1b74397d, type: 2}
   - {fileID: 11400000, guid: 24c9e944e93d3de46bed21fba95a8265, type: 2}
   - {fileID: 11400000, guid: 2f8b326ab71669c458f79236d21ac414, type: 2}
   - {fileID: 11400000, guid: 5ed1904d067ddb94a910e7957516631a, type: 2}
   - {fileID: 11400000, guid: 38002cd516ad35f44b8ecefa9a2edf4e, type: 2}
   - {fileID: 11400000, guid: 2ce5dcef5775dae459ebef61cd61d622, type: 2}
-  - {fileID: 11400000, guid: 8ef4615cd56cf634dbd3d59a0e4217b4, type: 2}
+  - {fileID: 11400000, guid: 6edabcfd30f48fa40a4235ddadbb8d40, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 6edabcfd30f48fa40a4235ddadbb8d40, type: 2}

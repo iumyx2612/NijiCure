@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using ScriptableObjectArchitecture;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class ChongQuocDan : MonoBehaviour
@@ -10,18 +11,48 @@ public class ChongQuocDan : MonoBehaviour
     private ChongQuocDanData baseData;
     
     // Data
-    [SerializeField] private float radius;
-    [SerializeField] private int maxNumCuka;
     [SerializeField] private GameObjectCollection cukaPool;
     private float convertChance;
     private int damage;
+
+    private Vector2 baseScale;
+    private EdgeCollider2D selfCollider;
     
-    private CircleCollider2D selfCollider;
+    // State management
+    private Animator animator;
+    private float animLength;
+    private float internalLength;
+    
+    // Debug
+    [SerializeField] private List<GameObject> hitEnemies = new List<GameObject>();
+    
+    private void Awake()
+    {
+        selfCollider = GetComponent<EdgeCollider2D>();
+        animator = GetComponent<Animator>();
+        animLength = animator.GetCurrentAnimatorStateInfo(0).length;
+        baseScale = transform.localScale;
+    }
+
+    private void OnEnable()
+    {
+        selfCollider.enabled = false;
+    }
+
+    private void Update()
+    {
+        internalLength += Time.deltaTime;
+        if (internalLength >= animLength)
+        {
+            ResetBullet();
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Enemy"))
         {
+            hitEnemies.Add(other.gameObject);
             float randomNumber = Random.Range(0f, 1f);
             if (randomNumber <= convertChance)
             {
@@ -34,6 +65,7 @@ public class ChongQuocDan : MonoBehaviour
                     {
                         marriedCuka.SetActive(true);
                         marriedCuka.transform.position = other.transform.position;
+                        break;
                     }
                 }
             }
@@ -53,6 +85,28 @@ public class ChongQuocDan : MonoBehaviour
         }
 
         convertChance = data.currentConvertChance;
+        if (data.currentZoneRadius > 1)
+        {
+            Vector2 newScale = baseScale * data.currentZoneRadius;
+            transform.localScale = newScale;
+        }
         damage = data.currentDamage;
+    }
+    
+    private void ResetBullet()
+    {
+        internalLength = 0f;
+        gameObject.SetActive(false);
+        baseData.state = AbilityBase.AbilityState.cooldown; // The last deactivated bullet sets the state for the ability
+    }
+
+    private void EnableCollider() // Used in Animation
+    {
+        selfCollider.enabled = true;
+    }
+
+    private void DisableCollider() // Used in Animation
+    {
+        selfCollider.enabled = false;
     }
 }

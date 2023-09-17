@@ -67,7 +67,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7aba483c22f82ff429d781081e3ccfb7, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 0e115297a596484419ef8872eb7cd0cd,
+    type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -824,7 +825,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7aba483c22f82ff429d781081e3ccfb7, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 0e115297a596484419ef8872eb7cd0cd,
+    type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1140,9 +1142,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1519284877417298877}
   - component: {fileID: 1519284877417298874}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Player Shadow
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1467,9 +1469,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1519284877681342832}
   - component: {fileID: 1519284877681342833}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Arrow Indicator
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

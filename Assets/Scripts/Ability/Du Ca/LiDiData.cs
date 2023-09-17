@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using ScriptableObjectArchitecture;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Ability/Du Ca/Li Di")]
 public class LiDiData : PassiveAbilityBase
 {
-    public BoolVariable hasLiDiAbility;
+    public ChongQuocDanData dependentAbility;
+    
     public int healAmount;
     public int explosiveDamage;
 
@@ -18,7 +20,6 @@ public class LiDiData : PassiveAbilityBase
     {
         base.Initialize();
 
-        hasLiDiAbility.Value = true;
         currentHealAmount = healAmount;
         currentExplosiveDamage = explosiveDamage;
         
@@ -27,6 +28,13 @@ public class LiDiData : PassiveAbilityBase
         {
             cukaPool[i].GetComponent<MarriedCuka>().LoadLiDiData(this);
         }
+    }
+
+    public override bool CanBeInit()
+    {
+        if (!dependentAbility.isInitialized)
+            return false;
+        return true;
     }
 
     public override void AddAndLoadComponent(GameObject objectToAdd) {}

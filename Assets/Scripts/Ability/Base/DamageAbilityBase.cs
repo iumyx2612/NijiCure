@@ -18,6 +18,12 @@ public abstract class DamageAbilityBase : AbilityBase
         currentCritChance = critChance;
 
         state = AbilityState.cooldown;
+        isInitialized = true;
+    }
+
+    public override bool CanBeInit()
+    {
+        return true;
     }
 
     public override void TriggerAbility()

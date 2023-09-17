@@ -2,20 +2,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class UINavigation : MonoBehaviour
 {
     public static UINavigation Instance;
-    public MyInputAction inputAction;
+    public DefaultInputActions inputAction;
     
     
     private void Awake()
     {
-        Instance = this;
-        inputAction = new MyInputAction();
+        if (Instance == null)
+        {
+            Instance = this;
+            inputAction = new DefaultInputActions();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnEnable()
@@ -31,10 +36,5 @@ public class UINavigation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-    }
-
-    public void DetectCancelEvent(InputAction.CallbackContext ctx)
-    {
-        Debug.Log("Cancel");
     }
 }
