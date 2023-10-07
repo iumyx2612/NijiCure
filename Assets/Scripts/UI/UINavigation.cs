@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.PlayerLoop;
 
 public class UINavigation : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class UINavigation : MonoBehaviour
         {
             Instance = this;
             inputAction = new DefaultInputActions();
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -23,18 +25,43 @@ public class UINavigation : MonoBehaviour
         }
     }
 
+    // Play sfx when navigate
+    private void OnNavigate(InputAction.CallbackContext ctx)
+    {
+        Vector2 temp = inputAction.UI.Navigate.ReadValue<Vector2>();
+        if (temp != Vector2.zero)
+            AudioManager.Instance.Play("Navigate");
+    }
+
+    private void OnSubmit(InputAction.CallbackContext ctx)
+    {
+        AudioManager.Instance.Play("Click");
+    }
+
+    private void OnCancel(InputAction.CallbackContext ctx)
+    {
+        AudioManager.Instance.Play("Cancel");
+    }
+
     private void OnEnable()
     {
-        inputAction.Enable();
+        if (inputAction != null)
+        {
+            inputAction.Enable();
+            inputAction.UI.Navigate.performed += OnNavigate;
+            inputAction.UI.Cancel.performed += OnCancel;
+            inputAction.UI.Submit.performed += OnSubmit;
+        }
     }
 
     private void OnDisable()
     {
-        inputAction.Disable();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
+        if (inputAction != null)
+        {
+            inputAction.Disable();
+            inputAction.UI.Navigate.performed -= OnNavigate;
+            inputAction.UI.Cancel.performed -= OnCancel;
+            inputAction.UI.Submit.performed -= OnSubmit;
+        }
     }
 }

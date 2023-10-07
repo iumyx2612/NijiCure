@@ -8,12 +8,13 @@ using ScriptableObjectArchitecture;
 public class AbilityManager : MonoBehaviour
 {
     [Header("Setup all Abilities and Pick-able Abilites")]
-    [SerializeField] private AbilityCollection allAbilities; // All created Abilities in the game
-    [SerializeField] private PlayerType typeAny; // For adding Ability 
+    [SerializeField] private AbilityCollection playerAbilities; // All PlayerType Abilities in the game
+    [SerializeField] private AbilityCollection allPassives; // All Common Passives
+    [SerializeField] private AbilityCollection allDamages; // All Common Damages
     private List<AbilityBase> availableAbilities = new List<AbilityBase>(); // What Ability can appear in the Scene
 
     [Header("First and current Abilities")]
-    [SerializeField] private PlayerMapping mapping; // Mapping of PlayerType and Starting Ability
+    [SerializeField] private PlayerData stagePlayerData; // Mapping of PlayerType and Starting Ability
     [SerializeField] private AbilityCollection currentAbilities; // Current abilities that player have 
 
     [Header("Modify Abilities stuff")]
@@ -24,8 +25,7 @@ public class AbilityManager : MonoBehaviour
     [SerializeField] private AbilityDistribution _abilityDistribution; // Act as a reference to abilityDistribution
     [SerializeField] private AbilityGameEvent updateAbilityPanel; // Setup in UIManager.cs
     private AbilityDistribution abilityDistribution;
-    
-    
+        
     
     private void Awake()
     {
@@ -35,19 +35,34 @@ public class AbilityManager : MonoBehaviour
         levelUpSetUpAbility.AddListener(SetupAbilitiesWhenLvlUp);
 
         // Which Ability can be picked in the scene
-        PlayerType runtimePlayerType = mapping.playerType;
-        foreach (AbilityBase ability in allAbilities)
+        PlayerType runtimePlayerType = stagePlayerData.type;
+        foreach (AbilityBase ability in playerAbilities)
         {
-            if (ability.playerType == runtimePlayerType || ability.playerType == typeAny)
+            if (ability.playerType == runtimePlayerType)
             {
                 ability.currentLevel = 0;
                 ability.isInitialized = false;
-                availableAbilities.Add(ability);
                 if (ability is DamageAbilityBase _damageAbility)
                 {
-                    _damageAbility.SetupCritChance(mapping.critChance);
+                    _damageAbility.SetupCritChance(stagePlayerData.critChance);
                 }
+                availableAbilities.Add(ability);
             }
+        }
+        for (int i = 0; i < allPassives.Count; i++)
+        {
+            AbilityBase passiveAbility = allPassives[i];
+            passiveAbility.currentLevel = 0;
+            passiveAbility.isInitialized = false;
+            availableAbilities.Add(passiveAbility);
+        }
+        for (int i = 0; i < allDamages.Count; i++)
+        {
+            DamageAbilityBase damageAbility = allDamages[i] as DamageAbilityBase;
+            damageAbility.currentLevel = 0;
+            damageAbility.isInitialized = false;
+            damageAbility.SetupCritChance(stagePlayerData.critChance);
+            availableAbilities.Add(damageAbility);
         }
         // Set up AbilityDistribution
         abilityDistribution = gameObject.GetComponent<AbilityDistribution>();
@@ -55,13 +70,14 @@ public class AbilityManager : MonoBehaviour
         {
             abilityDistribution.Add(ability, ability.weight);
         }
+        _abilityDistribution.SetItems(abilityDistribution.items);
     }
 
     private void Start()
     {
-        currentAbilities.Add(mapping.startingAbility);
+        currentAbilities.Add(stagePlayerData.startingAbility);
         currentAbilities[0].Initialize();
-        updateAbilityPanel.Raise(mapping.startingAbility);
+        updateAbilityPanel.Raise(stagePlayerData.startingAbility);
     }
 
     private void OnDisable()
@@ -124,13 +140,14 @@ public class AbilityManager : MonoBehaviour
     // Then activate the UI for picking Ability
     private void SetupAbilitiesWhenLvlUp()
     {
+        _abilityDistribution.items.Clear();
         // Init Referenced Distribution
-        _abilityDistribution.SetItems(abilityDistribution.Items);
+        _abilityDistribution.SetItems(abilityDistribution.items);
         // Check if Abilities meets requirements to be picked 
         // Loop through all Abilities
-        for (int i = _abilityDistribution.Items.Count - 1; i >= 0; i--)
+        for (int i = _abilityDistribution.items.Count - 1; i >= 0; i--)
         {
-            AbilityBase ability = _abilityDistribution.Items[i].Value;
+            AbilityBase ability = _abilityDistribution.items[i].value;
             // Perform the check:
             // 1. If max level
             // 2. If not ready to be init
@@ -143,7 +160,7 @@ public class AbilityManager : MonoBehaviour
         abilitiesToPick.Clear();
         for (int i = 0; i < 4; i++)
         {
-            if (_abilityDistribution.Items.Count > 0)
+            if (_abilityDistribution.items.Count > 0)
             {
                 AbilityBase ability = _abilityDistribution.Draw();
                 int abilityIndex = _abilityDistribution.IndexOf(ability);

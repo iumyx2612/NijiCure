@@ -8,9 +8,7 @@ using Random = UnityEngine.Random;
 
 public class PlayerCombat : MonoBehaviour
 {
-    public PlayerData playerData;
-    [SerializeField] private PlayerMapping mapping; // Reference by others' 
-    
+    public PlayerData playerData;    
     // Data
     [SerializeField] private IntVariable playerBaseHealth;
     [SerializeField] private IntVariable playerCurrentHealth;
@@ -39,9 +37,6 @@ public class PlayerCombat : MonoBehaviour
         onPlayerKilled.AddListener(Dead);
         playerTakeDamage.AddListener(TakeDamage);
         healPlayer.AddListener(HealPlayer);
-        mapping.playerType = playerData.type;
-        mapping.startingAbility = playerData.startingAbility;
-        mapping.critChance = playerData.critChance;
         playerDodgeChance.Value = 0f;
     }
 

@@ -9,30 +9,22 @@ namespace WeightedDistribution
     public class DistributionItem<T>
     {
         [SerializeField]
-        float weight;
-        public float Weight { get { return weight; } set { weight = value; } }
+        public float weight;
 
-        public float CombinedWeight { get; set; }
+        public float combinedWeight;
 
         [Range(0f, 100f), SerializeField]
-        float percentage;
-        public float Percentage { get { return percentage; } set { if (value >= 0 && value <= 100) percentage = value; } }
+        public float percentage;
 
         [SerializeField]
-        bool unique;
-        public bool Unique { get { return unique; } }
-
-        [SerializeField]
-        T value;
-        public T Value { get { return value; } set { this.value = value; } }
+        public T value;
     }
 
     public abstract class Distribution<T, T_ITEM> : MonoBehaviour
         where T_ITEM : DistributionItem<T>, new()
     {
         [SerializeField]
-        List<T_ITEM> items;
-        public List<T_ITEM> Items { get { return items; } }
+        public List<T_ITEM> items;
 
         bool firstCompute = false;
         int nbItems;
@@ -56,13 +48,13 @@ namespace WeightedDistribution
             }
 
             // On Add Item
-            if (!addedItem && items.Count > nbItems)
-                items[items.Count - 1].Weight = 0;
+            // if (!addedItem && items.Count > nbItems)
+            //     items[items.Count - 1].Weight = 0;
 
             foreach (T_ITEM item in items)
             {
-                if (item.Weight < 0)
-                    item.Weight = 0;
+                if (item.weight < 0)
+                    item.weight = 0;
             }
 
             ComputePercentages();
@@ -75,12 +67,12 @@ namespace WeightedDistribution
 
             foreach (T_ITEM item in items)
             {
-                combinedWeight += item.Weight;
-                item.CombinedWeight = combinedWeight;
+                combinedWeight += item.weight;
+                item.combinedWeight = combinedWeight;
             }
 
             foreach (T_ITEM item in items)
-                item.Percentage = item.Weight * 100 / combinedWeight;
+                item.percentage = item.weight * 100 / combinedWeight;
         }
 
         void OnValidate()
@@ -103,9 +95,9 @@ namespace WeightedDistribution
                 float random = Random.Range(0f, combinedWeight);
                 foreach (T_ITEM item in items)
                 {
-                    if (random <= item.CombinedWeight)
+                    if (random <= item.combinedWeight)
                     {
-                        return item.Value;
+                        return item.value;
                     }
                 }
 
@@ -117,7 +109,7 @@ namespace WeightedDistribution
 
         public void Add(T value, float weight)
         {
-            items.Add(new T_ITEM { Value = value, Weight = weight });
+            items.Add(new T_ITEM { value = value, weight = weight });
             OnItemsChange(true);
         }
 
@@ -133,7 +125,7 @@ namespace WeightedDistribution
         {
             for (int i = 0; i < items.Count; i++)
             {
-                T val = items[i].Value;
+                T val = items[i].value;
                 if (EqualityComparer<T>.Default.Equals(val, value))
                 {
                     return i;
@@ -145,7 +137,18 @@ namespace WeightedDistribution
 
         public void SetItems(List<T_ITEM> referenceItems)
         {
-            List<T_ITEM> temp = new List<T_ITEM>(referenceItems);
+            List<T_ITEM> temp = new List<T_ITEM>();
+            for (int i = 0; i < referenceItems.Count; i++)
+            {
+                T_ITEM item = new T_ITEM
+                {
+                    weight = referenceItems[i].weight,
+                    combinedWeight = referenceItems[i].combinedWeight,
+                    percentage = referenceItems[i].percentage,
+                    value = referenceItems[i].value
+                };
+                temp.Add(item);
+            }
             items = temp;
         }
     }

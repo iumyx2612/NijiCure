@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using ScriptableObjectArchitecture;
 using UnityEngine;
+using MathHelper;
 
 
 /// <summary>
@@ -65,23 +66,10 @@ public class ChongQuocDanData : DamageAbilityBase
         zoneGameObject.SetActive(false);
     }
 
-    private Vector2 SampleZonePosition()
-    {
-        float maxXDist = playerPosRef.Value.x + zoneDistFromPlayer.x;
-        float minXDist = playerPosRef.Value.x - zoneDistFromPlayer.x;
-        float maxYDist = playerPosRef.Value.y + zoneDistFromPlayer.y;
-        float minYDist = playerPosRef.Value.y - zoneDistFromPlayer.y;
-
-        float xPos = Random.Range(minXDist, maxXDist);
-        float yPos = Random.Range(minYDist, maxYDist);
-        
-        return new Vector2(xPos, yPos);
-    }
-
     public override void TriggerAbility()
     {
         // Select a random position within the distance from player
-        Vector2 pos = SampleZonePosition();
+        Vector2 pos = PositionSampling.RandomPositionInSquare(playerPosRef.Value, zoneDistFromPlayer);
         // Active the Zone, state is changed to cooldown in ChongQuocDan.cs
         zoneGameObject.transform.position = pos;
         zoneGameObject.SetActive(true);

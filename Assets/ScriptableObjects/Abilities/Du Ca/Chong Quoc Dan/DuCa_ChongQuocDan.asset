@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DuCa_ChongQuocDan
   m_EditorClassIdentifier: 
   abilityName: "Ch\u1ED3ng Qu\u1ED1c D\xE2n"
-  abilityIcon: {fileID: 0}
+  abilityIcon: {fileID: 21300000, guid: 0785f5ea6c4aa5044982dd92594a42f2, type: 3}
   cooldownTime: 3
   description: 
   debuffDesc: 
@@ -22,6 +22,7 @@ MonoBehaviour:
   internalCooldownTime: 0
   playerType: {fileID: 11400000, guid: 294f93b64a84a1949b2ec5b9a336a043, type: 2}
   weight: 6
+  isInitialized: 0
   state: 1
   damage: 20
   currentDamage: 20

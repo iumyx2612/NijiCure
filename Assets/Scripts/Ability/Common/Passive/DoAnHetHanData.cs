@@ -8,14 +8,13 @@ using UnityEngine;
 /// This ability will be treated as Passive since its prefab will be 100% active all the time
 /// The Ability state is handled inside the Prefab
 /// </summary>
-[CreateAssetMenu(menuName = "Ability/Common/Do An Het Han")]
+[CreateAssetMenu(menuName = "Ability/Common/Passive/Do An Het Han")]
 public class DoAnHetHanData : PassiveAbilityBase
 {
+    [Header("Specific")]
     public int damage;
-    [Range(0f, 1f)] public float critChance;
     public float radiusScale;
     [Range(0f, 1f)] public float slowPercentage;
-    public float cooldown;
 
     public MoveSpeedCounterData counterData;
     
@@ -25,20 +24,17 @@ public class DoAnHetHanData : PassiveAbilityBase
     public List<DoAnHetHanData> upgradeDatas;
 
     [HideInInspector] public int currentDamage;
-    [HideInInspector] public float currentCritChance;
     [HideInInspector] public float currentRadiusScale;
     [HideInInspector] public float currentSlowPercent;
-    [HideInInspector] public float currentCooldown;
 
     public override void Initialize()
     {
         base.Initialize();
 
         currentDamage = damage;
-        currentCritChance = critChance;
         currentRadiusScale = 1;
         currentSlowPercent = slowPercentage;
-        currentCooldown = cooldown;
+        currentCooldownTime = cooldownTime;
         
         // Counter
         counterData.abilityName = abilityName;
@@ -59,7 +55,17 @@ public class DoAnHetHanData : PassiveAbilityBase
 
     public override void UpgradeAbility()
     {
-        
+        DoAnHetHanData upgradeData = upgradeDatas[currentLevel];
+        // Update current
+        currentDamage = upgradeData.damage;
+        currentCooldownTime = upgradeData.cooldownTime;
+        currentSlowPercent = upgradeData.slowPercentage;
+        currentRadiusScale = upgradeData.radiusScale;
+        // Apply upgrade
+        counterData.percentage = currentSlowPercent;
+        holder.GetComponent<DoAnHetHan>().LoadData(this);
+        // Increase level
+        currentLevel += 1;
     }
 
     public override bool IsMaxLevel()

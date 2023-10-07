@@ -8,12 +8,12 @@ using Random = UnityEngine.Random;
 
 public class Het : MonoBehaviour
 {
-    public HetData hetData;
     private HetData baseData;
 
     private Animator animator;
     private float animLength;
     private float internalLength;
+    private bool isAwaken;
 
     // Data
     private Vector2 offset;
@@ -44,17 +44,16 @@ public class Het : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        animLength = animator.runtimeAnimatorController.animationClips[0].length;
         defaultScale = transform.localScale;
-        if (hetData != null)
-        {
-            LoadData(hetData);
-        }
     }
 
     private void OnEnable()
     {
-        animator.Play("Base Layer.BanMai_sonicwave");
-        animLength = animator.GetCurrentAnimatorStateInfo(0).length;
+        if (isAwaken)
+        {
+            animator.SetBool("isAwaken", true);
+        }
         baseDirection = new Vector2(directionRef.Value.x, 0);
         // Prevent new direction to have x-axis equals 0
         // If the x-axis equals 0 we simply take the oldBaseDirection
@@ -105,6 +104,13 @@ public class Het : MonoBehaviour
         internalLength = 0f;
         gameObject.SetActive(false);
         baseData.state = AbilityBase.AbilityState.cooldown; // The last deactivated bullet sets the state for the ability
+    }
+
+    public void Awaken()
+    {
+        animLength = animator.runtimeAnimatorController.animationClips[1].length + 
+        animator.runtimeAnimatorController.animationClips[0].length;
+        isAwaken = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collider)

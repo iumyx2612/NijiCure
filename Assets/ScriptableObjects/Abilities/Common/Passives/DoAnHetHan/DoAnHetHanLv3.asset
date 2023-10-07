@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10076ac76cb72124c812788ae35ace6d, type: 3}
+  m_Name: DoAnHetHanLv3
+  m_EditorClassIdentifier: 
+  abilityName: "\u0110\u1ED3 \u0103n h\u1EBFt h\u1EA1n"
+  abilityIcon: {fileID: 21300000, guid: 53c7cb484fc9c5144baf68e328af8704, type: 3}
+  cooldownTime: 0.6
+  description: "T\u0103ng t\u1EA7n su\u1EA5t g\xE2y s\xE1t th\u01B0\u01A1ng th\xEAm
+    25%"
+  debuffDesc: 
+  currentLevel: 0
+  currentCooldownTime: 0
+  internalCooldownTime: 0
+  playerType: {fileID: 11400000, guid: d97529471639b32409d084e45e8cfbb5, type: 2}
+  weight: 5
+  isInitialized: 0
+  state: 0
+  damage: 12
+  radiusScale: 1.25
+  slowPercentage: 0.2
+  counterData: {fileID: 11400000, guid: c02be3157473eef46aa2438c32ff7331, type: 2}
+  prefab: {fileID: 3566961290145430712, guid: 09ca2942229322b4c9312a30b558a929, type: 3}
+  upgradeDatas: []
+  currentDamage: 0
+  currentRadiusScale: 0
+  currentSlowPercent: 0

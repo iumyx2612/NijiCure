@@ -114,6 +114,7 @@ public class UIManager : MonoBehaviour
         {
             // Pause the Game
             Time.timeScale = 0f;
+            gameIsPause.Value = true;
             lvlUpPanel.SetActive(true);
             for (int i = 0; i < abilitiesToPick.Count; i++)
             {
@@ -152,8 +153,10 @@ public class UIManager : MonoBehaviour
             // Unpause the Game
             Time.timeScale = 1f;
             lvlUpPanel.SetActive(false);
+            gameIsPause.Value = false;
         }
     }
+
     // --------------- Time ---------------
     private void TimeFloatToString()
     {

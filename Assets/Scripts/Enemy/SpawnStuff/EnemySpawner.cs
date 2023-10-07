@@ -26,24 +26,34 @@ public class EnemySpawner : MonoBehaviour
     private float internalSpawnCooldown;
     [SerializeField] private int spawnCooldown; // how fast to spawn enemy
     [SerializeField] private int maxEnemyLimit; // For performance purpose and easy mode
-    [SerializeField] private int numEnemyOnScreen;
+    private int numEnemyOnScreen;
     
     // For Time Event
     [Header("Time Event")]
     [SerializeField] private GameObject timeEventEnemyPrefab;
     [SerializeField] private GameObjectCollection timeEventEnemyPool;
     [SerializeField] private List<TimeEventSpawnDataBase> stageTimeEventSpawnData;
+
+    [Header("Boss Event")]
+    [SerializeField] private GameObject bossHolderPrefab;
+    [SerializeField] private GameObjectCollection bossPool;
+    [SerializeField] private List<BossSpawnerData> stageBossSpawnData;
     
 
     private void Awake()
     {
         enemyHolderPool.Clear();
         timeEventEnemyPool.Clear();
+        bossPool.Clear();
         spawnDistribution = gameObject.GetComponent<EnemySpawnDataDistribution>();
         foreach (TimeEventSpawnDataBase timeEventSpawn in stageTimeEventSpawnData)
         {
-            timeEventSpawn.SetRequiresDataField();
             timeEventSpawn.SetOccur(false);
+            AudioManager.Instance.AddSound(timeEventSpawn.soundEvent);
+        }
+        for (int i = 0; i < stageBossSpawnData.Count; i++)
+        {
+            stageBossSpawnData[i].SetOccur(false);
         }
     }
 
@@ -95,7 +105,7 @@ public class EnemySpawner : MonoBehaviour
         // Spawn Event Enemy
         foreach (TimeEventSpawnDataBase timeEventSpawn in stageTimeEventSpawnData)
         {
-            if (timeEventSpawn.startTime <= timeSinceGameStart.Value && !timeEventSpawn.HasOccured())
+            if (timeEventSpawn.spawnTime <= timeSinceGameStart.Value && !timeEventSpawn.HasOccured())
             {
                 timeEventSpawn.SpawnTimeEventEnemy(timeEventEnemyPrefab);
                 timeEventSpawn.SetOccur(true);
@@ -130,6 +140,17 @@ public class EnemySpawner : MonoBehaviour
             GameObject timeEventEnemyHolder = Instantiate(timeEventEnemyPrefab, temp.transform);
             timeEventEnemyPool.Add(timeEventEnemyHolder);
             timeEventEnemyHolder.SetActive(false);
+        }
+    }
+
+    private void InitializeBoss()
+    {
+        GameObject temp = new GameObject("Boss Enemy Holder");
+        for (int i = 0; i < 5; i++)
+        {
+            GameObject bossHolder = Instantiate(bossHolderPrefab, temp.transform);
+            bossPool.Add(bossHolder);
+            bossHolder.SetActive(false);
         }
     }
     

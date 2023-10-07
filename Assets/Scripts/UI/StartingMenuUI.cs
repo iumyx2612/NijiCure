@@ -8,7 +8,12 @@ public class StartingMenuUI : MonoBehaviour
 {
     [SerializeField] private Slider sfxVolumeSlider;
     [SerializeField] private Slider musicVolumeSlider;
-    
+
+    private void Start()
+    {
+        sfxVolumeSlider.value = AudioManager.Instance.sfxVolume.Value;
+        musicVolumeSlider.value = AudioManager.Instance.musicVolume.Value;
+    }
 
     public void SfxVolumeSlider()
     {

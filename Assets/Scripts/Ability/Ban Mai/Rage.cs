@@ -8,7 +8,6 @@ public class Rage : MonoBehaviour
     // Data
     private float buffTime;
     private float damageBuff;
-    private Vector2 scaleBuff;
     private HetData baseHetData;
     private IntGameEvent playerTakeDamage;
 
@@ -54,7 +53,6 @@ public class Rage : MonoBehaviour
     {
         buffTime = _data.currentBuffTime;
         damageBuff = _data.currentDamageBuff;
-        scaleBuff = _data.currentScaleBuff;
         if (baseHetData == null)
             baseHetData = _data.baseHetData;
         if (playerTakeDamage == null)

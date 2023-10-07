@@ -12,8 +12,12 @@ using UnityEngine.SceneManagement;
 public class UICancelNavigation : MonoBehaviour
 {
     public GameObject previousPanel;
-    [SerializeField] private bool goBack; // Go back to previous Scene
+    [Tooltip("Go back to previous Scene")]
+    [SerializeField] private bool goBack; 
+    [Tooltip("Check this if the starting UI is the button, else it's a Slider")]
     [SerializeField] private bool isButton;
+    [Tooltip("Check if SetActive(true) the gameobject when OnCancel is called")]
+    [SerializeField] private bool deact;
     [SerializeField] private GameObject startingGameObject;
 
     private void OnEnable()
@@ -38,7 +42,10 @@ public class UICancelNavigation : MonoBehaviour
 
     public void OnCancel(InputAction.CallbackContext ctx)
     {
-        gameObject.SetActive(false);
+        if (deact)
+        {
+            gameObject.SetActive(false);
+        }
         if (previousPanel != null && !goBack)
         {
             previousPanel.SetActive(true);

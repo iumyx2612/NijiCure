@@ -47,4 +47,7 @@ public abstract class AbilityBase : ScriptableObject
 
     public abstract bool IsMaxLevel();
     // -------------------------------------------------------
+    
+    // -------------------------------------------------------
+    public abstract void ModifyDebuff(int level);
 }

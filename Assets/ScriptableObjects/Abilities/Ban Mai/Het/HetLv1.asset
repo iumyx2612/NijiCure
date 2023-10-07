@@ -15,28 +15,27 @@ MonoBehaviour:
   abilityName: "S\u01B0 t\u1EED h\u1ED1ng"
   abilityIcon: {fileID: 21300000, guid: cadfc84d8086ac24696747c3a14b9a36, type: 3}
   cooldownTime: 1
-  description: "S\xE1t th\u01B0\u01A1ng t\u0103ng l\xEAn 20%"
+  description: "S\xE1t th\u01B0\u01A1ng k\u0129 n\u0103ng t\u0103ng th\xEAm 20%"
   debuffDesc: "S\xE1t th\u01B0\u01A1ng k\u0129 n\u0103ng n\xE0y c\u1EE7a Mai s\u1EBD
     b\u1ECB bi\u1EBFn \u0111\u1ED5i ng\u1EABu nhi\xEAn"
   currentLevel: 0
   currentCooldownTime: 1
-  internalCooldownTime: 0.6019548
+  internalCooldownTime: 0
   playerType: {fileID: 11400000, guid: e8814abdea8216143b1d8343a509e13b, type: 2}
   weight: 5
-  state: 2
-  damage: 35
-  currentDamage: 29
+  isInitialized: 0
+  state: 1
+  damage: 24
+  currentDamage: 31
   critChance: 0.05
   currentCritChance: 0.05
   knockbackForce: 0.5
   scale: {x: 1, y: 1}
-  offset: {x: 0, y: 0}
-  numAttack: 1
+  offset: {x: 1.5, y: 0}
   bulletPrefab: {fileID: 8150979786157925148, guid: b2a5e4dff40b6e64a994af46ef2d0e48,
     type: 3}
   upgradeDatas:
-  - {fileID: 11400000, guid: 9039fd037517cc7428e690d40769972c, type: 2}
+  - {fileID: 11400000}
   currentKnockbackForce: 0.5
   currentScale: {x: 1, y: 1}
-  currentNumAttack: 1
-  bar: 10
+  bar: 8

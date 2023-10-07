@@ -23,8 +23,6 @@ public class ChongQuocDan : MonoBehaviour
     private float animLength;
     private float internalLength;
     
-    // Debug
-    [SerializeField] private List<GameObject> hitEnemies = new List<GameObject>();
     
     private void Awake()
     {
@@ -52,7 +50,6 @@ public class ChongQuocDan : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            hitEnemies.Add(other.gameObject);
             float randomNumber = Random.Range(0f, 1f);
             if (randomNumber <= convertChance)
             {

@@ -3,38 +3,55 @@ using System.Collections.Generic;
 using ScriptableObjectArchitecture;
 using UnityEngine;
 
-public abstract class TimeEventSpawnDataBase : SpawnData
+public abstract class TimeEventSpawnDataBase : ScriptableObject
 {
-    /// <summary>
-    /// Already has:
-    ///    public float starTime;
-    ///    public float endTime;
-    ///    public int spawnAmount;
-    ///    public EnemyData enemyData; (not used)
-    ///    public int weight; (not used)
-    /// </summary>
+    [Tooltip("When to spawn the Event")]
+    public float spawnTime;
 
-    [Header("Where to parse the data to")]
-    public TimeEventEnemyData timeEventEnemyData;
-    public GameObjectCollection timeEventEnemyPool;
-    private bool hasOccured; 
-    [Header("Data to parse to Time Event Enemy Data")]
+    [Tooltip("Amount to spawn")]
+    public int spawnAmount;
+
+    [Header("Data of spawn Enemies")]
+    public float speed;
+    public int damage;
+    public int health;
+    public int expAmount;
+    public RuntimeAnimatorController runtimeAnimatorController;
+    
     [Tooltip("How long the event Enemy last")]
     public float lifeTime;
+
     [Tooltip("If false, Enemy follows player")]
     public bool oneTime;
-    public Vector2Variable playerPosRef;
+
+    [Tooltip("The destination to move to when One Time is set")]
     public Vector2 destination;
 
-    public void SetRequiresDataField() // Called by EnemySpawner.cs
+    [Tooltip("Play sound when event happens")]
+    public Sound soundEvent;
+
+    public enum Shape
     {
-        timeEventEnemyData.lifeTime = lifeTime;
-        timeEventEnemyData.oneTime = oneTime;
+        horizontal,
+        vertical,
+        square
     }
+
+    public Shape shape;
+    [HideInInspector] public Dictionary<Shape, (Vector2, Vector2)> shapeToColliderMapping = 
+        new Dictionary<Shape, (Vector2, Vector2)>
+        {
+            {Shape.horizontal, (new Vector2(0.33f, 0.2f), new Vector2(0, -0.06f))},
+            {Shape.vertical, (new Vector2(0.24f, 0.13f), new Vector2(0, -0.08f))},
+            {Shape.square, (new Vector2(0.24f, 0.22f), new Vector2(0, -0.08f))}
+        };
+    public GameObjectCollection timeEventEnemyPool;
+    private bool hasOccured;
+
+    public Vector2Variable playerPosRef;
 
     public void SpawnTimeEventEnemy(GameObject enemyPrefab) // Called by EnemySpawner.cs
     {
-        timeEventEnemyData.destination = playerPosRef.Value + destination;
         List<Vector2> spawnPositions = SampleSpawnPosition();
         // Check for number of inactive Enemy Prefab
         int numInActive = 0;
@@ -60,8 +77,8 @@ public abstract class TimeEventSpawnDataBase : SpawnData
                 if (!timeEventEnemyHolder.activeSelf)
                 {
                     GameObject timeEventEnemy = timeEventEnemyHolder.transform.GetChild(0).gameObject;
-                    timeEventEnemy.GetComponent<TimeEventEnemyMovement>().LoadData(timeEventEnemyData);
-                    timeEventEnemy.GetComponent<EnemyCombat>().LoadData(timeEventEnemyData);
+                    timeEventEnemy.GetComponent<TimeEventEnemyMovement>().LoadData(this, spawnPositions[numRequired]);
+                    timeEventEnemy.GetComponent<TimeEventEnemyCombat>().LoadData(this);
                     timeEventEnemyHolder.transform.position = spawnPositions[numRequired];
                     timeEventEnemyHolder.SetActive(true);
                     numRequired += 1;
@@ -78,13 +95,16 @@ public abstract class TimeEventSpawnDataBase : SpawnData
             {
                 GameObject holder = GameObject.Find("Time Event Enemy Holder");
                 GameObject enemyHolder = Instantiate(enemyPrefab, holder.transform);
-                GameObject enemy = enemyHolder.transform.GetChild(0).gameObject;
-                enemy.GetComponent<TimeEventEnemyMovement>().LoadData(timeEventEnemyData);
-                enemy.GetComponent<EnemyCombat>().LoadData(timeEventEnemyData);
+                GameObject timeEventEnemy = enemyHolder.transform.GetChild(0).gameObject;
+                timeEventEnemy.GetComponent<TimeEventEnemyMovement>().LoadData(this, spawnPositions[i]);
+                timeEventEnemy.GetComponent<TimeEventEnemyCombat>().LoadData(this);
                 enemyHolder.transform.position = spawnPositions[i];
                 timeEventEnemyPool.Add(enemyHolder);
             }
         }
+
+        // Play Sound
+        AudioManager.Instance.Play(soundEvent.audioName);
     }
 
     protected abstract List<Vector2> SampleSpawnPosition();

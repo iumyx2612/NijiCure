@@ -11,7 +11,6 @@ public class HetData : DamageAbilityBase
     public float knockbackForce;
     public Vector2 scale;
     public Vector2 offset;
-    public int numAttack;
     public GameObject bulletPrefab;
 
     public List<HetData> upgradeDatas;
@@ -20,7 +19,6 @@ public class HetData : DamageAbilityBase
 
     [HideInInspector] public float currentKnockbackForce;
     [HideInInspector] public Vector2 currentScale;
-    [HideInInspector] public int currentNumAttack;
     
     // Debuff
     [Header("Debuff")] 
@@ -32,7 +30,6 @@ public class HetData : DamageAbilityBase
 
         currentKnockbackForce = knockbackForce;
         currentScale = scale;
-        currentNumAttack = numAttack;
         
         pool = new List<GameObject>();
         GameObject abilityHolder = new GameObject(abilityName + " Holder");
@@ -44,7 +41,7 @@ public class HetData : DamageAbilityBase
 
     public override void TriggerAbility()
     {
-        for (int i = 0; i < currentNumAttack; i++)
+        for (int i = 0; i < pool.Count; i++)
         {
             GameObject bullet = pool[i];
             if (!bullet.activeSelf)
@@ -62,19 +59,17 @@ public class HetData : DamageAbilityBase
         currentKnockbackForce = upgradeData.knockbackForce;
         currentScale = upgradeData.scale;
         currentDamage = upgradeData.damage;
-        
-        // Check if we create more bullet
-        if (currentNumAttack < upgradeData.numAttack)
+
+        // Apply upgrade
+        for (int i = 0; i < pool.Count; i++)
         {
-            currentNumAttack = upgradeData.numAttack;
-            // Spawn more bullet
-            GameObject abilityHolder = GameObject.Find(abilityName + " Holder"); // A little computation intensive
-            GameObject bullet = Instantiate(bulletPrefab, abilityHolder.transform);
+            GameObject bullet = pool[i];
             bullet.GetComponent<Het>().LoadData(this);
-            // Set the same direction as the first bullet
-            bullet.GetComponent<Het>().oldBaseDirection = pool[0].GetComponent<Het>().oldBaseDirection;
-            pool.Add(bullet);
-            bullet.SetActive(false);
+            
+            if (currentLevel + 1 >= upgradeDatas.Count)
+            {
+                bullet.GetComponent<Het>().Awaken();
+            }
         }
         currentLevel += 1;
     }

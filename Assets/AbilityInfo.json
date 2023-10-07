@@ -1,0 +1,89 @@
+[
+    {"player": "BanMai",
+    "abilities": [
+        {
+            "name": "Sư tử hống",
+            "stats": {
+                "damage": [20, 24, 24, 24, 36, 36],
+                "knocbackForce": [0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+                "scale": [[1, 1], [1, 1], [1, 1], [1.3 ,1.3], [1.3, 1.3], [1.3, 1.3]],
+                "numAttack": [1, 1, 1, 1, 1, 2],
+                "cooldownTime": [1, 1, 0.8, 0.8, 0.8, 0.8]},
+            "debuffDesc": "Sát thương kĩ năng này của Mai sẽ bị biến đổi ngẫu nhiên",
+            "description": [
+                "Hét theo phương ngang, kẻ địch bị trúng phải sẽ bị đẩy lùi trong chốc lát",
+                "Sát thương kĩ năng tăng thêm 20%",
+                "Giảm thời gian hồi kĩ năng đi 20%",
+                "Tăng độ rộng của kĩ năng thêm 30%",
+                "Sát thương kĩ năng tăng thêm 50%",
+                "Thức tỉnh: Ban Mai để lại dư chấn sau khi hét"
+            ]
+        },
+        {
+            "name": "Ngọng",
+            "stats": {
+                "damageBuff": [0.4, 0.4, 0.5, 0.5, 0.6],
+                "placeChance": [0.15, 0.2, 0.2, 0.2, 0.25],
+                "counterDuration": [3, 3, 3, 4, 4, 4]},
+            "description": [
+                "Mỗi kẻ địch trúng 'Sư tử hống' sẽ có 15% bị dính Ngọng trong vòng 3s. Sát thương của 'Sư tử hống' nhận vào tăng lên 40% với kẻ địch bị Ngọng",
+                "Khả năng bị dính Ngọng lên thành 20%",
+                "Sát thương tăng thêm của 'Sư tử hống' lên kẻ địch bị Ngọng tăng lên thành 50%",
+                "Kẻ địch sẽ bị Ngọng trong vòng 4s",
+                "Tăng khả năng dính Ngọng lên 25% đồng thời tăng sát thương lên thành 60%"
+            ]
+        },
+        {
+            "name": "Kẻ săn Pudding",
+            "stats": {
+                "radius": [1.3, 1.3, 1.3, 1.75, 1.75],
+                "buffTime": [3, 4, 4, 4, 4],
+                "damageIncrease": [0.1, 0.1, 0.1, 0.1, 0.1],
+                "dropChance": [0.15, 0.15, 0.15, 0.15, 0.2],
+                "healthIncrease": [3, 3, 4, 4, 5]},
+            "description": [
+                "Mỗi kẻ địch trong bán kính 1.3 px khi chết sẽ có 15% rơi ra Pudding. Ban Mai khi ăn Pudding sẽ được hồi 3 máu đồng thời tăng sát thương của kĩ năng 'Sư tử hống' lên 10% trong 3s",
+                "Thời gian buff được tăng lên thành 4s",
+                "Hồi máu khi ăn Pudding được tăng lên thành 4",
+                "Bán kính tăng lên thành 1.75px",
+                "Cơ hội rơi ra Pudding tăng lên thành 20%, hồi máu khi ăn Pudding tăng lên thành 5"
+            ]
+        },
+        {
+            "name": "Nổi cáu",
+            "stats": {
+                "buffTime": [3, 4, 4, 4, 5],
+                "damageBuff": [0.15, 0.15, 0.2, 0.25, 0.3]
+            },
+            "description": [
+                "Khi bị mất máu, Ban Mai nổi cáu, tăng sát thương kĩ năng 'Sư tử hống' lên 15% trong vòng 3s",
+                "Thời gian buff tăng lên thành 4s",
+                "Sát thương buff được tăng lên thành 20%",
+                "Sát thương buff được tăng lên thành 25%",
+                "Thời gian buff tăng lên thành 5s và sát thương buff tăng lên thành 30%"
+            ]
+        }
+    ]},
+    {"player": "DuCa",
+    "abilities": [
+        {
+            "name": "Ném Dâu",
+            "stats": {
+                "damage": [14, 18, 20, 20, 24, 28],
+                "cooldownTime": [0.7, 0.7, 0.7, 0.5, 0.5, 0.5],
+                "scale": [[1, 1], [1, 1], [1.1, 1.1], [1.1, 1.1], [1.1, 1.1], [1.2, 1.2]],
+                "numBullet": [1, 1, 1, 1, 2, 3]
+            },
+            "debuffDesc": "Bị ngố, có khả năng tự gây sát thương cho bản thân",
+            "description": [
+                "Ném dâu theo hình vòng cung, kẻ địch trúng dâu nhận 14 sát thương",
+                "Tăng sát thương gây ra thêm 30%",
+                "Tăng sát thương gây ra thêm 10% và kích cỡ quả dâu lên 10%",
+                "Giảm thời gian giữa 2 lần ném dâu đi 40%",
+                "Tăng sát thương gây ra thêm 20% và tăng số lượng dâu ném ra thêm 1",
+                "Tăng sát thương gây ra thêm 20%, tăng số lượng dâu thêm 1 và tăng kích cỡ quả dâu lên 10%"
+            ]
+        }
+    ]
+}
+]

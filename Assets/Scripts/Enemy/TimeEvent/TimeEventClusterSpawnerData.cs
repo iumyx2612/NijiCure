@@ -6,20 +6,7 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Enemy/Spawn Data/Cluster Spawner")]
 public class TimeEventClusterSpawnerData : TimeEventSpawnDataBase
-{
-    /// <summary>
-    /// Already has:
-    ///     public float starTime;
-    ///     public float endTime;
-    ///     public int spawnAmount;
-    ///     public EnemyData enemyData; (not use)
-    ///     public int weight; (not use)
-    ///     public TimeEventEnemyData timeEventEnemyData;
-    ///     public GameObjectCollection timeEventEnemyPool;
-    ///     public float lifeTime;
-    ///     public bool oneTime;
-    /// </summary>
-    
+{    
     [Header("Spawn position")]
     [Tooltip("Enemies will spawn inside a circle of this radius")]
     public float radius; 

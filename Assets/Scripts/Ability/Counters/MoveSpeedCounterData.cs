@@ -5,11 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Ability/Counter/Move Speed")]
 public class MoveSpeedCounterData : CounterBaseData
 {
-    public bool singleAbility; // If the Counter can stack with others: false
+    [Tooltip("Counter increase speed instead of decrease")]
     public bool increase; // If the Counter increase or decrease speed
+    [Tooltip("Slow percentage")]
     [HideInInspector] public float percentage;
     [HideInInspector] public string abilityName;
-    // To play the animation when we place counter onto the Enemy
+    // To play the animation when we place counter onto the Enemy, no need when no animation is play
     [HideInInspector] public List<GameObject> counterPool;
     [HideInInspector] public GameObject counterPrefab;
 }
@@ -38,7 +39,6 @@ public class MoveSpeedCounter : Counter<MoveSpeedCounterData>
         maxNum = data.maxNum;
         existTime = data.existTime;
 
-        singleAbility = data.singleAbility;
         increase = data.increase;
         percentage = data.percentage;
         abilityName = data.abilityName;

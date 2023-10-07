@@ -77,6 +77,6 @@ public class CharSelectButton : MonoBehaviour, ISelectHandler, IDeselectHandler
     private void OnPlayerPicked()
     {
         stagePlayerData.Set(playerData);   
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Stage 1");
     }
 }

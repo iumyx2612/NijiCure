@@ -6,8 +6,25 @@ using UnityEngine;
 using ScriptableObjectArchitecture;
 using UnityEngine.Audio;
 
+
+[Serializable]
+public struct AudioVolume
+{
+    public float sfxVolume;
+    public float musicVolume;
+
+    public AudioVolume(float _sfxVolume, float _musicVolume)
+    {
+        sfxVolume = _sfxVolume;
+        musicVolume = _musicVolume;
+    }
+}
+
+
 public class AudioManager : MonoBehaviour
 {
+    // Manage the saves
+    private JsonSerializer jsonSerializer = new JsonSerializer();
     [SerializeField] private List<Sound> sounds;
     public static AudioManager Instance;
 
@@ -15,8 +32,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioMixerGroup musicMixer;
     [SerializeField] private AudioMixerGroup sfxMixer;
     
-    [SerializeField] private FloatVariable sfxVolume;
-    [SerializeField] private FloatVariable musicVolume;
+    public FloatVariable sfxVolume;
+    public FloatVariable musicVolume;
     
     private void Awake()
     {
@@ -31,7 +48,17 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        // Remove sound from previous Scene
+        for (int i = Instance.sounds.Count - 1; i >= 0; i--)
+        {
+            Sound sound = Instance.sounds[i];
+            if (!sound.keep)
+            {
+                Instance.sounds.Remove(sound);
+            }
+        }
 
+        // First time initialization
         for (int i = 0; i < Instance.sounds.Count; i++)
         {
             Sound sound = Instance.sounds[i];
@@ -52,6 +79,20 @@ public class AudioManager : MonoBehaviour
                 sound.audioSource.playOnAwake = sound.playOnAwake;
             }
         }
+        
+        try
+        {
+            AudioVolume audioVolume = jsonSerializer.LoadData<AudioVolume>("/audio-volume.json");
+            musicVolume.Value = audioVolume.musicVolume;
+            sfxVolume.Value = audioVolume.sfxVolume;
+        }
+        catch(Exception e)
+        {
+            Debug.LogError($"{e.Message} {e.StackTrace}");
+            musicVolume.Value = 1f;
+            sfxVolume.Value = 1f;
+        }
+
         SetMusicVolume(musicVolume.Value);
         SetSfxVolume(sfxVolume.Value);
     }
@@ -89,13 +130,29 @@ public class AudioManager : MonoBehaviour
     public void SetSfxVolume(float value)
     {
         sfxVolume.Value = value;
-        Instance.audioMixer.SetFloat("SfxVolume", sfxVolume.Value);
+        Instance.audioMixer.SetFloat("SfxVolume", Mathf.Log10(sfxVolume.Value) * 20);
+        if (jsonSerializer.SaveData("/audio-volume.json", new AudioVolume(sfxVolume.Value, musicVolume.Value)))
+        {
+            Debug.Log("Save Audio Complete!");
+        }
+        else
+        {
+            Debug.LogError("Can't save Audio");
+        }
     }
 
     public void SetMusicVolume(float value)
     {
         musicVolume.Value = value;
-        Instance.audioMixer.SetFloat("MusicVolume", musicVolume.Value);
+        Instance.audioMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolume.Value) * 20);
+        if (jsonSerializer.SaveData("/audio-volume.json", new AudioVolume(sfxVolume.Value, musicVolume.Value)))
+        {
+            Debug.Log("Save Audio Complete!");
+        }
+        else
+        {
+            Debug.LogError("Can't save Audio");
+        }
     }
 
     public void AddSound(Sound sound)

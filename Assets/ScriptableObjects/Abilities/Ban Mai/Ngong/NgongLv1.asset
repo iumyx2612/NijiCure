@@ -25,6 +25,7 @@ MonoBehaviour:
   internalCooldownTime: 0
   playerType: {fileID: 11400000, guid: e8814abdea8216143b1d8343a509e13b, type: 2}
   weight: 4
+  isInitialized: 0
   state: 1
   damageBuff: 0.4
   placeChance: 0.2
@@ -35,7 +36,7 @@ MonoBehaviour:
     type: 3}
   baseHetData: {fileID: 11400000, guid: 24c9e944e93d3de46bed21fba95a8265, type: 2}
   upgradeDatas:
-  - {fileID: 11400000, guid: aa9fd0ed1f872684db6231e5898288fb, type: 2}
+  - {fileID: 11400000}
   currentDamageBuff: 0
   currentPlaceChance: 1
   currentCounterDuration: 3

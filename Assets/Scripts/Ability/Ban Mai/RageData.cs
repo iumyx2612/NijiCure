@@ -8,7 +8,6 @@ public class RageData : PassiveAbilityBase
 {
     public float buffTime;
     [Range(0f, 1f)] public float damageBuff;
-    public Vector2 scaleBuff;
     public IntGameEvent playerTakeDamage; // To Assign to Rage.cs
     public HetData baseHetData; // To Assign to Rage.cs
     public PassiveAbilityGameEvent activeCountdownImage; // To Assign to Rage.cs
@@ -17,7 +16,6 @@ public class RageData : PassiveAbilityBase
 
     [HideInInspector] public float currentBuffTime;
     [HideInInspector] public float currentDamageBuff;
-    [HideInInspector] public Vector2 currentScaleBuff;
 
     private GameObject player;
     
@@ -28,7 +26,6 @@ public class RageData : PassiveAbilityBase
         AddAndLoadComponent(player);
         currentBuffTime = buffTime;
         currentDamageBuff = damageBuff;
-        currentScaleBuff = scaleBuff;
     }    
     
     public override void AddAndLoadComponent(GameObject objectToAdd)
@@ -48,7 +45,6 @@ public class RageData : PassiveAbilityBase
         // Update current
         currentDamageBuff = upgradeData.damageBuff;
         currentBuffTime = upgradeData.buffTime;
-        currentScaleBuff = upgradeData.scaleBuff;
         // Apply 
         player.GetComponent<Rage>().LoadData(this);
 

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f1e133e8be336e4b84771bfbe07593a, type: 3}
+  m_Name: Damage_NijiBomb
+  m_EditorClassIdentifier: 
+  abilityName: NijiBomb
+  abilityIcon: {fileID: 0}
+  cooldownTime: 0.5
+  description: 
+  debuffDesc: 
+  currentLevel: 0
+  currentCooldownTime: 0.5
+  internalCooldownTime: 0
+  playerType: {fileID: 0}
+  weight: 0
+  isInitialized: 1
+  state: 1
+  damage: 10
+  currentDamage: 10
+  critChance: 0
+  currentCritChance: 0
+  spawnArea: {x: 7, y: 4}
+  playerPosRef: {fileID: 11400000, guid: 432f3cca538fe954dbf9e0ef7b9efa91, type: 2}
+  explosiveRadius: 1.5
+  numBombs: 1
+  bombPrefab: {fileID: 8040023253937537419, guid: c3facd92cc0242b42b0172d8d16bd21f,
+    type: 3}
+  upgradeDatas: []
+  currentExplosiveRadius: 1.5
+  currentNumBombs: 1

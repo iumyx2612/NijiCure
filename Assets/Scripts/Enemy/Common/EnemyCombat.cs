@@ -16,30 +16,30 @@ public class EnemyCombat : MonoBehaviour
 #endif
     
     // Data
-    private int damage;
-    private int enemyHealth;
+    protected int damage;
+    protected int enemyHealth;
     
-    private float attackRadius = 0.52f;
-    private float damageTime = 1f;
-    private float internalDamageTime;
-    private bool canAttack = true;
-    private bool crit;
-    private int actualDamageTaken;
-    [SerializeField] private LayerMask playerMask;
+    protected float attackRadius = 0.52f;
+    protected float damageTime = 1f;
+    protected float internalDamageTime;
+    protected bool canAttack = true;
+    protected bool crit;
+    protected int actualDamageTaken;
+    [SerializeField] protected LayerMask playerMask;
     
     // Stuff in Awake
-    private BoxCollider2D selfCollider;
-    private IBaseEnemyBehavior enemyMovement;
+    protected BoxCollider2D selfCollider;
+    protected IBaseEnemyBehavior enemyMovement;
     
     // For counters that placed onto the Enemy
     [HideInInspector] public List<DamageBuffCounter> dmgBuffCounters = new List<DamageBuffCounter>();
-    private float counterDmgMultiplier;
+    protected float counterDmgMultiplier;
     
     [Header("UI")]
     // Damage UI
-    [SerializeField] private IntGameEvent playerTakeDamage;
-    [SerializeField] private TMP_Text damageUIPopupText;
-    [SerializeField] private Color critColor = new Color(255, 221, 90, 1f);
+    [SerializeField] protected IntGameEvent playerTakeDamage;
+    [SerializeField] protected TMP_Text damageUIPopupText;
+    [SerializeField] protected Color critColor = new Color(255, 221, 90, 1f);
 
     
     private void Awake()
@@ -108,7 +108,9 @@ public class EnemyCombat : MonoBehaviour
 
     public void LoadData(EnemyData data)
     {
+#if UNITY_EDITOR
         enemyData = data;
+#endif
         damage = data.damage;
         enemyHealth = data.health;
         selfCollider.size = data.shapeToColliderMapping[data.shape].Item1;

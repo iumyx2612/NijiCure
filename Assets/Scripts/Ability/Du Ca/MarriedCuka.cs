@@ -17,7 +17,7 @@ public class MarriedCuka : MonoBehaviour
     private float attackTimer = 0.8f;
     private float lifeTime = 150f;
 
-    private CircleCollider2D collider;
+    private CircleCollider2D selfCollider;
     private List<Collider2D> hitEnemies = new List<Collider2D>();
     private float internalAttackTimer;
     private float internalLifeTime;
@@ -36,7 +36,7 @@ public class MarriedCuka : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         cukaAnimator = GetComponent<Animator>();
-        collider = GetComponent<CircleCollider2D>();
+        selfCollider = GetComponent<CircleCollider2D>();
     }
 
     // Update is called once per frame
@@ -89,7 +89,7 @@ public class MarriedCuka : MonoBehaviour
     {
         damage = data.currentCukaDamage;
         radius = data.cukaRange;
-        collider.radius = radius;
+        selfCollider.radius = radius;
         attackTimer = data.currentCukaAtkTimer;
         lifeTime = data.cukaLifeTime;
     }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 /// <summary>
 /// Kẻ địch khi nhận sát thương từ Het có khả năng bị dính Ngọng counter
-/// Sát thương của Hét lên kẻ địch có Ngọng được tăng lên theo số Counter
+/// Sát thương của Hét lên kẻ địch có Ngọng được tăng lên
 /// </summary>
 [CreateAssetMenu(menuName = "Ability/Ban Mai/Ngong")]
 public class NgongData : PassiveAbilityBase
@@ -40,7 +40,7 @@ public class NgongData : PassiveAbilityBase
         currentCounterDuration = counterDuration;
         currentMaxNumCounter = maxNumCounter;
         
-        // Init the Counter GameObject that holds animation\
+        // Init the Counter GameObject that holds animation
         counterPool = new List<GameObject>();
         GameObject counterHolder = new GameObject(abilityName + " Counters");
         for (int i = 0; i < 20; i++)

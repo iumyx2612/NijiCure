@@ -5,6 +5,8 @@ using UnityEngine;
 
 /// <summary>
 /// The Counter<T> is used by Enemies
+/// SetData() to set the CounterData to this Counter on the Enemy
+/// Active() to play the Animation of adding Counter
 /// </summary>
 /// <typeparam name="T"></typeparam>
 public interface Counter<T>
@@ -21,7 +23,5 @@ public abstract class CounterBaseData : ScriptableObject
 {
     public string counterName;
     public int maxNum;
-    public float existTime; 
-    [HideInInspector] public float internalTime;
-    [HideInInspector] public int currentNum;
+    public float existTime;
 }

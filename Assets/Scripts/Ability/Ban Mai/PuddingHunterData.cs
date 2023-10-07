@@ -7,13 +7,13 @@ using UnityEngine;
 /// <summary>
 /// Kẻ địch trong phạm vi `radius` khi bị hạ gục sẽ có khả
 /// năng drop ra `itemDropCounter` Pudding
-/// Nhặt Pudding sẽ hồi máu + buff sát thương của Hét -> Implement trong Items/BanMaiPuddingItemDrop.cs
+/// Nhặt Pudding sẽ hồi máu + buff sát thương của Hét -> Implement trong Items/BanMaiPudding.cs
 ///
 /// How this Ability works:
 /// - Setup the Pudding Drop pool + Counter data using PuddingHunterData
 /// - Setup the empty GameObject with PuddingHunter.cs as child of Player -> so it moves with Player;
 /// - The empty GameObject acts as a `radius` detector, check PuddingHunter.cs
-/// - Counter will drop Pudding with BanMaiPudding.cs
+/// - Counter will drop Pudding with Items/BanMaiPudding.cs
 /// </summary>
 [CreateAssetMenu(menuName = "Ability/Ban Mai/Pudding Hunter")]
 public class PuddingHunterData : PassiveAbilityBase

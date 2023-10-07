@@ -24,16 +24,15 @@ MonoBehaviour:
   internalCooldownTime: 0
   playerType: {fileID: 11400000, guid: e8814abdea8216143b1d8343a509e13b, type: 2}
   weight: 5
+  isInitialized: 0
   state: 0
   buffTime: 3
   damageBuff: 0.2
-  scaleBuff: {x: 0, y: 0}
   playerTakeDamage: {fileID: 11400000, guid: 846389cad684ae049a84fe2a0d826943, type: 2}
   baseHetData: {fileID: 11400000, guid: 24c9e944e93d3de46bed21fba95a8265, type: 2}
   activeCountdownImage: {fileID: 11400000, guid: 3e165fcbbe9aa5f43ad9354ca89b2705,
     type: 2}
   upgradeDatas:
-  - {fileID: 11400000, guid: 0c42b19668f1b4e4eb3a1baaef0c8553, type: 2}
+  - {fileID: 11400000}
   currentBuffTime: 0
   currentDamageBuff: 0
-  currentScaleBuff: {x: 0, y: 0}

@@ -15,25 +15,34 @@ MonoBehaviour:
   abilityName: "N\xE9m D\xE2u"
   abilityIcon: {fileID: 21300000, guid: 6092ec69578e70b4c8e34efe7c1d71b8, type: 3}
   cooldownTime: 0.7
-  description: 
-  debuffDesc: 
+  description: "N\xE9m d\xE2u theo h\xECnh v\xF2ng cung, k\u1EBB \u0111\u1ECBch tr\xFAng
+    d\xE2u nh\u1EADn 14 s\xE1t th\u01B0\u01A1ng"
+  debuffDesc: "B\u1ECB ng\u1ED1, c\xF3 kh\u1EA3 n\u0103ng t\u1EF1 g\xE2y s\xE1t th\u01B0\u01A1ng
+    cho b\u1EA3n th\xE2n"
   currentLevel: 0
-  currentCooldownTime: 0
+  currentCooldownTime: 0.7
   internalCooldownTime: 0
   playerType: {fileID: 11400000, guid: 294f93b64a84a1949b2ec5b9a336a043, type: 2}
   weight: 6
-  state: 2
+  isInitialized: 1
+  state: 1
   damage: 14
-  currentDamage: 0
-  critChance: 0
-  currentCritChance: 0
+  currentDamage: 14
+  critChance: 0.02
+  currentCritChance: 0.02
   scale: {x: 1, y: 1}
   numBullets: 1
   bulletPrefab: {fileID: 3187533620545137926, guid: 410d4c11a8237fb4a9b4fece5735adc7,
     type: 3}
-  upgradeDatas: []
-  pool: []
-  currentScale: {x: 0, y: 0}
-  currentNumBullets: 0
+  upgradeDatas:
+  - {fileID: 11400000, guid: 7ed5a5d54e246244bb416c7e114c0bbd, type: 2}
+  - {fileID: 11400000, guid: b13201a7623fd3946a7916293af5b779, type: 2}
+  - {fileID: 11400000, guid: 721ac717e96e6cf44891fcaed25c2005, type: 2}
+  - {fileID: 11400000, guid: ac1671db828febf44ba50be32f484617, type: 2}
+  - {fileID: 11400000, guid: 1616daa8bcf5a664882d1f14c14cfee1, type: 2}
+  pool:
+  - {fileID: 0}
+  currentScale: {x: 1, y: 1}
+  currentNumBullets: 1
   selfDamageChance: 0.1
   playerTakeDamage: {fileID: 11400000, guid: 846389cad684ae049a84fe2a0d826943, type: 2}

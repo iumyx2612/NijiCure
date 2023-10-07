@@ -1,15 +1,12 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using AngleCalculation;
-using UnityEngine.EventSystems;
 
 
-public class TestRotation : MonoBehaviour, ICancelHandler
+public class TestRotation : MonoBehaviour
 {
-    public void OnCancel(BaseEventData eventData)
+    private void Awake()
     {
-        Debug.Log("A");
+        Debug.Log(Application.persistentDataPath);
     }
 }

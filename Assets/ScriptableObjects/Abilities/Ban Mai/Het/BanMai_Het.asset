@@ -24,20 +24,20 @@ MonoBehaviour:
   internalCooldownTime: 0
   playerType: {fileID: 11400000, guid: e8814abdea8216143b1d8343a509e13b, type: 2}
   weight: 5
+  isInitialized: 1
   state: 1
-  damage: 29
-  currentDamage: 31
+  damage: 20
+  currentDamage: 20
   critChance: 0.05
   currentCritChance: 0.05
   knockbackForce: 0.5
   scale: {x: 1, y: 1}
   offset: {x: 1.5, y: 0}
-  numAttack: 1
   bulletPrefab: {fileID: 8150979786157925148, guid: b2a5e4dff40b6e64a994af46ef2d0e48,
     type: 3}
   upgradeDatas:
-  - {fileID: 11400000, guid: a586e4ca66b6fff4d98fc1ecd0ecc35f, type: 2}
+  - {fileID: 11400000, guid: 7b59185a08ce4a144b28a48484fa5617, type: 2}
+  - {fileID: 11400000, guid: 11c8690aafddb464f83892c297533721, type: 2}
   currentKnockbackForce: 0.5
   currentScale: {x: 1, y: 1}
-  currentNumAttack: 1
-  bar: 0
+  bar: 8

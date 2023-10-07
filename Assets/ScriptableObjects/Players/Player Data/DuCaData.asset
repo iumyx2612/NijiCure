@@ -20,7 +20,7 @@ MonoBehaviour:
   rank: 0
   critChance: 0.02
   animatorController: {fileID: 9100000, guid: eed953d4b9352d64e8e4572d83fab168, type: 2}
-  startingAbility: {fileID: 11400000, guid: 2c1d39e7ee1ffac44a4e21ef0f858031, type: 2}
+  startingAbility: {fileID: 11400000, guid: 41930c6f48bdc754b9417828c05d8510, type: 2}
   ultimateAbility: {fileID: 11400000, guid: d8ac76264ec77664284ee1b451574c10, type: 2}
   playerSound:
     audioSource: {fileID: 0}

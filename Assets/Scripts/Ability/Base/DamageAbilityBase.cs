@@ -54,4 +54,6 @@ public abstract class DamageAbilityBase : AbilityBase
     {
         critChance = value;
     }
+
+    public override void ModifyDebuff(int level) {}
 }

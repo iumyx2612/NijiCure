@@ -13,6 +13,8 @@ public class LiDiData : PassiveAbilityBase
 
     public GameObjectCollection cukaPool;
 
+    public List<LiDiData> upgradeDatas;
+
     [HideInInspector] public int currentHealAmount;
     [HideInInspector] public int currentExplosiveDamage;
 
@@ -46,13 +48,18 @@ public class LiDiData : PassiveAbilityBase
         base.UpgradeAbility();
     }
 
-    public override bool IsMaxLevel()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public override AbilityBase GetUpgradeDataInfo()
     {
-        throw new System.NotImplementedException();
+        return upgradeDatas[currentLevel];
+    }
+
+    public override bool IsMaxLevel()
+    {
+        if (currentLevel >= upgradeDatas.Count && currentLevel >= 1)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

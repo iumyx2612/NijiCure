@@ -25,4 +25,6 @@ public abstract class PassiveAbilityBase : AbilityBase
     }
 
     public abstract void AddAndLoadComponent(GameObject objectToAdd);
+
+    public override void ModifyDebuff(int level) {}
 }

@@ -3,23 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using ScriptableObjectArchitecture;
 using UnityEngine;
-using AngleCalculation;
+using MathHelper;
 
 [CreateAssetMenu(menuName = "Enemy/Spawn Data/Ring Spawner")]
 public class TimeEventRingSpawnData : TimeEventSpawnDataBase
 {
-    /// <summary>
-    /// Already has:
-    ///     public float starTime;
-    ///     public float endTime;
-    ///     public int spawnAmount;
-    ///     public EnemyData enemyData; (not use)
-    ///     public int weight; (not use)
-    ///     public TimeEventEnemyData timeEventEnemyData;
-    ///     public GameObjectCollection timeEventEnemyPool;
-    ///     public float lifeTime;
-    ///     public bool oneTime;
-    /// </summary>
+    [Tooltip("Radius of the ring from the player")]
     public float distFromPlayer;
 
     protected override List<Vector2> SampleSpawnPosition()

@@ -6,19 +6,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Enemy/Spawn Data/Wall Spawner")]
 public class TimeEventWallSpawnData : TimeEventSpawnDataBase
 {
-    /// <summary>
-    /// Already has:
-    ///     public float starTime;
-    ///     public float endTime;
-    ///     public int spawnAmount;
-    ///     public EnemyData enemyData; (not use)
-    ///     public int weight; (not use)
-    ///     public TimeEventEnemyData timeEventEnemyData;
-    ///     public GameObjectCollection timeEventEnemyPool;
-    ///     public float lifeTime;
-    ///     public bool oneTime;
-    /// </summary>
+    [Header("Spawn position")]
+    [Tooltip("How far the center of wall from player")]
     public Vector2 firstEnemyDist;
+    [Tooltip("How far apart each enemy")]
     public Vector2 spacingPerEnemy;
 
 

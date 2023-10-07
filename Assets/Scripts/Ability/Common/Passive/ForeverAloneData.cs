@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// Nếu không có enemies ở trong radius x, sát thương kĩ năng sẽ được tăng lên x%
 /// </summary>
-[CreateAssetMenu(menuName = "Ability/Common/Forever Alone")]
+[CreateAssetMenu(menuName = "Ability/Common/Passive/Forever Alone")]
 public class ForeverAloneData : PassiveAbilityBase
 {
     public float damageBuff;

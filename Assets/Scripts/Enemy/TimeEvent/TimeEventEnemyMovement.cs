@@ -7,14 +7,14 @@ using ScriptableObjectArchitecture;
 
 public class TimeEventEnemyMovement : MonoBehaviour, IBaseEnemyBehavior
 {
-    private TimeEventEnemyData enemyData;
+    private TimeEventSpawnDataBase enemyData;
     
     // Data
     private float speed;
     private float lifeTime;
     private float internalLifeTime;
-    private Vector2 destination;
-    private bool oneTime;
+    public Vector2 destination;
+    public bool oneTime;
     private RuntimeAnimatorController animatorController;
     
     private bool isAlive;
@@ -49,10 +49,7 @@ public class TimeEventEnemyMovement : MonoBehaviour, IBaseEnemyBehavior
     {
         isAlive = true;
         canMove = true;
-        if (enemyData != null)
-        {
-            animator.runtimeAnimatorController = animatorController;
-        }
+        internalLifeTime = 0f;
     }
 
     // Update is called once per frame
@@ -101,15 +98,17 @@ public class TimeEventEnemyMovement : MonoBehaviour, IBaseEnemyBehavior
         isFacingRight = !isFacingRight;
     }
 
-    public void LoadData(TimeEventEnemyData _data)
+    public void LoadData(TimeEventSpawnDataBase _data, Vector2 startPos)
     {
         enemyData = _data;
         speed = _data.speed;
         lifeTime = _data.lifeTime;
-        spriteRenderer.sprite = _data.sprite;
-        animatorController = _data.animatorController;
-        destination = _data.destination;
+        animator.runtimeAnimatorController = _data.runtimeAnimatorController;
         oneTime = _data.oneTime;
+        if (oneTime)
+        {
+            destination = startPos + _data.destination;
+        }
     }
     
     public void KnockBack(Vector2 force, float duration)
