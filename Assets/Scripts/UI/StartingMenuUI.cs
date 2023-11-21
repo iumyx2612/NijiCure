@@ -8,6 +8,7 @@ public class StartingMenuUI : MonoBehaviour
 {
     [SerializeField] private Slider sfxVolumeSlider;
     [SerializeField] private Slider musicVolumeSlider;
+    [SerializeField] private GameObject graphicsMenu;
 
     private void Start()
     {
@@ -23,5 +24,10 @@ public class StartingMenuUI : MonoBehaviour
     public void MusicVolumeSlider()
     {
         AudioManager.Instance.SetMusicVolume(musicVolumeSlider.value);    
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

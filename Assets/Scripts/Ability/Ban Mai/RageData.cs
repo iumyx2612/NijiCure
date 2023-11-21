@@ -6,47 +6,47 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Ability/Ban Mai/Rage")]
 public class RageData : PassiveAbilityBase
 {
+    public HetData baseHetData;
     public float buffTime;
     [Range(0f, 1f)] public float damageBuff;
-    public IntGameEvent playerTakeDamage; // To Assign to Rage.cs
-    public HetData baseHetData; // To Assign to Rage.cs
-    public PassiveAbilityGameEvent activeCountdownImage; // To Assign to Rage.cs
+    public IntGameEvent playerTakeDamage; 
+    public PassiveAbilityGameEvent activeCountdownImage; 
 
     public List<RageData> upgradeDatas;
 
-    [HideInInspector] public float currentBuffTime;
     [HideInInspector] public float currentDamageBuff;
 
-    private GameObject player;
+    // State
+    private bool havingBuff;
     
     public override void Initialize()
     {
         base.Initialize();
-        player = GameObject.FindGameObjectWithTag("Player");
-        AddAndLoadComponent(player);
-        currentBuffTime = buffTime;
+        playerTakeDamage.AddListener(Buff);
+        currentCooldownTime = buffTime;
         currentDamageBuff = damageBuff;
     }    
-    
-    public override void AddAndLoadComponent(GameObject objectToAdd)
-    {
-        objectToAdd.AddComponent<Rage>();
-        objectToAdd.GetComponent<Rage>().LoadData(this);
-    }
 
-    public override void TriggerAbility()
+    private void Buff()
     {
-        
+        activeCountdownImage.Raise(new PassiveAbilityInfo(currentCooldownTime, abilityIcon, 0, false, false));
+        internalCooldownTime = 0f;
+        state = AbilityState.cooldown;
+        if (!havingBuff)
+            baseHetData.ModifyDamage(currentDamageBuff, true);
+        havingBuff = true;
     }
+    
+    public override void AddAndLoadComponent(GameObject objectToAdd) {}
+
+    public override void TriggerAbility() {}
 
     public override void UpgradeAbility()
     {
         RageData upgradeData = upgradeDatas[currentLevel];
         // Update current
         currentDamageBuff = upgradeData.damageBuff;
-        currentBuffTime = upgradeData.buffTime;
-        // Apply 
-        player.GetComponent<Rage>().LoadData(this);
+        currentCooldownTime = upgradeData.buffTime;
 
         currentLevel += 1;
     }

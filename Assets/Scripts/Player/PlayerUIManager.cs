@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 
 public class PlayerUIManager : MonoBehaviour
 {
-    // Health Bar
+    [Header("Health Bar")]    
     [SerializeField] private Vector2Variable playerPosRef;
     [SerializeField] private IntVariable playerBaseHealth;
     [SerializeField] private IntVariable playerCurrentHealth;
@@ -22,11 +22,15 @@ public class PlayerUIManager : MonoBehaviour
     private float internalDisplayTime;
     private float displayTime = 3f;
     
-    // Health Popup
+    [Header("Health Text")]
     [SerializeField] private TMP_Text[] healthPopupTextArr;
     [SerializeField] private IntGameEvent healthTextPopupGameEvent;
     [SerializeField] private Color lowerHealthColor;
     [SerializeField] private Color increaseHealthColor;
+
+    [Header("Status Text")]
+    [SerializeField] private TextNColorGameEvent statusTextPopUpGameEvent;
+    [SerializeField] private TMP_Text[] statusTextArr;
 
 
     private void Awake()
@@ -37,12 +41,14 @@ public class PlayerUIManager : MonoBehaviour
     {
         healthBarImageUpdate.AddListener(HealthBarImagePopUp);
         healthTextPopupGameEvent.AddListener(HealthTextPopUp);
+        statusTextPopUpGameEvent.AddListener(StatusPopUpText);
     }
 
     private void OnDisable()
     {
         healthBarImageUpdate.RemoveListener(HealthBarImagePopUp);
         healthTextPopupGameEvent.RemoveListener(HealthTextPopUp);
+        statusTextPopUpGameEvent.RemoveListener(StatusPopUpText);
     }
 
     private void Update()
@@ -99,7 +105,6 @@ public class PlayerUIManager : MonoBehaviour
                 break;
             }
         }
-
     }
 
     private void RecoverHealthPopUpText(TMP_Text healthPopupText)
@@ -108,5 +113,27 @@ public class PlayerUIManager : MonoBehaviour
         Color temp = healthPopupText.color;
         temp.a = 1;
         healthPopupText.color = temp;
+    }
+
+    private void StatusPopUpText(TextNColor config)
+    {
+        for (int i = 0; i < statusTextArr.Length; i++)
+        {
+            TMP_Text statusText = statusTextArr[i];
+            if (!statusText.IsActive())
+            {
+                statusText.text = config.text;
+                statusText.color = config.color;
+
+                float basePosY = playerPosRef.Value.y;
+                float basePosX = playerPosRef.Value.x;
+                statusText.gameObject.SetActive(true);
+                Sequence textSequence = DOTween.Sequence();
+                textSequence.Append(statusText.transform.DOMove(new Vector2(basePosX + Random.Range(-0.2f, 0.2f),
+                    basePosY + 0.8f), 0.6f));
+                textSequence.OnComplete(()=>RecoverHealthPopUpText(statusText));
+                break;
+            }
+        }
     }
 }

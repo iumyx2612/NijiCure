@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,18 +11,21 @@ public class CountdownImage : MonoBehaviour
 {
     private Image self;
     [SerializeField] private Image childImage;
+    [SerializeField] private TMP_Text stackText;
     private float duration;
     private float internalDuration;
     private float percentage;
+    private bool isStatic = false;
     
     private void Awake()
     {
         self = GetComponent<Image>();
+        stackText.text = "";
     }
 
     private void Update()
     {
-        if (self.IsActive())
+        if (!isStatic)
         {
             internalDuration += Time.deltaTime;
             percentage = 1 - internalDuration / duration;
@@ -29,30 +33,39 @@ public class CountdownImage : MonoBehaviour
             childImage.fillAmount = percentage;
             if (internalDuration >= duration)
             {
-                internalDuration = 0f;
-                childImage.sprite = null;
-                self.gameObject.SetActive(false);
+                ResetInfo();
             }
         }
     }
 
-    public void SetDuration(float _duration)
+    public void UpdateInfo(PassiveAbilityInfo info)
     {
-        duration = _duration;
+        if (!info.reset)
+        {
+            duration = info.duration;
+            if (childImage.sprite == null)
+                childImage.sprite = info.UISprite;
+            isStatic = info.isStatic;
+            if (info.stacks != 0)
+                stackText.text = info.stacks.ToString();
+            internalDuration = 0f;
+        }
+        else
+        {
+            ResetInfo();
+        }
     }
 
-    public void SetSprite(Sprite _sprite)
+    public void ResetInfo()
     {
-        childImage.sprite = _sprite;
+        duration = 0f;
+        childImage.sprite = null;
+        stackText.text = "";
+        self.gameObject.SetActive(false);
     }
 
     public Sprite GetSprite()
     {
         return childImage.sprite;
-    }
-
-    public void ResetInternalDuration()
-    {
-        internalDuration = 0f;
     }
 }

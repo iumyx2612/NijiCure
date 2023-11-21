@@ -6,19 +6,7 @@ public class BossCombat : EnemyCombat
 {
     private EnemyAbilityBase ability;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void LoadData(BossData data)
+    public void LoadData(BossSpawnerData data)
     {
         damage = data.damage;
         enemyHealth = data.health;

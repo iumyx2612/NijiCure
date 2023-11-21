@@ -18,16 +18,18 @@ MonoBehaviour:
   description: "Khi b\u1ECB m\u1EA5t m\xE1u, Ban Mai n\u1ED5i c\xE1u, t\u0103ng s\xE1t
     th\u01B0\u01A1ng k\u0129 n\u0103ng \"S\u01B0 t\u1EED h\u1ED1ng\" l\xEAn 15% trong
     v\xF2ng 3s"
+  summary: "M\u1EA5t m\xE1u th\xEC n\u1ED5i c\xE1u, t\u0103ng s\xE1t th\u01B0\u01A1ng
+    c\u1EE7a 'S\u01B0 t\u1EED h\u1ED1ng'"
   debuffDesc: 
   currentLevel: 0
   currentCooldownTime: 0
   internalCooldownTime: 0
   playerType: {fileID: 11400000, guid: e8814abdea8216143b1d8343a509e13b, type: 2}
   weight: 5
+  isInitialized: 0
   state: 1
   buffTime: 3
   damageBuff: 0.15
-  scaleBuff: {x: 0, y: 0}
   playerTakeDamage: {fileID: 11400000, guid: 846389cad684ae049a84fe2a0d826943, type: 2}
   baseHetData: {fileID: 11400000, guid: 24c9e944e93d3de46bed21fba95a8265, type: 2}
   activeCountdownImage: {fileID: 11400000, guid: 3e165fcbbe9aa5f43ad9354ca89b2705,
@@ -36,4 +38,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 261c401afa87fc44abb8272418329282, type: 2}
   currentBuffTime: 3
   currentDamageBuff: 0.15
-  currentScaleBuff: {x: 0, y: 0}

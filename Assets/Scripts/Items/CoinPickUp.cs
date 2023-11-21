@@ -41,7 +41,7 @@ public class CoinPickUp : MonoBehaviour, IPickUpItem
     private void DonePickUp()
     {
         gameObject.SetActive(false);
-        stageCoinAmount.Value += (int)(10 * stageCoinMultiplier.Value * abilityCoinMultiplier.Value);
+        stageCoinAmount.Value += Mathf.RoundToInt(10 * stageCoinMultiplier.Value * abilityCoinMultiplier.Value);
         updateCoinInfo.Raise(); // Check UIManager.cs
     }
 }

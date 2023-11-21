@@ -15,12 +15,7 @@ public class JsonSerializer
         {
             if (File.Exists(path))
             {
-                Debug.Log("Data exists. Deleting old file and writing new one");
-                File.Delete(path);
-            }
-            else
-            {
-                Debug.Log("Writing new file");
+                File.Delete(path);                
             }
 
             using FileStream stream = File.Create(path);

@@ -11,6 +11,8 @@ public class AbilityManager : MonoBehaviour
     [SerializeField] private AbilityCollection playerAbilities; // All PlayerType Abilities in the game
     [SerializeField] private AbilityCollection allPassives; // All Common Passives
     [SerializeField] private AbilityCollection allDamages; // All Common Damages
+    [SerializeField] private AbilityCollection allStatsBuff; // All Stats Buff
+    [SerializeField] private AbilityCollection allProtections; // All Common Protection 
     private List<AbilityBase> availableAbilities = new List<AbilityBase>(); // What Ability can appear in the Scene
 
     [Header("First and current Abilities")]
@@ -24,6 +26,7 @@ public class AbilityManager : MonoBehaviour
     [SerializeField] private GameEvent levelUpAbilityUIPopUp; // Setup in UIManager.cs
     [SerializeField] private AbilityDistribution _abilityDistribution; // Act as a reference to abilityDistribution
     [SerializeField] private AbilityGameEvent updateAbilityPanel; // Setup in UIManager.cs
+    [SerializeField] private AbilityGameEvent updateAbilityInfo;  // Setup in UIManager.cs
     private AbilityDistribution abilityDistribution;
         
     
@@ -64,6 +67,21 @@ public class AbilityManager : MonoBehaviour
             damageAbility.SetupCritChance(stagePlayerData.critChance);
             availableAbilities.Add(damageAbility);
         }
+        for (int i = 0; i < allStatsBuff.Count; i++)
+        {
+            AbilityBase statBuff = allStatsBuff[i];
+            statBuff.currentLevel = 0;
+            statBuff.isInitialized = false;
+            availableAbilities.Add(statBuff);
+        }
+        for (int i = 0; i < allProtections.Count; i++)
+        {
+            AbilityBase protectionAbility = allProtections[i];
+            protectionAbility.currentLevel = 0;
+            protectionAbility.isInitialized = false;
+            availableAbilities.Add(protectionAbility);
+        }
+        
         // Set up AbilityDistribution
         abilityDistribution = gameObject.GetComponent<AbilityDistribution>();
         foreach (AbilityBase ability in availableAbilities)
@@ -78,6 +96,7 @@ public class AbilityManager : MonoBehaviour
         currentAbilities.Add(stagePlayerData.startingAbility);
         currentAbilities[0].Initialize();
         updateAbilityPanel.Raise(stagePlayerData.startingAbility);
+        updateAbilityInfo.Raise(stagePlayerData.startingAbility);
     }
 
     private void OnDisable()
@@ -126,6 +145,7 @@ public class AbilityManager : MonoBehaviour
             ability.Initialize();
             // Update the Ability panel
             updateAbilityPanel.Raise(ability);
+            updateAbilityInfo.Raise(ability);
         }
         // If player already has this ability
         else
@@ -134,6 +154,7 @@ public class AbilityManager : MonoBehaviour
         }
         // De-Active the ability selection UI
         levelUpAbilityUIPopUp.Raise();
+
     }
 
     // Setup Abilities to pick in UI

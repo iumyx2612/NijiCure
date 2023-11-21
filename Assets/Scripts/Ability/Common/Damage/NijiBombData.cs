@@ -10,7 +10,7 @@ public class NijiBombData : DamageAbilityBase
 {
     public Vector2 spawnArea; // Can't be upgraded
     public Vector2Variable playerPosRef;
-    public float explosiveRadius;
+    public float radiusScale;
     public int numBombs; 
     public GameObject bombPrefab;
     private GameObject bombHolder;
@@ -18,7 +18,7 @@ public class NijiBombData : DamageAbilityBase
 
     public List<NijiBombData> upgradeDatas;
 
-    [HideInInspector] public float currentExplosiveRadius;
+    [HideInInspector] public float currentRadiusScale;
     [HideInInspector] public int currentNumBombs;
 
 
@@ -26,7 +26,7 @@ public class NijiBombData : DamageAbilityBase
     {
         base.Initialize();
 
-        currentExplosiveRadius = explosiveRadius;
+        currentRadiusScale = 1;
         currentNumBombs = numBombs;
 
         bombHolder = new GameObject("NijiBomb Holder");
@@ -34,7 +34,7 @@ public class NijiBombData : DamageAbilityBase
         for (int i = 0; i < 3; i++)
         {
             GameObject nijiBomb = Instantiate(bombPrefab, bombHolder.transform);
-            nijiBomb.GetComponent<NijiBomb>().LoadData(this);
+            nijiBomb.transform.GetChild(0).GetComponent<NijiBomb>().LoadData(this);
             bombPool.Add(nijiBomb);
             nijiBomb.SetActive(false);
         }
@@ -48,7 +48,6 @@ public class NijiBombData : DamageAbilityBase
             if (!nijiBomb.activeSelf)
             {
                 Vector2 position = PositionSampling.RandomPositionInSquare(playerPosRef.Value, spawnArea);
-                Debug.Log(position);
                 nijiBomb.SetActive(true);
                 nijiBomb.transform.position = position;
             }
@@ -60,7 +59,7 @@ public class NijiBombData : DamageAbilityBase
         BaseModifyDamage(percentage, increase);
         for (int i = 0; i < bombPool.Count; i++)
         {
-            bombPool[i].GetComponent<NijiBomb>().LoadData(this);
+            bombPool[i].transform.GetChild(0).GetComponent<NijiBomb>().LoadData(this);
         }
     }
 
@@ -70,12 +69,12 @@ public class NijiBombData : DamageAbilityBase
         // Update current
         currentCooldownTime = upgradeData.cooldownTime;
         currentDamage = upgradeData.damage;
-        currentExplosiveRadius = upgradeData.explosiveRadius;
+        currentRadiusScale = upgradeData.radiusScale;
         currentNumBombs = upgradeData.numBombs;
         // Apply upgrade
         for (int i = 0; i < bombPool.Count; i++)
         {
-            bombPool[i].GetComponent<NijiBomb>().LoadData(this);
+            bombPool[i].transform.GetChild(0).GetComponent<NijiBomb>().LoadData(this);
         }
         // Increase level
         currentLevel += 1;

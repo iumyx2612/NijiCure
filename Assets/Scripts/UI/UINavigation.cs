@@ -1,35 +1,38 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ScriptableObjectArchitecture;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.PlayerLoop;
+using UnityEngine.InputSystem.UI;
 
 public class UINavigation : MonoBehaviour
 {
     public static UINavigation Instance;
-    public DefaultInputActions inputAction;
-    
+    public InputSystemUIInputModule inputModule;
+    [SerializeField] private BoolVariable navigationControl;
+    [HideInInspector] public InputActionReference navigateAction;
+    [HideInInspector] public InputActionReference submitAction;
+    [HideInInspector] public InputActionReference cancelAction;
     
     private void Awake()
     {
-        if (Instance == null)
+        Instance = this;
+        navigationControl.Value = true; // Initial load, always true
+        if (inputModule == null)
         {
-            Instance = this;
-            inputAction = new DefaultInputActions();
-            DontDestroyOnLoad(gameObject);
+            inputModule = FindObjectOfType<InputSystemUIInputModule>();
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+        navigateAction = inputModule.move;
+        submitAction = inputModule.submit;
+        cancelAction = inputModule.cancel;
     }
 
     // Play sfx when navigate
     private void OnNavigate(InputAction.CallbackContext ctx)
     {
-        Vector2 temp = inputAction.UI.Navigate.ReadValue<Vector2>();
-        if (temp != Vector2.zero)
+        Vector2 temp = Instance.navigateAction.action.ReadValue<Vector2>();
+        if (temp != Vector2.zero && navigationControl.Value != false)
             AudioManager.Instance.Play("Navigate");
     }
 
@@ -45,23 +48,15 @@ public class UINavigation : MonoBehaviour
 
     private void OnEnable()
     {
-        if (inputAction != null)
-        {
-            inputAction.Enable();
-            inputAction.UI.Navigate.performed += OnNavigate;
-            inputAction.UI.Cancel.performed += OnCancel;
-            inputAction.UI.Submit.performed += OnSubmit;
-        }
+        Instance.navigateAction.action.performed += OnNavigate;
+        Instance.cancelAction.action.performed += OnCancel;
+        Instance.submitAction.action.performed += OnSubmit;
     }
 
     private void OnDisable()
     {
-        if (inputAction != null)
-        {
-            inputAction.Disable();
-            inputAction.UI.Navigate.performed -= OnNavigate;
-            inputAction.UI.Cancel.performed -= OnCancel;
-            inputAction.UI.Submit.performed -= OnSubmit;
-        }
+        Instance.navigateAction.action.performed -= OnNavigate;
+        Instance.cancelAction.action.performed -= OnCancel;
+        Instance.submitAction.action.performed -= OnSubmit;
     }
 }

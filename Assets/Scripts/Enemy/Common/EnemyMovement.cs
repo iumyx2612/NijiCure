@@ -8,31 +8,30 @@ using DG.Tweening;
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
 {
-    public EnemyData enemyData;
+    [SerializeField] private EnemyData enemyData;
 
     // Data
-    public float speed;
-    private RuntimeAnimatorController animatorController;
+    protected float speed;
     
-    private Vector2 direction;
-    private bool isFacingRight;
-    private bool isAlive;
-    private bool canMove;
+    protected Vector2 direction;
+    protected bool isFacingRight;
+    protected bool isAlive;
+    protected bool canMove;
 
     // Using GetComponent at Awake
-    private SpriteRenderer spriteRenderer;
-    private Animator animator;
-    private Rigidbody2D rb;
-    private Transform player;
-    private EnemyDrop enemyDropScript;
+    protected SpriteRenderer spriteRenderer;
+    protected Animator animator;
+    protected Rigidbody2D rb;
+    protected Transform player;
+    protected EnemyDrop enemyDropScript;
     
     // UI stuff
-    [SerializeField] private Transform enemyUICanvas;
-    [SerializeField] private IntVariable stageKillAmount;
-    [SerializeField] private GameEvent updateKillInfo;
+    [SerializeField] protected Transform enemyUICanvas;
+    [SerializeField] protected IntVariable stageKillAmount;
+    [SerializeField] protected GameEvent updateKillInfo;
     
     // Speed counter
-    private List<MoveSpeedCounter> spdCounters;
+    protected List<MoveSpeedCounter> spdCounters;
 
 
     private void Awake()
@@ -52,10 +51,10 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
     {
         isAlive = true;
         canMove = true;
-        if (enemyData != null)
-        {
-            animator.runtimeAnimatorController = animatorController;
-        }
+        // Set alpha back to 1 since we set it to 0 in Dead()
+        Color temp = spriteRenderer.color;
+        temp.a = 1;
+        spriteRenderer.color = temp;
     }
 
     private void Update()
@@ -90,7 +89,7 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
         enemyData = data;
         speed = data.speed;
         spriteRenderer.sprite = data.sprite;
-        animatorController = data.animatorController;
+        animator.runtimeAnimatorController = data.animatorController;
     }
 
     public void Flip()
@@ -108,7 +107,7 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
         knockbackSequence.OnComplete(() => { canMove = true; });
     }
 
-    public void Dead(bool outOfLifeTime)
+    public virtual void Dead(bool outOfLifeTime)
     {
         if (!outOfLifeTime)
             enemyDropScript.Drop(enemyData.expAmount);
@@ -118,17 +117,13 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
         deadSequence.OnComplete(OnDeadComplete);
     }
 
-    private void OnDeadComplete()
+    protected void OnDeadComplete()
     {
         // Update the UI Kill info
         stageKillAmount.Value += 1;
         updateKillInfo.Raise();
         transform.parent.gameObject.SetActive(false);
         transform.localPosition = new Vector2(0, 0);
-        // Set alpha back to 1 since we set it to 0 in Dead()
-        Color temp = spriteRenderer.color;
-        temp.a = 1;
-        spriteRenderer.color = temp;
     }
 
     public void ModifySpdCounter(List<MoveSpeedCounter> counters)

@@ -6,6 +6,9 @@ public abstract class PassiveAbilityBase : AbilityBase
 {
     public override void Initialize()
     {
+        internalCooldownTime = 0f;
+        currentCooldownTime = cooldownTime;
+
         state = AbilityState.active; // Make this always be active to remove from AbilityManager.cs
         isInitialized = true;
     }
@@ -15,9 +18,7 @@ public abstract class PassiveAbilityBase : AbilityBase
         return true;
     }
 
-    public override void TriggerAbility()
-    {
-    }
+    public override void TriggerAbility() {}
 
     public override void UpgradeAbility()
     {

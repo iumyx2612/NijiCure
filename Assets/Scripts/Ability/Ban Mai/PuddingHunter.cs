@@ -54,7 +54,7 @@ public class PuddingHunter : MonoBehaviour
     private void TriggerBuff()
     {
         // UI
-        activeCountdownImage.Raise(new PassiveAbilityInfo(buffTime, abilityIcon));
+        activeCountdownImage.Raise(new PassiveAbilityInfo(buffTime, abilityIcon, 0, false, false));
         // Reset buff time
         internalBuffTime = 0f;
 

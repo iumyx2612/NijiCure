@@ -63,7 +63,7 @@ public class NghienBunBo : MonoBehaviour
             // Reset buff
             internalDuration = 0f;
             // Active the UI 
-            activeCountdownImage.Raise(new PassiveAbilityInfo(duration, baseData.abilityIcon));
+            activeCountdownImage.Raise(new PassiveAbilityInfo(duration, baseData.abilityIcon, 0, false, false));
         }
     }
 

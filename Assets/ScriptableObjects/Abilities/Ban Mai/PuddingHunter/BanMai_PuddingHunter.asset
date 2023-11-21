@@ -19,6 +19,9 @@ MonoBehaviour:
     s\u1EBD c\xF3 15% r\u01A1i ra Pudding. Ban Mai khi \u0103n Pudding s\u1EBD \u0111\u01B0\u1EE3c
     h\u1ED3i 3 m\xE1u \u0111\u1ED3ng th\u1EDDi t\u0103ng s\xE1t th\u01B0\u01A1ng
     c\u1EE7a k\u0129 n\u0103ng \"S\u01B0 t\u1EED h\u1ED1ng\" l\xEAn 15%"
+  summary: "K\u1EBB \u0111\u1ECBch ch\u1EBFt g\u1EA7n Ban Mai c\xF3 c\u01A1 h\u1ED9i
+    r\u01A1i ra Pudding. \u0102n Pudding \u0111\u01B0\u1EE3c h\u1ED3i m\xE1u v\xE0
+    t\u0103ng s\xE1t th\u01B0\u01A1ng c\u1EE7a 'S\u01B0 T\u1EED H\u1ED1ng'"
   debuffDesc: 
   currentLevel: 0
   currentCooldownTime: 0

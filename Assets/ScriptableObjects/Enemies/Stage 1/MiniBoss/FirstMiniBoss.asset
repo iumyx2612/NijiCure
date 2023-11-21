@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efadbd808cac8614fba36b2b9dbf811a, type: 3}
+  m_Name: FirstMiniBoss
+  m_EditorClassIdentifier: 
+  speed: 1.2
+  damage: 6
+  health: 600
+  expAmount: 150
+  enemyAbility: {fileID: 0}
+  runtimeAnimatorController: {fileID: 9100000, guid: 6c108852b34b07240b83331ad0909434,
+    type: 2}
+  spawnTime: 10
+  playerPosRef: {fileID: 11400000, guid: 432f3cca538fe954dbf9e0ef7b9efa91, type: 2}
+  bossPool: {fileID: 11400000, guid: e052e7bd2e9a3804fba709ee9c305d31, type: 2}
+  shape: 1

@@ -17,7 +17,8 @@ public class HealPickUp : MonoBehaviour, IPickUpItem
     private Vector2 baseScale;
 
     [SerializeField] private IntGameEvent healPlayer;
-    [SerializeField] private IntVariable basePlayerHealth;
+    [SerializeField] private IntVariable playerBaseHealth;
+    [SerializeField] private FloatVariable healMultiplier; // Setup in ItemDropSystem.cs
     
     void Awake()
     {
@@ -29,7 +30,7 @@ public class HealPickUp : MonoBehaviour, IPickUpItem
 
     private void OnEnable()
     {
-        healAmount = basePlayerHealth.Value / 5; // Will always heal 20% of player's maxHP (HoloCure)
+        healAmount = Mathf.RoundToInt(playerBaseHealth.Value / 5 * healMultiplier.Value); // Will always heal 20% of player's maxHP (HoloCure)
         transform.localScale = baseScale;
         basePosition = transform.position;
 

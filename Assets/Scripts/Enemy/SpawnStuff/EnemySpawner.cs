@@ -34,7 +34,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObjectCollection timeEventEnemyPool;
     [SerializeField] private List<TimeEventSpawnDataBase> stageTimeEventSpawnData;
 
-    [Header("Boss Event")]
+    [Header("Mini Boss Event")]
     [SerializeField] private GameObject bossHolderPrefab;
     [SerializeField] private GameObjectCollection bossPool;
     [SerializeField] private List<BossSpawnerData> stageBossSpawnData;
@@ -61,6 +61,7 @@ public class EnemySpawner : MonoBehaviour
     {
         InitializeEnemy();
         InitializeEventEnemy();
+        InitializeMiniBoss();
         currentSpawnData.Add(stageSpawnData[0]); // Start the game with the first Spawn Data
         spawnDistribution.Add(stageSpawnData[0], stageSpawnData[0].weight);
     }
@@ -111,12 +112,23 @@ public class EnemySpawner : MonoBehaviour
                 timeEventSpawn.SetOccur(true);
             }
         }
+        // TODO: Maybe we don't need this?
         // Remove to reduce the loop time when active Event
-        for (int i = stageTimeEventSpawnData.Count - 1; i >= 0; i--)
+        // for (int i = stageTimeEventSpawnData.Count - 1; i >= 0; i--)
+        // {
+        //     if (stageTimeEventSpawnData[i].HasOccured())
+        //     {
+        //         stageTimeEventSpawnData.RemoveAt(i);
+        //     }
+        // }
+
+        // --------------- Mini Boss Event ---------------
+        foreach (BossSpawnerData bossSpawnData in stageBossSpawnData)
         {
-            if (stageTimeEventSpawnData[i].HasOccured())
+            if (bossSpawnData.spawnTime <= timeSinceGameStart.Value && !bossSpawnData.HasOccured())
             {
-                stageTimeEventSpawnData.RemoveAt(i);
+                bossSpawnData.SpawnBoss(bossHolderPrefab);
+                bossSpawnData.SetOccur(true);
             }
         }
     }
@@ -143,9 +155,9 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private void InitializeBoss()
+    private void InitializeMiniBoss()
     {
-        GameObject temp = new GameObject("Boss Enemy Holder");
+        GameObject temp = new GameObject("Mini Boss Holder");
         for (int i = 0; i < 5; i++)
         {
             GameObject bossHolder = Instantiate(bossHolderPrefab, temp.transform);

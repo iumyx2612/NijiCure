@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: "\u0110\u1ED3 \u0103n h\u1EBFt h\u1EA1n"
   abilityIcon: {fileID: 21300000, guid: 53c7cb484fc9c5144baf68e328af8704, type: 3}
+  typeIcon: {fileID: 21300000, guid: 79f5c6e31af878c478b57f6b208cfe6c, type: 3}
   cooldownTime: 0.75
   description: "T\u1EA1o ra m\u1ED9t v\xF9ng nh\u1EDBt tr\u1EAFng xung quanh b\u1EA3n
     th\xE2n, g\xE2y 9 s\xE1t th\u01B0\u01A1ng m\u1ED7i 0.75s cho k\u1EBB \u0111\u1ECBch
     xung quanh v\xE0 l\xE0m ch\u1EADm"
+  summary: 
   debuffDesc: 
   currentLevel: 0
   currentCooldownTime: 0.75

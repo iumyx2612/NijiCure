@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Gia vị",
+        "description": [
+            "Tăng độ hiệu quả của đồ ăn hồi máu lên 15%",
+            "Tăng độ hiệu quả của đồ ăn hồi máu lên 20%",
+            "Tăng độ hiệu quả của đồ ăn hồi máu lên 25%",
+            "Tăng độ hiệu quả của đồ ăn hồi máu lên 30%",
+            "Tăng độ hiệu quả của đồ ăn hồi máu lên 35%"
+        ],
+        "stats": [0.15, 0.2, 0.25, 0.3, 0.35],
+        "summary": "Tăng độ hiệu quả của đồ ăn hồi máu"
+    },
+    {
+        "name": "Haidilao",
+        "description": [
+            "Tăng tỉ lệ xuất hiện đồ ăn hồi máu lên 10%",
+            "Tăng tỉ lệ xuất hiện đồ ăn hồi máu lên 15%",
+            "Tăng tỉ lệ xuất hiện đồ ăn hồi máu lên 20%",
+            "Tăng tỉ lệ xuất hiện đồ ăn hồi máu lên 25%",
+            "Tăng tỉ lệ xuất hiện đồ ăn hồi máu lên 30%"
+        ],
+        "stats": [0.1, 0.15, 0.2, 0.25, 0.3],
+        "summary": "Tăng tỉ lệ xuất hiện đồ ăn hồi máu"
+    }
+]

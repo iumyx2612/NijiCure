@@ -17,6 +17,8 @@ MonoBehaviour:
   cooldownTime: 1
   description: "H\xE9t theo ph\u01B0\u01A1ng ngang, k\u1EBB \u0111\u1ECBch b\u1ECB
     tr\xFAng ph\u1EA3i s\u1EBD b\u1ECB \u0111\u1EA9y l\xF9i trong ch\u1ED1c l\xE1t"
+  summary: "H\xE9t theo ph\u01B0\u01A1ng ngang, k\u1EBB \u0111\u1ECBch b\u1ECB tr\xFAng
+    ph\u1EA3i s\u1EBD b\u1ECB \u0111\u1EA9y l\xF9i trong ch\u1ED1c l\xE1t"
   debuffDesc: "S\xE1t th\u01B0\u01A1ng k\u0129 n\u0103ng n\xE0y c\u1EE7a Mai s\u1EBD
     b\u1ECB bi\u1EBFn \u0111\u1ED5i ng\u1EABu nhi\xEAn"
   currentLevel: 0

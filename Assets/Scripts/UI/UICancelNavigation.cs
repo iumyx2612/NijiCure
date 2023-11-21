@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using ScriptableObjectArchitecture;
 
 /// <summary>
 /// Put this on a main Panel which composes of other UI elements like Button, Sliders, etc...
@@ -12,32 +13,30 @@ using UnityEngine.SceneManagement;
 public class UICancelNavigation : MonoBehaviour
 {
     public GameObject previousPanel;
+    [SerializeField] private BoolVariable navigationControl; // Setup in UINavigation.cs
     [Tooltip("Go back to previous Scene")]
     [SerializeField] private bool goBack; 
-    [Tooltip("Check this if the starting UI is the button, else it's a Slider")]
-    [SerializeField] private bool isButton;
     [Tooltip("Check if SetActive(true) the gameobject when OnCancel is called")]
     [SerializeField] private bool deact;
-    [SerializeField] private GameObject startingGameObject;
+    [SerializeField] private Selectable startingGameObject;
 
     private void OnEnable()
     {
+        navigationControl.Value = true;
         if (startingGameObject != null)
         {
-            if (isButton)
-                startingGameObject.GetComponent<Button>().Select();    
-            else if (!isButton)
-                startingGameObject.GetComponent<Slider>().Select();
+            startingGameObject.Select();
         }
 
         if (UINavigation.Instance != null)
-            UINavigation.Instance.inputAction.UI.Cancel.performed += OnCancel;
+            UINavigation.Instance.cancelAction.action.performed += OnCancel;
     }
 
     private void OnDisable()
     {
         if (UINavigation.Instance != null)
-            UINavigation.Instance.inputAction.UI.Cancel.performed -= OnCancel;
+            UINavigation.Instance.cancelAction.action.performed -= OnCancel;
+        navigationControl.Value = false;
     }
 
     public void OnCancel(InputAction.CallbackContext ctx)

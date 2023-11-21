@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(Animator), typeof(SpriteRenderer), typeof(CircleCollider2D))]
 public class NijiBomb : MonoBehaviour
 {
     private NijiBombData baseData;
@@ -9,33 +11,23 @@ public class NijiBomb : MonoBehaviour
     private int damage;
     private float critChance;
     private float multiplier;
-    private float explosiveRadius;
+    private Vector2 baseScale;
 
-    // Components
-    private CircleCollider2D selfCollider;
-    private Animator animator; // To play the exploding animation
+    private Vector2 offset = new Vector2(0, 0.6f);
+    [SerializeField] private GameObject holder;
+    [SerializeField] private GameObject bombGameObject;
 
-    // State management
-    private float internalLength;
-    private float animLength;
 
     private void Awake()
     {
-        selfCollider = GetComponent<CircleCollider2D>();
-        animator = GetComponent<Animator>();
-        animLength = animator.GetCurrentAnimatorStateInfo(0).length;
+        baseScale = transform.localScale;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        internalLength += Time.deltaTime;
-        if (internalLength >= animLength)
-        {
-            ResetBullet();
-        }
+        transform.position = (Vector2)bombGameObject.transform.position + offset;
     }
-    
+
     public void LoadData(NijiBombData data)
     {
         if (baseData == null)
@@ -44,10 +36,14 @@ public class NijiBomb : MonoBehaviour
         }
         damage = data.currentDamage;
         critChance = data.currentCritChance;
-        explosiveRadius = data.currentExplosiveRadius;
-        selfCollider.radius = explosiveRadius;
+        if (data.radiusScale > 1)
+        {
+            Vector2 newScale = baseScale * data.radiusScale;
+            transform.localScale = newScale;
+            offset *= data.radiusScale;
+        }
     }
-
+    
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.CompareTag("Enemy"))
@@ -55,31 +51,24 @@ public class NijiBomb : MonoBehaviour
             float critRandom = Random.Range(0f, 1f);
             if (critRandom <= critChance)
             {
-                multiplier = 1f;
+                multiplier = 2f;
             }
             else
             {
-                multiplier = 1.5f;
+                multiplier = 1f;
             }
-            collider.GetComponent<EnemyCombat>().TakeDamage(damage,
-            multiplier, Vector2.zero, 0f);
+            collider.GetComponent<EnemyCombat>().TakeDamage(
+                damage, multiplier, Vector2.zero, 0f
+            );
         }
-    }
-
-    private void EnableCollider() // Used in Animation
-    {
-        selfCollider.enabled = true;
-    }
-
-    private void DisableCollider() // Used in Animation
-    {
-        selfCollider.enabled = false;
     }
 
     private void ResetBullet()
     {
-        internalLength = 0f;
+        holder.SetActive(false);
         gameObject.SetActive(false);
+        bombGameObject.SetActive(true);
         baseData.state = AbilityBase.AbilityState.cooldown; // The last deactivated bullet sets the state for the ability
     }
+
 }

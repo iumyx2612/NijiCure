@@ -38,7 +38,7 @@ public class Het : MonoBehaviour
     [SerializeField] private Vector2Variable directionRef; // What direction to shoot
     private Vector2 defaultScale;
     private Vector2 baseDirection; // Store direction to constantly update it during FixedUpdate
-    [HideInInspector] public Vector2 oldBaseDirection; // To cache the baseDirection that x-axis diff from 0
+    private Vector2 oldDirection; // To cache the baseDirection that x-axis diff from 0
     private Vector2 direction;
     
     private void Awake()
@@ -46,6 +46,7 @@ public class Het : MonoBehaviour
         animator = GetComponent<Animator>();
         animLength = animator.runtimeAnimatorController.animationClips[0].length;
         defaultScale = transform.localScale;
+        direction = Vector2.right;
     }
 
     private void OnEnable()
@@ -54,22 +55,22 @@ public class Het : MonoBehaviour
         {
             animator.SetBool("isAwaken", true);
         }
-        baseDirection = new Vector2(directionRef.Value.x, 0);
+        direction = new Vector2(directionRef.Value.x, 0);
         // Prevent new direction to have x-axis equals 0
         // If the x-axis equals 0 we simply take the oldBaseDirection
         // Why do we care abt x-axis equals 0?
         // If x-axis equals 0, the bullet will NOT MOVE
-        if (baseDirection.x != 0)
-            oldBaseDirection = baseDirection;
-        transform.localScale = new Vector2(oldBaseDirection.x * defaultScale.x * scale.x,
+        if (direction.x != 0)
+            oldDirection = direction;
+        transform.localScale = new Vector2(oldDirection.x * defaultScale.x * scale.x,
             defaultScale.y * scale.y);
-        transform.position = playerPosRef.Value + offset * oldBaseDirection;
+        transform.position = playerPosRef.Value + offset * oldDirection;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = playerPosRef.Value + offset * oldBaseDirection;
+        transform.position = playerPosRef.Value + offset * oldDirection;
         internalLength += Time.deltaTime;
         if (internalLength >= animLength)
         {
@@ -141,8 +142,8 @@ public class Het : MonoBehaviour
 
             randomDamage = Random.Range(damage - bar, damage + bar);
             combatScript.TakeDamage(
-                (int)(randomDamage + randomDamage * damageBuffPerCounter * numCounters),
-                multiplier,knockbackForce * direction, knockbackDuration);
+                Mathf.RoundToInt(randomDamage + randomDamage * damageBuffPerCounter * numCounters),
+                multiplier, knockbackForce * direction, knockbackDuration);
             // Apply counter after dealing damage
             if (hasNgongAbility)
             {

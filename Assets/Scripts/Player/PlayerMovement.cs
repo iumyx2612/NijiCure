@@ -10,7 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public PlayerData playerData;
     
     // Movement stuff
-    [SerializeField] private FloatVariable speed;
+    [SerializeField] private float speed;
+    [SerializeField] private FloatVariable speedMultiplier;
     private Rigidbody2D rb;
     private Vector2 movement;
     private Vector2 oldMovement; // To check if player has changed position
@@ -44,7 +45,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2Variable playerDirectionRef; // Direction of the player
 
     [SerializeField] private Canvas playerUICanvas;
-    
+
+    // Counters
+    [HideInInspector] public List<MoveSpeedCounter> moveSpdCounters = new List<MoveSpeedCounter>();
+
 
     private void Awake()
     {
@@ -71,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
         }
         
         animator.runtimeAnimatorController = animatorController;
+        speedMultiplier.Value = 1f;
     }
 
     // Update is called once per frame
@@ -129,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         // Handle physics
-        rb.MovePosition(rb.position + movement * speed.Value * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movement * speed * speedMultiplier.Value * Time.fixedDeltaTime);
     }
     
     private bool isMoving(Vector2 movement)
@@ -154,7 +159,23 @@ public class PlayerMovement : MonoBehaviour
     private void LoadData(PlayerData data)
     {
         playerData = data;
-        speed.Value = data.speed;
+        speed = data.speed;
         animatorController = data.animatorController;
+    }
+
+    public void CounterModifySpeed()
+    {
+        for (int i = 0; i < moveSpdCounters.Count; i++)
+        {
+            MoveSpeedCounter counter = moveSpdCounters[i];
+            if (counter.increase)
+            {
+                speedMultiplier.Value += counter.percentage;
+            }
+            else
+            {
+                speedMultiplier.Value -= counter.percentage;
+            }
+        }
     }
 }

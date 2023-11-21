@@ -12,7 +12,7 @@ using UnityEngine.UI;
 public class EnemyCombat : MonoBehaviour
 {
 #if UNITY_EDITOR
-    public EnemyData enemyData;
+    [SerializeField] private EnemyData enemyData;
 #endif
     
     // Data
@@ -37,12 +37,12 @@ public class EnemyCombat : MonoBehaviour
     
     [Header("UI")]
     // Damage UI
-    [SerializeField] protected IntGameEvent playerTakeDamage;
+    [SerializeField] protected IntGameEvent playerProcessDamage;
     [SerializeField] protected TMP_Text damageUIPopupText;
     [SerializeField] protected Color critColor = new Color(255, 221, 90, 1f);
 
     
-    private void Awake()
+    protected void Awake()
     {
         selfCollider = gameObject.GetComponent<BoxCollider2D>();
         enemyMovement = GetComponent<IBaseEnemyBehavior>();
@@ -60,7 +60,7 @@ public class EnemyCombat : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         internalDamageTime += Time.deltaTime;
         if (internalDamageTime >= damageTime)
@@ -74,7 +74,7 @@ public class EnemyCombat : MonoBehaviour
                 attackRadius, playerMask);
             foreach (Collider2D player in hitPlayers)
             {
-                playerTakeDamage.Raise(damage);
+                playerProcessDamage.Raise(damage);
             }
 
             canAttack = false;
@@ -93,7 +93,7 @@ public class EnemyCombat : MonoBehaviour
                 if (!counter.singleAbility)
                     counterDmgMultiplier += counter.damageBuff;
             }
-            actualDamageTaken = (int) (damage * multiplier * counterDmgMultiplier);
+            actualDamageTaken = Mathf.RoundToInt(damage * multiplier * counterDmgMultiplier);
             // Apply knockback
             enemyMovement.KnockBack(knockbackForce, knockbackDur);
             enemyHealth -= actualDamageTaken;
@@ -106,7 +106,7 @@ public class EnemyCombat : MonoBehaviour
 
     }
 
-    public void LoadData(EnemyData data)
+    public virtual void LoadData(EnemyData data)
     {
 #if UNITY_EDITOR
         enemyData = data;
@@ -118,7 +118,6 @@ public class EnemyCombat : MonoBehaviour
     }
     
     // ------------------ UI Animation ------------------
-
     private void DamagePopupSequence(int damage, bool crit)
     {
         damageUIPopupText.text = damage.ToString();

@@ -22,7 +22,10 @@ public class ExpPickUp : MonoBehaviour, IPickUpItem
     private int expAmount;
     private Vector2 baseScale;
 
-    [SerializeField] private IntGameEvent increaseExp; // Setup in LevelingSystem.cs
+    [SerializeField] private IntGameEvent increaseExp; // Setup in GameManager.cs
+
+    // For Ability which needs to alter the behavior of ExpPickUp in DonePickUp
+    [HideInInspector] public readonly List<Action> afterPickUpActions = new List<Action>();
 
     private void Awake()
     {
@@ -88,6 +91,10 @@ public class ExpPickUp : MonoBehaviour, IPickUpItem
     private void DonePickUp()
     {
         gameObject.SetActive(false);
-        increaseExp.Raise(expAmount); // Check LevelingSystem.cs
+        increaseExp.Raise(expAmount); // Check GameManager.cs
+        for (int i = 0; i < afterPickUpActions.Count; i++)
+        {
+            afterPickUpActions[i]();
+        }
     }
 }

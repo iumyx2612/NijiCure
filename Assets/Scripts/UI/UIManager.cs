@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using ScriptableObjectArchitecture;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject lvlUpPanel;
     [SerializeField] private List<Button> abilityPickerButtons;
     [SerializeField] private List<Image> abilityPickerImages;
+    [SerializeField] private List<Image> abilityTypeIcons;
     [SerializeField] private List<TMP_Text> abilityPickerNames;
     [SerializeField] private List<TMP_Text> abilityPickerDescs;
     [SerializeField] private GameEvent levelUpAbilityUIPopUp; // Raised in AbilityManager.cs
@@ -47,19 +49,28 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text killAmountText;
 
     [Header("Player Panel Info")] 
+    [SerializeField] private Sprite firstRowIcon;
+    [SerializeField] private Sprite secondRowIcon;
     [SerializeField] private PlayerData stagePlayerData;
     [SerializeField] private Image charIcon;
-    [SerializeField] private List<Image> abilityIcons;
+    [SerializeField] private List<Image> firstRowAbilityIcons;
+    [SerializeField] private List<Image> secondRowAbilityIcons;
     [SerializeField] private AbilityGameEvent updateAbilityPanel; // Called in AbilityManager.cs
     
     [Header("Pause Menu")]
     [SerializeField] private BoolVariable gameIsPause;
     [SerializeField] private GameObject pausePanel;
+    [SerializeField] private BoolVariable navigationControl;
+
+    [Header("Abilites Info")]
+    [SerializeField] private List<GameObject> abilityInfoImages;
+    [SerializeField] private AbilityGameEvent updateAbilityInfo; // Called in AbilityManager.cs
 
     // Start is called before the first frame update
     void Awake()
     {
         stageKillAmount.Value = 0;
+        navigationControl.Value = false;
 //        stageCoinAmount.Value = 0;
         increaseExpUI.AddListener(ChangeExpBar);
         increaseLevelUI.AddListener(ChangeLevelDisplay);
@@ -68,13 +79,18 @@ public class UIManager : MonoBehaviour
 //        updateCoinInfo.AddListener(UpdateCoinInfo);
         updateKillInfo.AddListener(UpdateKillInfo);
         updateAbilityPanel.AddListener(UpdateAbilityPanel);
+        updateAbilityInfo.AddListener(UpdateAbilityInfo);
         gameIsPause.Value = false;
-        UINavigation.Instance.inputAction.UI.Cancel.performed += PauseOrUnpause;
+        UINavigation.Instance.cancelAction.action.performed += PauseOrUnpause;
     }
 
     private void Start()
     {
         UpdateCharIcon();
+        for (int i = 0; i < abilityInfoImages.Count; i++)
+        {
+            abilityInfoImages[i].SetActive(false);
+        }
     }
 
     private void OnDisable()
@@ -86,7 +102,8 @@ public class UIManager : MonoBehaviour
 //        updateCoinInfo.RemoveListener(UpdateCoinInfo);
         updateKillInfo.RemoveListener(UpdateKillInfo);
         updateAbilityPanel.RemoveListener(UpdateAbilityPanel);
-        UINavigation.Instance.inputAction.UI.Cancel.performed -= PauseOrUnpause;
+        updateAbilityInfo.RemoveListener(UpdateAbilityInfo);
+        UINavigation.Instance.cancelAction.action.performed -= PauseOrUnpause;
     }
 
     // Update is called once per frame
@@ -121,10 +138,12 @@ public class UIManager : MonoBehaviour
                 AbilityBase ability = abilitiesToPick[i];
                 // Setup the UI
                 Image abilityPickerImg = abilityPickerImages[i];
+                Image abilityTypeIcon = abilityTypeIcons[i];
                 TMP_Text abilityPickerName = abilityPickerNames[i];
                 TMP_Text abilityPickerDesc = abilityPickerDescs[i];
 
                 abilityPickerImg.sprite = ability.abilityIcon;
+                abilityTypeIcon.sprite = ability.typeIcon;
                 abilityPickerName.text = ability.abilityName;
                 abilityPickerDesc.text = ability.description;
 
@@ -134,6 +153,7 @@ public class UIManager : MonoBehaviour
                     // If yes, display the upgrade info
                     AbilityBase _ability = ability.GetUpgradeDataInfo();
                     abilityPickerImg.sprite = _ability.abilityIcon;
+                    abilityTypeIcon.sprite = _ability.typeIcon;
                     abilityPickerName.text = _ability.abilityName;
                     abilityPickerDesc.text = _ability.description;
                 }
@@ -157,6 +177,21 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private void UpdateAbilityInfo(AbilityBase _ability)
+    {
+        for (int i = 0; i < abilityInfoImages.Count; i++)
+        {
+            GameObject abilityInfoImage = abilityInfoImages[i];
+            AbilityInfoImage script = abilityInfoImage.GetComponent<AbilityInfoImage>();
+            if (script.ability == null)
+            {
+                script.SetUp(_ability);
+                abilityInfoImage.SetActive(true);
+                break;
+            }
+        }
+    }
+
     // --------------- Time ---------------
     private void TimeFloatToString()
     {
@@ -176,13 +211,12 @@ public class UIManager : MonoBehaviour
             // Check if the Ability call to this is already been displayed
             if (info.UISprite == cdImage.GetSprite() && image.IsActive())
             {
-                cdImage.ResetInternalDuration();
+                cdImage.UpdateInfo(info);
                 break;
             }
             if (!image.IsActive())
             {
-                cdImage.SetSprite(info.UISprite);
-                cdImage.SetDuration(info.duration);
+                cdImage.UpdateInfo(info);
                 image.gameObject.SetActive(true);
                 break;
             }
@@ -208,19 +242,35 @@ public class UIManager : MonoBehaviour
 
     private void UpdateAbilityPanel(AbilityBase ability)
     {
-//        for (int i = 0; i < abilityIcons.Count; i++)
-//        {
-//            Image abilityIcon = abilityIcons[i];
-//            if (abilityIcon.sprite != ability.abilityIcon)
-//            {
-//                abilityIcon.sprite = ability.abilityIcon;
-//                break;
-//            }
-//        }
+        // Not from player
+       if (ability.playerType != stagePlayerData.type)
+       {
+            for (int i = 0; i < secondRowAbilityIcons.Count; i++)
+            {
+                Image icon = secondRowAbilityIcons[i];
+                if (icon.sprite == secondRowIcon)
+                {
+                    icon.sprite = ability.abilityIcon;
+                    break;
+                }
+            }
+       }
+       else if (ability.playerType == stagePlayerData.type)
+       {
+            for (int i = 0; i < firstRowAbilityIcons.Count; i++)
+            {
+                Image icon = firstRowAbilityIcons[i];
+                if (icon.sprite == firstRowIcon)
+                {
+                    icon.sprite = ability.abilityIcon;
+                    break;
+                }
+            }
+       }
     }
     
     // --------------- Pause section ---------------
-    private void PauseOrUnpause(InputAction.CallbackContext ctx)
+    public void PauseOrUnpause(InputAction.CallbackContext ctx)
     {
         if (!gameIsPause.Value && !pausePanel.activeSelf) // Game is not pause
         {
@@ -234,5 +284,18 @@ public class UIManager : MonoBehaviour
             pausePanel.SetActive(false);
             Time.timeScale = 1f;
         }
+    }
+
+    public void Resume()
+    {
+        gameIsPause.Value = false;
+        pausePanel.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
+    public void Quit()
+    {
+        Resume();
+        SceneManager.LoadScene(1);
     }
 }

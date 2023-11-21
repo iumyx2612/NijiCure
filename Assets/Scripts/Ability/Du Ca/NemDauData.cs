@@ -58,7 +58,7 @@ public class NemDauData : DamageAbilityBase
         float randomNumber = Random.Range(0f, 1f);
         if (randomNumber < selfDamageChance)
         {
-            playerTakeDamage.Raise((int)(0.2 * currentDamage));
+            playerTakeDamage.Raise(Mathf.RoundToInt(0.2f * currentDamage));
         }
     }
 

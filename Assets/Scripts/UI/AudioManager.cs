@@ -92,13 +92,12 @@ public class AudioManager : MonoBehaviour
             musicVolume.Value = 1f;
             sfxVolume.Value = 1f;
         }
-
-        SetMusicVolume(musicVolume.Value);
-        SetSfxVolume(sfxVolume.Value);
     }
 
     private void Start()
     {
+        SetMusicVolume(musicVolume.Value);
+        SetSfxVolume(sfxVolume.Value);
         for (int i = 0; i < Instance.sounds.Count; i++)
         {
             Sound sound = Instance.sounds[i];
@@ -133,7 +132,7 @@ public class AudioManager : MonoBehaviour
         Instance.audioMixer.SetFloat("SfxVolume", Mathf.Log10(sfxVolume.Value) * 20);
         if (jsonSerializer.SaveData("/audio-volume.json", new AudioVolume(sfxVolume.Value, musicVolume.Value)))
         {
-            Debug.Log("Save Audio Complete!");
+            Debug.Log("Save Sfx Volume Complete!");
         }
         else
         {
@@ -147,7 +146,7 @@ public class AudioManager : MonoBehaviour
         Instance.audioMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolume.Value) * 20);
         if (jsonSerializer.SaveData("/audio-volume.json", new AudioVolume(sfxVolume.Value, musicVolume.Value)))
         {
-            Debug.Log("Save Audio Complete!");
+            Debug.Log("Save Music Volume Complete!");
         }
         else
         {

@@ -7,8 +7,10 @@ public abstract class AbilityBase : ScriptableObject
     [Header("Base")]
     public string abilityName;
     public Sprite abilityIcon;
+    public Sprite typeIcon;
     public float cooldownTime;
     public string description;
+    public string summary;
     public string debuffDesc; // Only use in starting Ability
     [HideInInspector] public int currentLevel; // Setup in AbilityManager.cs
     [HideInInspector] public float currentCooldownTime;

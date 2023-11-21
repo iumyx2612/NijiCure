@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private IntVariable currentExp;
     [SerializeField] private IntVariable expToNextLevel; // Initialize with 79 (Wiki)
     [SerializeField] private IntGameEvent increaseExp;
+    [SerializeField] private FloatVariable expMultiplier;
     [SerializeField] private GameEvent increaseLevel;
     // UI for leveling
     [SerializeField] private GameEvent increaseLevelUI; // Setup in UIManager.cs 
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
         currentLevel.Value = 1;
         currentExp.Value = 0;
         expToNextLevel.Value = 79;
+        expMultiplier.Value = 1f;
         // Setup ScriptableObject GameEvents
         increaseExp.AddListener(IncreaseExp);
         increaseLevel.AddListener(IncreaseLevel);
@@ -48,7 +50,7 @@ public class GameManager : MonoBehaviour
 
     private void IncreaseExp(int exp)
     {
-        currentExp.Value += exp;
+        currentExp.Value += Mathf.RoundToInt(exp * expMultiplier.Value);
         increaseExpUI.Raise();
         if (currentExp >= expToNextLevel)
         {

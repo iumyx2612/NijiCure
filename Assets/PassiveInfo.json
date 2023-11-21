@@ -2,17 +2,37 @@
     {
         "name": "Đồ ăn hết hạn",
         "description":[
-            "Tạo ra một vùng nhớt trắng xung quanh bản thân, gây 9 sát thương mỗi 0.75s cho kẻ địch xung quanh và làm chậm",
+            "Tạo ra một vùng nhớt trắng xung quanh bản thân, gây 12 sát thương mỗi 0.75s cho kẻ địch xung quanh và làm chậm",
             "Tăng độ rộng của vùng nhớt trắng thêm 25%",
             "Tăng sát thương gây lên kẻ địch thêm 30%",
             "Tăng tần suất gây sát thương thêm 25%",
             "Tăng sát thương thêm 70% và phần trăm làm chậm thêm 50%"
         ],
         "stats":{
-            "damage": [9, 9, 12, 12, 20],
+            "damage": [12, 12, 16, 16, 27],
             "radiusScale": [1, 1.25, 1.25, 1.6, 1.6],
             "cooldownTime": [0.75, 0.75, 0.6, 0.6, 0.6],
-            "slowPercent": [0.2, 0.2, 0.2, 0.2, 0.3]
-        }
+            "slowPercent": [0.15, 0.15, 0.15, 0.15, 0.23]
+        },
+        "summary": "Tạo ra vùng nhớt trắng xung quanh bản thân, gây sát thương và làm chậm kẻ địch trong đó"
+    },
+    {
+        "name": "Chạy Deadline",
+        "description":[
+            "Khi nhặt EXP sẽ có 15% tăng thêm 4 EXP nữa, dồng thời tăng sát thương kĩ năng cơ bản lên 10%, tuy nhiên sẽ mất 3 máu khi kĩ năng kích hoạt và khi lên cấp sẽ được hồi 10 máu",
+            "Sát thương kĩ năng cơ bản tăng lên thành 15% khi kĩ năng kích hoạt",
+            "Tăng lượng EXP khi kích hoạt lên 1",
+            "Giảm lượng máu mất đi khi kĩ năng kích hoạt đi 1",
+            "Tỉ lệ kích hoạt kĩ năng tăng lên thành 20%, sát thương tăng lên thành 20%"
+        ],
+        "stats":{
+            "buffPercent": [0.15, 0.15, 0.15, 0.15, 0.2],
+            "expGain": [4, 4, 5, 5, 5],
+            "damageBuff": [0.1, 0.15, 0.15, 0.15, 0.2],
+            "buffTime": [1, 1, 1, 1, 1],
+            "damageTaken": [3, 3, 3, 2, 2],
+            "healWhenLvlUp": [10, 10, 10, 10, 10]
+        },
+        "summary": "Nhặt EXP sẽ có cơ hội được tăng thêm EXP và tăng sát thương kĩ năng cơ bản. Tuy nhiên khi kích hoạt sẽ mất máu, lên cấp sẽ được hồi máu"
     }
 ]

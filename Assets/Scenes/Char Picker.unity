@@ -152,6 +152,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb18b2a3dece2964ebcc7b958934314a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputModule: {fileID: 1927496660}
+  navigationControl: {fileID: 11400000, guid: 6f300fadadca16946946dd6dfeb4cd66, type: 2}
+  navigateAction: {fileID: 0}
+  submitAction: {fileID: 0}
+  cancelAction: {fileID: 0}
 --- !u!4 &13870584
 Transform:
   m_ObjectHideFlags: 0
@@ -834,10 +839,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 0}
+  navigationControl: {fileID: 11400000, guid: 6f300fadadca16946946dd6dfeb4cd66, type: 2}
   goBack: 1
-  isButton: 1
   deact: 0
-  startingGameObject: {fileID: 0}
+  startingGameObject: {fileID: 385156674}
 --- !u!1 &365599816
 GameObject:
   m_ObjectHideFlags: 0

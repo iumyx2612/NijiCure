@@ -14,7 +14,7 @@ public class ItemDropSystem : MonoBehaviour
     [SerializeField] private FloatVariable healthDropChance;
     [SerializeField] private GameObject healPickUpPrefab;
     [SerializeField] private GameObjectCollection healPickUpPool;
-
+    [SerializeField] private FloatVariable healMultiplier;
     
     private void Awake()
     {
@@ -22,6 +22,7 @@ public class ItemDropSystem : MonoBehaviour
         expPickUpPool.Clear();
         healPickUpPool.Clear();
         healthDropChance.Value = 1 / 200f;
+        healMultiplier.Value = 1f;
 
         // Other initialization
         SpawnExpPool();

@@ -1,0 +1,13 @@
+[
+    {
+        "name": "Sủi stream",
+        "description": [
+            "Có 10% khả năng né đòn, khi né thành công sẽ tăng sát thương của kĩ năng cơ bản thêm 10%"
+        ],
+        "stats": {
+            "dodgeChance": [0.1, 0.1, 0.1, 0.1, 0.1],
+            "dmgBuff": [0.1, 0.1, 0.1, 0.1, 0.1]
+        },
+        "summary": "Có cơ hội né đòn, khi né thành công sẽ tăng sát thương của kĩ năng cơ bản"
+    }
+]

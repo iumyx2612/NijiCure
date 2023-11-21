@@ -774,8 +774,8 @@ GameObject:
   - component: {fileID: 3176040244705190530}
   - component: {fileID: 8101667986284917978}
   - component: {fileID: 5632293405394055160}
+  - component: {fileID: 719197868476561832}
   - component: {fileID: 6116077113269537176}
-  - component: {fileID: 7643567399580151000}
   - component: {fileID: 2690870602259887797}
   - component: {fileID: 2386819564759390888}
   m_Layer: 7
@@ -795,7 +795,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7, y: 7, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8435128691394475529}
@@ -947,6 +947,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &719197868476561832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8254415264628037142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7d2a24d09991a34ea6099b02f30571b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyData: {fileID: 0}
+  enemyUICanvas: {fileID: 977874530990820695}
+  stageKillAmount: {fileID: 11400000, guid: bc3b70d66a7f5ff4d8ec4c9dc83d4d96, type: 2}
+  updateKillInfo: {fileID: 11400000, guid: 5860298522d429147aa8669728223262, type: 2}
+  bossData: {fileID: 0}
 --- !u!114 &6116077113269537176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -966,23 +983,6 @@ MonoBehaviour:
   playerTakeDamage: {fileID: 11400000, guid: 846389cad684ae049a84fe2a0d826943, type: 2}
   damageUIPopupText: {fileID: 7160171350496205890}
   critColor: {r: 1, g: 0.61960787, b: 0.19215687, a: 1}
---- !u!114 &7643567399580151000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8254415264628037142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 262025a0110a74c41953e8b270dd5f9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyData: {fileID: 0}
-  speed: 0
-  enemyUICanvas: {fileID: 977874530990820695}
-  stageKillAmount: {fileID: 11400000, guid: bc3b70d66a7f5ff4d8ec4c9dc83d4d96, type: 2}
-  updateKillInfo: {fileID: 11400000, guid: 5860298522d429147aa8669728223262, type: 2}
 --- !u!114 &2690870602259887797
 MonoBehaviour:
   m_ObjectHideFlags: 0

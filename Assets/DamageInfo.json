@@ -1,0 +1,37 @@
+[
+    {
+        "name": "Dính Covid",
+        "description": [
+            "Tạo ra một vùng virus Corona di chuyển tự do, vùng virus gây 9 sát thương mỗi 1s và làm chậm kẻ địch",
+            "Tăng độ rộng của vùng virus thêm 20%",
+            "Tăng sát thương gây ra thêm 30%",
+            "Tăng phần trăm làm chậm thêm 30%",
+            "Tăng độ rộng của vùng virus thêm 20% và tăng sát thương gây ra thêm 30%"
+        ],
+        "stats":{
+            "damage": [9, 9, 12, 12, 16],
+            "cooldownTime": [1, 1, 1, 1, 1],
+            "timeToDamage": [1, 1, 1, 1, 1],
+            "slowPercentage": [0.25, 0.25, 0.25, 0.33, 0.33],
+            "radiusScale": [1, 1.2, 1.2, 1.2, 1.44]
+        },
+        "summary": "Tạo ra vùng Corona di chuyển, gây sát thương và làm chậm kẻ địch"
+    },
+    {
+        "name": "Đánh bomb công ty",
+        "description": [
+            "Ném bomb lung tung, gây 18 sát thương cho những kẻ địch xung quanh khi phát nổ",
+            "Tăng độ rộng của vụ nổ thêm 20%",
+            "Tăng sát thương thêm 20%",
+            "Tăng số lượng bomb lên 2",
+            "Tăng số lượng bomb lên 3, tăng sát thương thêm 30%"
+        ],
+        "stats": {
+            "damage": [18, 18, 22, 22, 29],
+            "cooldownTime": [2, 2, 2, 2, 2],
+            "numBombs": [1, 1, 1, 2, 3],
+            "explosiveRadius": [1, 1.2, 1.2, 1.2, 1.2]
+        },
+        "summary": "Ném bomb lung tung, gây sát thương xung quanh khi phát nổ"
+    }
+]

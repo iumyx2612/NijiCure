@@ -570,7 +570,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d7995df1e2db7a4f92980f3d4d71dd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyData: {fileID: 0}
   enemyUICanvas: {fileID: 301756986869459452}
+  stageKillAmount: {fileID: 11400000, guid: bc3b70d66a7f5ff4d8ec4c9dc83d4d96, type: 2}
+  updateKillInfo: {fileID: 11400000, guid: 5860298522d429147aa8669728223262, type: 2}
+  timeEventEnemyData: {fileID: 0}
+  destination: {x: 0, y: 0}
+  oneTime: 0
 --- !u!114 &7310630032901184271
 MonoBehaviour:
   m_ObjectHideFlags: 0

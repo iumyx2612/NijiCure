@@ -17,7 +17,8 @@
                 "Tăng độ rộng của kĩ năng thêm 30%",
                 "Sát thương kĩ năng tăng thêm 50%",
                 "Thức tỉnh: Ban Mai để lại dư chấn sau khi hét"
-            ]
+            ],
+            "summary": "Hét theo phương ngang, kẻ địch bị trúng phải sẽ bị đẩy lùi trong chốc lát"
         },
         {
             "name": "Ngọng",
@@ -31,7 +32,8 @@
                 "Sát thương tăng thêm của 'Sư tử hống' lên kẻ địch bị Ngọng tăng lên thành 50%",
                 "Kẻ địch sẽ bị Ngọng trong vòng 4s",
                 "Tăng khả năng dính Ngọng lên 25% đồng thời tăng sát thương lên thành 60%"
-            ]
+            ],
+            "summary": "Kẻ địch trúng 'Sư tử hống' có khả năng bị Ngọng. Tăng sát thương của 'Sư Tử Hống' lên kẻ địch bị Ngọng"
         },
         {
             "name": "Kẻ săn Pudding",
@@ -47,7 +49,8 @@
                 "Hồi máu khi ăn Pudding được tăng lên thành 4",
                 "Bán kính tăng lên thành 1.75px",
                 "Cơ hội rơi ra Pudding tăng lên thành 20%, hồi máu khi ăn Pudding tăng lên thành 5"
-            ]
+            ],
+            "summary": "Kẻ địch chết gần Ban Mai có cơ hội rơi ra Pudding. Ăn Pudding được hồi máu và tăng sát thương của 'Sư Tử Hống'"
         },
         {
             "name": "Nổi cáu",
@@ -61,7 +64,8 @@
                 "Sát thương buff được tăng lên thành 20%",
                 "Sát thương buff được tăng lên thành 25%",
                 "Thời gian buff tăng lên thành 5s và sát thương buff tăng lên thành 30%"
-            ]
+            ],
+            "summary": "Mất máu thì nổi cáu, tăng sát thương của 'Sư tử hống'"
         }
     ]},
     {"player": "DuCa",

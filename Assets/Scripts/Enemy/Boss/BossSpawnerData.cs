@@ -3,17 +3,38 @@ using System.Collections.Generic;
 using ScriptableObjectArchitecture;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Enemy/Spawn Data/Mini Boss Spawner")]
 public class BossSpawnerData : ScriptableObject
 {
-    [Tooltip("Time to start spawning Boss")]
-    public float spawnTime;
-    [Tooltip("Data of Boss to spawn")]
-    public BossData bossData;
+    [Header("Data of Boss to spawn")]
+    public float speed;
+    public int damage;
+    public int health;
+    public int expAmount;
+    public EnemyAbilityBase enemyAbility;
+    public RuntimeAnimatorController runtimeAnimatorController;
 
+    [Header("Spawn Timing")]
+    public float spawnTime;
     public Vector2Variable playerPosRef;
     public GameObjectCollection bossPool;
     private Vector2 baseSpawnArea = new Vector2(8, 7);
     private bool hasOccured;
+
+    public enum Shape
+    {
+        horizontal,
+        vertical,
+        square
+    }
+    public Shape shape;
+    [HideInInspector] public Dictionary<Shape, (Vector2, Vector2)> shapeToColliderMapping = 
+        new Dictionary<Shape, (Vector2, Vector2)>
+        {
+            {Shape.horizontal, (new Vector2(0.33f, 0.2f), new Vector2(0, -0.06f))},
+            {Shape.vertical, (new Vector2(0.24f, 0.13f), new Vector2(0, -0.08f))},
+            {Shape.square, (new Vector2(0.24f, 0.22f), new Vector2(0, -0.08f))}
+        };
 
     public void SpawnBoss(GameObject bossPrefab)
     {
@@ -26,10 +47,11 @@ public class BossSpawnerData : ScriptableObject
             {
                 canSpawn = true;
                 GameObject boss = bossHolder.transform.GetChild(0).gameObject;
-                boss.GetComponent<EnemyMovement>().LoadData(bossData);
-                boss.GetComponent<BossCombat>().LoadData(bossData);
+                boss.GetComponent<BossMovement>().LoadData(this);
+                boss.GetComponent<BossCombat>().LoadData(this);
                 bossHolder.transform.position = spawnPos;
                 bossHolder.SetActive(true);
+                break;
             }
         }
         if (!canSpawn)
