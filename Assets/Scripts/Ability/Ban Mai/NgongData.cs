@@ -13,53 +13,29 @@ using UnityEngine.UI;
 public class NgongData : PassiveAbilityBase
 {
     [Header("Normal")]
-    [Range(0, 1)] public float damageBuff;
     [Range(0, 1)] public float placeChance;
 
     [Header("Counter")] 
-    public DamageBuffCounterData dmgBuffCounterData;
-    public float counterDuration;
-    public int maxNumCounter;
-    public GameObject counterPrefab;
-    private List<GameObject> counterPool;
+    public DamageBuffCounter counter;
     
     public HetData baseHetData;
     
     public List<NgongData> upgradeDatas;
 
-    [HideInInspector] public float currentDamageBuff;
     [HideInInspector] public float currentPlaceChance;
-    [HideInInspector] public float currentCounterDuration;
-    [HideInInspector] public int currentMaxNumCounter;
+    [HideInInspector] public DamageBuffCounter currentCounter;
 
     public override void Initialize()
     {
         base.Initialize();
-        currentDamageBuff = damageBuff;
         currentPlaceChance = placeChance;
-        currentCounterDuration = counterDuration;
-        currentMaxNumCounter = maxNumCounter;
+        currentCounter = counter; // Initialize as a reference
         
         // Init the Counter GameObject that holds animation
-        counterPool = new List<GameObject>();
-        GameObject counterHolder = new GameObject(abilityName + " Counters");
-        for (int i = 0; i < 20; i++)
-        {
-            GameObject counter = Instantiate(counterPrefab, counterHolder.transform);
-            counterPool.Add(counter);
-            counter.SetActive(false);
-        }
+        currentCounter.InitCounterObject();
         
         // Parse the data to Ngong
         baseHetData.NgongAbilityUpdate(this);
-        
-        // Parse the data to Counter
-        dmgBuffCounterData.abilityName = abilityName;
-        dmgBuffCounterData.existTime = currentCounterDuration;
-        dmgBuffCounterData.maxNum = currentMaxNumCounter;
-        dmgBuffCounterData.counterPrefab = counterPrefab;
-        dmgBuffCounterData.counterPool.Clear();
-        dmgBuffCounterData.counterPool = counterPool;
     }
 
     public override void AddAndLoadComponent(GameObject objectToAdd) {}
@@ -68,15 +44,10 @@ public class NgongData : PassiveAbilityBase
     {
         NgongData upgradeData = upgradeDatas[currentLevel];
         // Update current
-        currentCounterDuration = upgradeData.counterDuration;
-        currentDamageBuff = upgradeData.damageBuff;
         currentPlaceChance = upgradeData.placeChance;
-        currentMaxNumCounter = upgradeData.maxNumCounter;
+        currentCounter = new DamageBuffCounter(upgradeData.counter); // Upgrade datas 
         // Apply upgrade on Bullet
         baseHetData.NgongAbilityUpdate(this);
-        // Apply upgrade on Counter
-        dmgBuffCounterData.existTime = currentCounterDuration;
-        dmgBuffCounterData.maxNum = currentMaxNumCounter;
 
         currentLevel += 1;
     }

@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public PlayerData playerData;
     
     // Movement stuff
-    [SerializeField] private float speed;
+    private float speed;
     [SerializeField] private FloatVariable speedMultiplier;
     private Rigidbody2D rb;
     private Vector2 movement;
@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Canvas playerUICanvas;
 
     // Counters
-    [HideInInspector] public List<MoveSpeedCounter> moveSpdCounters = new List<MoveSpeedCounter>();
+    [HideInInspector] public List<MoveSpeedCounter> speedCounters = new List<MoveSpeedCounter>();
 
 
     private void Awake()
@@ -163,19 +163,22 @@ public class PlayerMovement : MonoBehaviour
         animatorController = data.animatorController;
     }
 
+    // This function is called whenever the speedCountes is updated
     public void CounterModifySpeed()
     {
-        for (int i = 0; i < moveSpdCounters.Count; i++)
+        for (int i = 0; i < speedCounters.Count; i++)
         {
-            MoveSpeedCounter counter = moveSpdCounters[i];
-            if (counter.increase)
-            {
-                speedMultiplier.Value += counter.percentage;
-            }
-            else
-            {
-                speedMultiplier.Value -= counter.percentage;
-            }
+            MoveSpeedCounter counter = speedCounters[i];
+            ModifySpeed(counter.totalPercentage, false);
         }
+    }
+
+    // This function is called whenever the speed multiplier is changed
+    public void ModifySpeed(float percentage, bool increase)
+    {
+        if (increase)
+            speedMultiplier.Value += percentage;
+        else
+            speedMultiplier.Value -= percentage;
     }
 }

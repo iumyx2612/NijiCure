@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: "Ng\u1ECDng"
   abilityIcon: {fileID: 21300000, guid: 4a08c1959f269f243866559010fcd137, type: 3}
+  typeIcon: {fileID: 21300000, guid: 3a478766cefb6994aaeda829ea368d39, type: 3}
   cooldownTime: 0
-  description: "M\u1ED7i k\u1EBB \u0111\u1ECBch tr\xFAng \"S\u01B0 t\u1EED h\u1ED1ng\"
-    s\u1EBD c\xF3 15% b\u1ECB d\xEDnh Ng\u1ECDng trong v\xF2ng 3s (t\u1ED1i \u0111a
-    1 l\u1EA7n). S\xE1t th\u01B0\u01A1ng c\u1EE7a \"S\u01B0 t\u1EED h\u1ED1ng\" nh\u1EADn
-    v\xE0o t\u0103ng l\xEAn 40% v\u1EDBi m\u1ED7i l\u1EA7n d\xEDnh Ng\u1ECDng"
+  description: "M\u1ED7i k\u1EBB \u0111\u1ECBch tr\xFAng 'S\u01B0 t\u1EED h\u1ED1ng'
+    s\u1EBD c\xF3 15% b\u1ECB d\xEDnh Ng\u1ECDng trong v\xF2ng 3s. S\xE1t th\u01B0\u01A1ng
+    c\u1EE7a 'S\u01B0 t\u1EED h\u1ED1ng' nh\u1EADn v\xE0o t\u0103ng l\xEAn 40% v\u1EDBi
+    k\u1EBB \u0111\u1ECBch b\u1ECB Ng\u1ECDng"
   summary: "K\u1EBB \u0111\u1ECBch tr\xFAng 'S\u01B0 t\u1EED h\u1ED1ng' c\xF3 kh\u1EA3
     n\u0103ng b\u1ECB Ng\u1ECDng. T\u0103ng s\xE1t th\u01B0\u01A1ng c\u1EE7a 'S\u01B0
     T\u1EED H\u1ED1ng' l\xEAn k\u1EBB \u0111\u1ECBch b\u1ECB Ng\u1ECDng"
@@ -27,20 +28,40 @@ MonoBehaviour:
   currentCooldownTime: 0
   internalCooldownTime: 0
   playerType: {fileID: 11400000, guid: e8814abdea8216143b1d8343a509e13b, type: 2}
-  weight: 4
+  weight: 6
   isInitialized: 0
   state: 1
-  damageBuff: 0.4
   placeChance: 0.15
-  dmgBuffCounterData: {fileID: 11400000, guid: 7e005f5108e70eb4fbc595fa525a49b3, type: 2}
-  counterDuration: 3
-  maxNumCounter: 1
-  counterPrefab: {fileID: 499635798831949371, guid: f156f349824ee044c9f02f12bf34ce61,
-    type: 3}
+  counter:
+    abilityName: "Ng\u1ECDng"
+    counterName: NgongCounter
+    maxNum: 1
+    existTime: 3
+    counterPrefab: {fileID: 499635798831949371, guid: f156f349824ee044c9f02f12bf34ce61,
+      type: 3}
+    counterPool: []
+    counterHolder: {fileID: 0}
+    singleAbility: 1
+    damageBuff: 0.4
+    internalTime: 0.8596874
+    currentNum: 3
   baseHetData: {fileID: 11400000, guid: 24c9e944e93d3de46bed21fba95a8265, type: 2}
   upgradeDatas:
-  - {fileID: 11400000, guid: c4008e71bfc204a4c87772ac5b8faf27, type: 2}
-  currentDamageBuff: 1
-  currentPlaceChance: 1
-  currentCounterDuration: 10
-  currentMaxNumCounter: 2
+  - {fileID: 11400000, guid: 66f9018872bda1848a00e9d3edb1d348, type: 2}
+  - {fileID: 11400000, guid: c18bc35e364bca347976cf2081064188, type: 2}
+  - {fileID: 11400000, guid: 012021cfe1e927f4f9b5fe09bfe8f18b, type: 2}
+  - {fileID: 11400000, guid: 26fcafc50da2cfa438545154fe12cdec, type: 2}
+  currentPlaceChance: 0.815
+  currentCounter:
+    abilityName: "Ng\u1ECDng"
+    counterName: NgongCounter
+    maxNum: 1
+    existTime: 3
+    counterPrefab: {fileID: 499635798831949371, guid: f156f349824ee044c9f02f12bf34ce61,
+      type: 3}
+    counterPool: []
+    counterHolder: {fileID: 0}
+    singleAbility: 1
+    damageBuff: 0.4
+    internalTime: 0.8596874
+    currentNum: 3

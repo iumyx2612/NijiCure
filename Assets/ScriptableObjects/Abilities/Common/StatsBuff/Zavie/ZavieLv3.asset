@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16f88d5bcdf1283478fa1f20656a4c59, type: 3}
+  m_Name: ZavieLv3
+  m_EditorClassIdentifier: 
+  abilityName: "Gia v\u1ECB Lv 3"
+  abilityIcon: {fileID: 21300000, guid: a7f5a71917d0a7a449ccb515c0191ad3, type: 3}
+  typeIcon: {fileID: 0}
+  cooldownTime: 0
+  description: "T\u0103ng \u0111\u1ED9 hi\u1EC7u qu\u1EA3 c\u1EE7a \u0111\u1ED3 \u0103n
+    h\u1ED3i m\xE1u l\xEAn 25%"
+  summary: "T\u0103ng \u0111\u1ED9 hi\u1EC7u qu\u1EA3 c\u1EE7a \u0111\u1ED3 \u0103n
+    h\u1ED3i m\xE1u"
+  debuffDesc: 
+  currentLevel: 0
+  currentCooldownTime: 0
+  internalCooldownTime: 0
+  playerType: {fileID: 11400000, guid: d97529471639b32409d084e45e8cfbb5, type: 2}
+  weight: 2
+  isInitialized: 0
+  state: 0
+  buff: {fileID: 11400000, guid: 5b7efb521f9ee2b45a7b5c7da26163ae, type: 2}
+  buffPercent: 0.25
+  buffFlat: 0
+  nerf: {fileID: 0}
+  nerfPercent: 0
+  nerfFlat: 0
+  upgradeDatas: []

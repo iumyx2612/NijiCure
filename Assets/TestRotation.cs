@@ -7,31 +7,13 @@ using UnityEngine.InputSystem.UI;
 
 public class TestRotation : MonoBehaviour
 {
-    public InputSystemUIInputModule inputModule; 
+    public CircleCollider2D selfCollider;
 
-    private InputActionReference navigateAction;
-    private InputActionReference submitAction;
-    private void Awake()
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (inputModule == null)
+        if (collider.CompareTag("Player"))
         {
-            inputModule = FindObjectOfType<InputSystemUIInputModule>();
+            Debug.Log("Wah");
         }
-        navigateAction = inputModule.move;
-        submitAction = inputModule.submit;
-        navigateAction.action.performed += OnNavigate;
-        submitAction.action.performed += OnSubmit;
-    }
-
-    private void OnNavigate(InputAction.CallbackContext ctx)
-    {
-        Vector2 temp = navigateAction.action.ReadValue<Vector2>();
-        if (temp != Vector2.zero)
-            AudioManager.Instance.Play("Navigate");
-    }
-
-    private void OnSubmit(InputAction.CallbackContext ctx)
-    {
-        AudioManager.Instance.Play("Click");
     }
 }

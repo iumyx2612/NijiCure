@@ -5,15 +5,18 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.EventSystems;
+using ScriptableObjectArchitecture;
 
 public class ResolutionButton : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     [Header("Reference")]
     [SerializeField] private Button button;
     [SerializeField] private TMP_Text optionText;
+    [SerializeField] private BoolVariable isFullScr;
+    [SerializeField] private IntVariable resolutionIndex;
 
     [Space]
-    [SerializeField] private int value;
+    [SerializeField] private int index;
     [SerializeField] private List<string> options = new List<string> 
     {
         "1920 x 1080", "1600 x 900", "1270 x 720"
@@ -24,7 +27,6 @@ public class ResolutionButton : MonoBehaviour, ISelectHandler, IDeselectHandler
         new Vector2Int(1600, 900),
         new Vector2Int(1270, 720)
     };
-    [SerializeField] private bool isFullscr = true;
 
 
     public void OnSelect(BaseEventData eventData)
@@ -39,6 +41,11 @@ public class ResolutionButton : MonoBehaviour, ISelectHandler, IDeselectHandler
         UINavigation.Instance.navigateAction.action.performed -= OnLeftNavigate;
     }
 
+    private void Awake()
+    {
+        index = resolutionIndex.Value;
+    }
+
     private void Start()
     {
         RefreshShownValue();
@@ -47,19 +54,20 @@ public class ResolutionButton : MonoBehaviour, ISelectHandler, IDeselectHandler
     private void RefreshShownValue()
     {
         if (options != null)
-            optionText.text = options[value];
+            optionText.text = options[index];
     }
 
     private void ChangeResolution()
     {
-        Vector2Int resolution = resolutions[value];
-        Screen.SetResolution(resolution.x, resolution.y, isFullscr ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed);
+        Vector2Int resolution = resolutions[index];
+        resolutionIndex.Value = index;
+        Screen.SetResolution(resolution.x, resolution.y, isFullScr.Value ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed);
     }
 
     public void ChangeScreenMode(bool _isFullscr)
     {
-        isFullscr = _isFullscr;
-        Screen.fullScreen = isFullscr;
+        isFullScr.Value = _isFullscr;
+        Screen.fullScreen = isFullScr.Value;
     }
 
     private void OnRightNavigate(InputAction.CallbackContext ctx)
@@ -67,13 +75,13 @@ public class ResolutionButton : MonoBehaviour, ISelectHandler, IDeselectHandler
         Vector2 temp = UINavigation.Instance.navigateAction.action.ReadValue<Vector2>();
         if (temp == Vector2.right)
         {
-            if ((value + 1) >= options.Count)
+            if ((index + 1) >= options.Count)
             {
-                value = 0;
+                index = 0;
             }
             else
             {
-                value++;
+                index++;
             }
             RefreshShownValue();
             ChangeResolution();
@@ -85,13 +93,13 @@ public class ResolutionButton : MonoBehaviour, ISelectHandler, IDeselectHandler
         Vector2 temp = UINavigation.Instance.navigateAction.action.ReadValue<Vector2>();
         if (temp == Vector2.left)
         {
-            if (value == 0)
+            if (index == 0)
             {
-                value = options.Count - 1;
+                index = options.Count - 1;
             }
             else
             {
-                value -= 1;
+                index -= 1;
             }
             RefreshShownValue();
             ChangeResolution();

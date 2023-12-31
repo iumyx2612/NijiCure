@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 398afb24b94819b4a8061673378d2c94, type: 3}
+  m_Name: Passive_ForeverAlone
+  m_EditorClassIdentifier: 
+  abilityName: Forever Alone
+  abilityIcon: {fileID: 0}
+  typeIcon: {fileID: 21300000, guid: 79f5c6e31af878c478b57f6b208cfe6c, type: 3}
+  cooldownTime: 0
+  description: 
+  summary: 
+  debuffDesc: 
+  currentLevel: 0
+  currentCooldownTime: 0
+  internalCooldownTime: 0
+  playerType: {fileID: 11400000, guid: d97529471639b32409d084e45e8cfbb5, type: 2}
+  weight: 5
+  isInitialized: 0
+  state: 1
+  damageBuff: 0
+  radius: 1.5
+  counter:
+    abilityName: Forever Alone
+    counterName: FACounter
+    maxNum: 1
+    existTime: Infinity
+    counterPrefab: {fileID: 0}
+    counterPool: []
+    counterHolder: {fileID: 0}
+    increase: 0
+    percentage: 0.3
+    internalTime: 0
+    currentNum: 0
+    totalPercentage: 0
+  prefab: {fileID: 5917348947392294971, guid: af8614b3870cd524b95c0db64016373a, type: 3}
+  upgradeDatas: []
+  currentDmgBuff: 0
+  currentRadius: 1.5
+  currentCounter:
+    abilityName: 
+    counterName: 
+    maxNum: 0
+    existTime: 0
+    counterPrefab: {fileID: 0}
+    counterPool: []
+    counterHolder: {fileID: 0}
+    increase: 0
+    percentage: 0
+    internalTime: 0
+    currentNum: 0
+    totalPercentage: 0

@@ -18,7 +18,13 @@ public class RageData : PassiveAbilityBase
 
     // State
     private bool havingBuff;
-    
+
+    public override void PreInit()
+    {
+        base.PreInit();
+        playerTakeDamage.RemoveListener(Buff);
+    }
+
     public override void Initialize()
     {
         base.Initialize();

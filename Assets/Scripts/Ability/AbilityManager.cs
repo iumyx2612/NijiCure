@@ -43,8 +43,7 @@ public class AbilityManager : MonoBehaviour
         {
             if (ability.playerType == runtimePlayerType)
             {
-                ability.currentLevel = 0;
-                ability.isInitialized = false;
+                ability.PreInit();
                 if (ability is DamageAbilityBase _damageAbility)
                 {
                     _damageAbility.SetupCritChance(stagePlayerData.critChance);
@@ -55,30 +54,26 @@ public class AbilityManager : MonoBehaviour
         for (int i = 0; i < allPassives.Count; i++)
         {
             AbilityBase passiveAbility = allPassives[i];
-            passiveAbility.currentLevel = 0;
-            passiveAbility.isInitialized = false;
+            passiveAbility.PreInit();
             availableAbilities.Add(passiveAbility);
         }
         for (int i = 0; i < allDamages.Count; i++)
         {
             DamageAbilityBase damageAbility = allDamages[i] as DamageAbilityBase;
-            damageAbility.currentLevel = 0;
-            damageAbility.isInitialized = false;
+            damageAbility.PreInit();
             damageAbility.SetupCritChance(stagePlayerData.critChance);
             availableAbilities.Add(damageAbility);
         }
         for (int i = 0; i < allStatsBuff.Count; i++)
         {
             AbilityBase statBuff = allStatsBuff[i];
-            statBuff.currentLevel = 0;
-            statBuff.isInitialized = false;
+            statBuff.PreInit();
             availableAbilities.Add(statBuff);
         }
         for (int i = 0; i < allProtections.Count; i++)
         {
             AbilityBase protectionAbility = allProtections[i];
-            protectionAbility.currentLevel = 0;
-            protectionAbility.isInitialized = false;
+            protectionAbility.PreInit();
             availableAbilities.Add(protectionAbility);
         }
         
@@ -176,6 +171,13 @@ public class AbilityManager : MonoBehaviour
             {
                 int index = _abilityDistribution.IndexOf(ability);
                 _abilityDistribution.RemoveAt(index);
+            }
+            // Check if Ability is initialized, which player already have
+            // Then re-adjust the weight
+            if (ability.isInitialized)
+            {
+                float w = ability.GetUpgradeDataInfo().weight;
+                _abilityDistribution.items[i].weight = w;
             }
         }
         abilitiesToPick.Clear();

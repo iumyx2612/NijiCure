@@ -2,12 +2,31 @@
     {
         "name": "Sủi stream",
         "description": [
-            "Có 10% khả năng né đòn, khi né thành công sẽ tăng sát thương của kĩ năng cơ bản thêm 10%"
+            "Có 10% khả năng né đòn, khi né thành công sẽ tăng sát thương của kĩ năng cơ bản thêm 20% trong 4s",
+            "Tăng khả năng né đòn lên 15%",
+            "Sát thương tăng lên khi né đòn lên 25%",
+            "Tăng khả năng né đòn lên 20%",
+            "Sát thương tăng lên khi né đòn lên 30%"
         ],
         "stats": {
-            "dodgeChance": [0.1, 0.1, 0.1, 0.1, 0.1],
-            "dmgBuff": [0.1, 0.1, 0.1, 0.1, 0.1]
+            "dodgeChance": [0.1, 0.15, 0.15, 0.2, 0.2],
+            "dmgBuff": [0.2, 0.2, 0.25, 0.25, 0.3]
         },
-        "summary": "Có cơ hội né đòn, khi né thành công sẽ tăng sát thương của kĩ năng cơ bản"
+        "summary": "Có cơ hội né đòn, khi né thành công sẽ tăng sát thương của kĩ năng cơ bản trong 4s"
+    },
+    {
+        "name": "Fancall",
+        "description": [
+            "Có 10% cơ hội hồi máu dựa trên 20% sát thương nhận vào",
+            "Tăng cơ hội hồi máu lên 15%",
+            "Tăng lượng máu được hồi lên 25%",
+            "Tăng cơ hội hồi máu lên 20%",
+            "Tăng lượng máu được hồi lên 30%"
+        ],
+        "stats": {
+            "healChance": [0.1, 0.15, 0.15, 0.2, 0.2],
+            "healPercent": [0.2, 0.2, 0.25, 0.25, 0.3]
+        },
+        "summary": "Khi nhận sát thương sẽ có cơ hội hồi máu dựa trên sát thương nhận vào"
     }
 ]

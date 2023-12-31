@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd026b336c8937645b902528dee7b29a, type: 3}
+  m_Name: Protection_SuiStream
+  m_EditorClassIdentifier: 
+  abilityName: "S\u1EE7i stream"
+  abilityIcon: {fileID: 21300000, guid: a8efb60ef0f0b8f4dba35c4b5f8f87ed, type: 3}
+  typeIcon: {fileID: 21300000, guid: 51bb2d1d15f455844b081190406440cb, type: 3}
+  cooldownTime: 0
+  description: "C\xF3 10% kh\u1EA3 n\u0103ng n\xE9 \u0111\xF2n, khi n\xE9 th\xE0nh
+    c\xF4ng s\u1EBD t\u0103ng s\xE1t th\u01B0\u01A1ng c\u1EE7a k\u0129 n\u0103ng
+    c\u01A1 b\u1EA3n th\xEAm 10% trong 4s"
+  summary: "C\xF3 c\u01A1 h\u1ED9i n\xE9 \u0111\xF2n, khi n\xE9 th\xE0nh c\xF4ng
+    s\u1EBD t\u0103ng s\xE1t th\u01B0\u01A1ng c\u1EE7a k\u0129 n\u0103ng c\u01A1
+    b\u1EA3n trong 4s"
+  debuffDesc: 
+  currentLevel: 0
+  currentCooldownTime: 4
+  internalCooldownTime: 0
+  playerType: {fileID: 11400000, guid: d97529471639b32409d084e45e8cfbb5, type: 2}
+  weight: 5
+  isInitialized: 1
+  state: 1
+  protectionType: 0
+  stagePlayerData: {fileID: 11400000, guid: 004312ef81c8b2f468c246e37a00db54, type: 2}
+  dodgeChance: 0.1
+  dmgBuff: 0.2
+  dmgBuffTime: 4
+  activeCountdownImage: {fileID: 11400000, guid: 3e165fcbbe9aa5f43ad9354ca89b2705,
+    type: 2}
+  statusTextPopUpGameEvent: {fileID: 11400000, guid: 3e0dadbaf05661f4da9ad023918f548a,
+    type: 2}
+  popupConfig:
+    text: "S\u1EE7i!"
+    color: {r: 1, g: 1, b: 1, a: 1}
+  currentDodgeChance: 0.1
+  currentDmgBuff: 0.2
+  upgradeDatas:
+  - {fileID: 11400000, guid: 05aedef7c175e504a853cfa3eeb4ac88, type: 2}
+  - {fileID: 11400000, guid: 318a1a65005691b4d940b2dfa11c1629, type: 2}
+  - {fileID: 11400000, guid: 0269301c3ad7bef46a6a24e3a202860b, type: 2}
+  - {fileID: 11400000, guid: 84f66d8f44eb14c4da6a8dacbb792939, type: 2}

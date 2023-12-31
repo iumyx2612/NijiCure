@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4509189700703300521}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6244386073121056019
 SpriteRenderer:
@@ -96,6 +96,25 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -117,4 +136,12 @@ MonoBehaviour:
   sprites:
   - {fileID: 21300000, guid: ab5bad9b114444d45b47803aa1284540, type: 3}
   - {fileID: 21300000, guid: 626b9cddb29049e4cac50cd87b419945, type: 3}
+  pickUpSound:
+    audioSource: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 695ab3843095979479791dc295901e51, type: 3}
+    isSfx: 1
+    keep: 0
+    audioName: PickUpExp
+    loop: 0
+    playOnAwake: 0
   increaseExp: {fileID: 11400000, guid: 5c18af066b8e4e14ba1c6aece01e3c82, type: 2}

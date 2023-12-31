@@ -16,11 +16,11 @@ MonoBehaviour:
   playerIcon: {fileID: 21300000, guid: 404bf2d034e7f724fb62692f023e43e2, type: 3}
   type: {fileID: 11400000, guid: 294f93b64a84a1949b2ec5b9a336a043, type: 2}
   health: 100
-  speed: 2.2
+  speed: 2.4
   rank: 0
   critChance: 0.02
   animatorController: {fileID: 9100000, guid: eed953d4b9352d64e8e4572d83fab168, type: 2}
-  startingAbility: {fileID: 11400000, guid: 41930c6f48bdc754b9417828c05d8510, type: 2}
+  startingAbility: {fileID: 11400000, guid: 2ce5dcef5775dae459ebef61cd61d622, type: 2}
   ultimateAbility: {fileID: 11400000, guid: d8ac76264ec77664284ee1b451574c10, type: 2}
   playerSound:
     audioSource: {fileID: 0}

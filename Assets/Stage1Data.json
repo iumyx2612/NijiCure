@@ -1,0 +1,161 @@
+{
+    "Normal monster stats": [
+        {
+            "name": "NAL",
+            "speed": 1,
+            "damage": 2,
+            "health": 8,
+            "expAmount": 6
+        },
+        {
+            "name": "Cuka",
+            "speed": 1.2,
+            "damage": 4,
+            "health": 40,
+            "expAmount": 7
+        },
+        {
+            "name": "Pudding",
+            "speed": 1.3,
+            "damage": 5,
+            "health": 70,
+            "expAmount": 8
+        },
+        {
+            "name": "Kani",
+            "speed": 1.8,
+            "damage": 4,
+            "health": 20,
+            "expAmount": 5
+        },
+        {
+            "name": "Ditbu",
+            "speed": 1.4,
+            "damage": 7,
+            "health": 150,
+            "expAmount": 10
+        }
+    ],
+    "Normal monster spawn": [
+        {
+            "startTime": 0,
+            "endTime": 65,
+            "spawnAmount": 1,
+            "data": "NAL",
+            "weight": 4
+        },
+        {
+            "startTime": 30,
+            "endTime": 90,
+            "spawnAmount": 1,
+            "data": "Cuka",
+            "weight": 4
+        },
+        {
+            "startTime": 66,
+            "endTime": 150,
+            "spawnAmount": 3,
+            "data": "NAL",
+            "weight": 5
+        },
+        {
+            "startTime": 91,
+            "endTime": 300,
+            "spawnAmount": 2,
+            "data": "Cuka",
+            "weight": 4
+        },
+        {
+            "startTime": 91,
+            "endTime": 300,
+            "spawnAmount": 3,
+            "data": "Cuka",
+            "weight": 3
+        },
+        {
+            "startTime": 150,
+            "endTime": 200,
+            "spawnAmount": 1,
+            "data": "Pudding",
+            "weight": 4
+        },
+        {
+            "startTime": 201,
+            "endTime": 300,
+            "spawnAmount": 2,
+            "data": "Pudding",
+            "weight": 4
+        },
+        {
+            "startTime": 201,
+            "endTime": 260,
+            "spawnAmount": 2,
+            "data": "Kani",
+            "weight": 5
+        },
+        {
+            "startTime": 261,
+            "endTime": 360,
+            "spawnAmount": 3,
+            "data": "Kani",
+            "weight": 4
+        },
+        {
+            "startTime": 300,
+            "endTime": 400,
+            "spawnAmount": 2,
+            "data": "Ditbu",
+            "weight": 5
+        },
+        {
+            "startTime": 360,
+            "endTime": 1000,
+            "spawnAmount": 3,
+            "data": "Ditbu",
+            "weight": 4
+        },
+        {
+            "startTime": 310,
+            "endTime": 1000,
+            "spawnAmount": 5,
+            "data": "Pudding",
+            "weight": 3
+        },
+        {
+            "startTime": 361,
+            "endTime": 1000,
+            "spawnAmount": 4,
+            "data": "Kani",
+            "weight": 3
+        }
+    ],
+    "Mini Boss spawn": [
+        {
+            "speed": 1.3,
+            "damage": 6,
+            "health": 600,
+            "expAmount": 150,
+            "runtimeAnimatorController": "NAL",
+            "spawnTime": 90,
+            "shape": "Horizontal"
+        },
+        {
+            "speed": 1.6,
+            "damage": 12,
+            "health": 1800,
+            "expAmount": 600,
+            "runtimeAnimatorController": "Cuka",
+            "spawnTime": 240,
+            "shape": "Square"
+        },
+        {
+            "speed": 1.8,
+            "damage": 12,
+            "health": 2500,
+            "expAmount": 1000,
+            "runtimeAnimatorController": "Zombie",
+            "spawnTime": 360,
+            "shape": "Vertical"
+        }
+    ]
+}

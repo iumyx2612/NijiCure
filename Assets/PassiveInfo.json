@@ -2,7 +2,7 @@
     {
         "name": "Đồ ăn hết hạn",
         "description":[
-            "Tạo ra một vùng nhớt trắng xung quanh bản thân, gây 12 sát thương mỗi 0.75s cho kẻ địch xung quanh và làm chậm",
+            "Tạo ra một vùng nhớt trắng xung quanh bản thân, gây 12 sát thương mỗi 0.75s cho kẻ địch xung quanh và làm chậm. Người chơi nhận thêm 10% sát thương",
             "Tăng độ rộng của vùng nhớt trắng thêm 25%",
             "Tăng sát thương gây lên kẻ địch thêm 30%",
             "Tăng tần suất gây sát thương thêm 25%",
@@ -14,7 +14,7 @@
             "cooldownTime": [0.75, 0.75, 0.6, 0.6, 0.6],
             "slowPercent": [0.15, 0.15, 0.15, 0.15, 0.23]
         },
-        "summary": "Tạo ra vùng nhớt trắng xung quanh bản thân, gây sát thương và làm chậm kẻ địch trong đó"
+        "summary": "Tạo ra vùng nhớt trắng xung quanh bản thân, gây sát thương và làm chậm kẻ địch trong đó. Người chơi nhận thêm 10% sát thương"
     },
     {
         "name": "Chạy Deadline",
@@ -34,5 +34,55 @@
             "healWhenLvlUp": [10, 10, 10, 10, 10]
         },
         "summary": "Nhặt EXP sẽ có cơ hội được tăng thêm EXP và tăng sát thương kĩ năng cơ bản. Tuy nhiên khi kích hoạt sẽ mất máu, lên cấp sẽ được hồi máu"
-    }
+    },
+    {
+        "name": "Đánh du kích",
+        "description":[
+            "Triệu hồi 2 bụi cây tại trên bản đồ mỗi 6s. Đứng gần bụi cây được hồi 2 máu mỗi 3s và tăng sát thương kĩ năng cơ bản thêm 10%. Đứng xa bụi cây sẽ bị làm chậm 7%",
+            "Tăng số máu được hồi lên thành 3",
+            "Tăng số bụi cây lên 1",
+            "Làm chậm khi không ở gần bụi còn 5%",
+            "Tăng số bụi cây lên 1, tăng số máu được hồi lên thành 5"
+        ],
+        "stats": {
+            "numBush": [2, 2, 3, 3, 4],
+            "healAmount": [2, 3, 3, 3, 5],
+            "healTimer": [3, 3, 3, 3, 3],
+            "buffPercent": [0.1, 0.1, 0.1, 0.1, 0.1],
+            "counterSlow": [0.07, 0.07, 0.07, 0.05, 0.05]
+        },
+        "summary": "Triệu hồi bụi cây trên bản đồ. Đứng gần bụi cây sẽ được hồi máu và tăng sát thương kĩ năng cơ bản. Đứng xa bụi cây bị làm chậm"
+    },
+    {
+        "name": "Dẹo",
+        "description":[
+            "Mỗi 2s người chơi nhận 1 chỉ số Dẹo (tối đa 10). Mỗi Dẹo sẽ tăng sát thương kĩ năng cơ bản thêm 2%. Nếu Dẹo không đạt tối đa, làm chậm 8%",
+            "Giảm làm chậm khi không đạt tối đa Dẹo xuống còn 5%",
+            "Mỗi chỉ số Dẹo sẽ tăng 2.5% sát thương kĩ năng cơ bản, giảm chỉ số Dẹo tối đa xuống 8",
+            "Giảm làm chậm khi không đạt tối đa Dẹo xuống còn 3%",
+            "Mỗi chỉ số Dẹo sẽ tăng 10% sát thương kĩ cơ bản, giảm chỉ số Dẹo tối đa xuống 5"
+        ],
+        "stats": {
+            "buffPercent": [0.02, 0.02, 0.025, 0.025, 0.1],
+            "maxStacks": [10, 10, 8, 8, 5],
+            "counterSlow": [0.08, 0.05, 0.05, 0.03, 0.03]
+        },
+        "summary": "Mỗi 2s sẽ tăng chỉ số Dẹo. Dẹo sẽ làm người chơi bị chậm nhưng tăng sát thương cho kĩ năng cơ bản. Khi chỉ số Dẹo đạt tối đa sẽ không còn bị làm chậm"
+    },
+    {
+        "name": "Forever Alone",
+        "description": [
+            "Nếu không có kẻ địch gần người chơi trong bán kính 1.5px, tăng sát thương của kĩ năng chủ động lên 10%. Ngược lại, người chơi sẽ bị làm chậm 10%",
+            "Làm chậm khi có kẻ địch gần người chơi giảm xuống còn 8%",
+            "Sát thương khi không có kẻ địch ở gần tăng lên thành 15%",
+            "Bán kính không kẻ địch giảm xuống còn 1.2px",
+            "Làm chậm khi có kẻ địch gần người chơi giảm xuống còn 5%, tăng sát thương kĩ năng chủ động nâng lên thành 20%"
+        ],
+        "stats": {
+            "damageBuff": [0.1, 0.1, 0.15, 0.15, 0.2],
+            "radius": [1.5, 1.5, 1.5, 1.2, 1.2],
+            "counterSlow": [0.1, 0.08, 0.08, 0.08, 0.05]
+        },
+        "summary": "Nếu không có kẻ địch ở gần người chơi, tăng sát thương của các kĩ năng chủ động. Ngược lại, người chơi sẽ bị giảm tốc độ di chuyển"
+    }   
 ]

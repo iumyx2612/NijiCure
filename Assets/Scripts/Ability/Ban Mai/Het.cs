@@ -28,7 +28,7 @@ public class Het : MonoBehaviour
     private int randomDamage;
     
     // For Ngong Ability
-    private DamageBuffCounterData ngongBuffCounterData;
+    private DamageBuffCounter ngongCounter;
     private bool hasNgongAbility;
     private float damageBuffPerCounter;
     private float counterPlaceChance;
@@ -37,7 +37,6 @@ public class Het : MonoBehaviour
     [SerializeField] private Vector2Variable playerPosRef; // Where to shoot ability from
     [SerializeField] private Vector2Variable directionRef; // What direction to shoot
     private Vector2 defaultScale;
-    private Vector2 baseDirection; // Store direction to constantly update it during FixedUpdate
     private Vector2 oldDirection; // To cache the baseDirection that x-axis diff from 0
     private Vector2 direction;
     
@@ -96,8 +95,8 @@ public class Het : MonoBehaviour
     {
         hasNgongAbility = true;
         counterPlaceChance = _data.currentPlaceChance;
-        damageBuffPerCounter = _data.currentDamageBuff;
-        ngongBuffCounterData = _data.dmgBuffCounterData;
+        ngongCounter = _data.currentCounter;
+        damageBuffPerCounter = ngongCounter.damageBuff;
     }
     
     private void ResetBullet()
@@ -126,7 +125,7 @@ public class Het : MonoBehaviour
             int numCounters = 0;
             if (hasNgongAbility)
             {
-                numCounters = counterScript.GetNumDmgBuffCounter(ngongBuffCounterData);
+                numCounters = counterScript.GetNumDmgBuffCounter(ngongCounter);
             }
             
             // For crit
@@ -150,9 +149,8 @@ public class Het : MonoBehaviour
                 float counterRandom = Random.Range(0f, 1f);
                 if (counterRandom <= counterPlaceChance)
                 {
-                    counterScript.AddDmgBuffCounter(ngongBuffCounterData);
-                    DamageBuffCounter counter = counterScript.GetDmgBuffCounter(ngongBuffCounterData);
-                    counter.Active(collider.transform.position);
+                    counterScript.AddDmgBuffCounter(ngongCounter);
+                    ngongCounter.Active(collider.transform.position);
                 }
             }
         }

@@ -12,30 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2423d5bd5af4e04e8dcd3a4f1906273, type: 3}
   m_Name: HetLv2
   m_EditorClassIdentifier: 
-  abilityName: "S\u01B0 t\u1EED h\u1ED1ng"
+  abilityName: "S\u01B0 t\u1EED h\u1ED1ng Lv 2"
   abilityIcon: {fileID: 21300000, guid: cadfc84d8086ac24696747c3a14b9a36, type: 3}
-  cooldownTime: 0.8
-  description: "Gi\u1EA3m th\u1EDDi gian h\u1ED3i k\u0129 n\u0103ng \u0111i 20%"
+  typeIcon: {fileID: 21300000, guid: 3a478766cefb6994aaeda829ea368d39, type: 3}
+  cooldownTime: 1
+  description: "S\xE1t th\u01B0\u01A1ng k\u0129 n\u0103ng t\u0103ng th\xEAm 20%"
+  summary: "H\xE9t theo ph\u01B0\u01A1ng ngang, k\u1EBB \u0111\u1ECBch b\u1ECB tr\xFAng
+    ph\u1EA3i s\u1EBD b\u1ECB \u0111\u1EA9y l\xF9i trong ch\u1ED1c l\xE1t"
   debuffDesc: "S\xE1t th\u01B0\u01A1ng k\u0129 n\u0103ng n\xE0y c\u1EE7a Mai s\u1EBD
     b\u1ECB bi\u1EBFn \u0111\u1ED5i ng\u1EABu nhi\xEAn"
   currentLevel: 0
   currentCooldownTime: 1
   internalCooldownTime: 0
   playerType: {fileID: 11400000, guid: e8814abdea8216143b1d8343a509e13b, type: 2}
-  weight: 5
-  isInitialized: 0
-  state: 1
+  weight: 6
+  isInitialized: 1
+  state: 2
   damage: 24
-  currentDamage: 31
+  currentDamage: 20
   critChance: 0.05
   currentCritChance: 0.05
-  knockbackForce: 0.5
+  knockbackForce: 0.2
   scale: {x: 1, y: 1}
   offset: {x: 1.5, y: 0}
   bulletPrefab: {fileID: 8150979786157925148, guid: b2a5e4dff40b6e64a994af46ef2d0e48,
     type: 3}
   upgradeDatas:
-  - {fileID: 11400000}
-  currentKnockbackForce: 0.5
+  - {fileID: 11400000, guid: 7b59185a08ce4a144b28a48484fa5617, type: 2}
+  - {fileID: 11400000, guid: 11c8690aafddb464f83892c297533721, type: 2}
+  currentKnockbackForce: 0.2
   currentScale: {x: 1, y: 1}
   bar: 8

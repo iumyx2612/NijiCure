@@ -17,6 +17,7 @@ public class ExpPickUp : MonoBehaviour, IPickUpItem
     {
         10, 19, 49, 99, 199
     };
+    [SerializeField] private Sound pickUpSound;
 
     private SpriteRenderer spriteRenderer;
     private int expAmount;
@@ -45,6 +46,7 @@ public class ExpPickUp : MonoBehaviour, IPickUpItem
         // Move the ExpItem towards the player
         Vector2 dest = player.position;
         Sequence sequence = DOTween.Sequence();
+        sequence.AppendCallback(() => AudioManager.Instance.Play(pickUpSound.audioName));
         sequence.Append(transform.DOMove(dest, 0.3f));
         sequence.Join(transform.DOScale(new Vector2(0f, 0f), 0.3f));
         sequence.OnComplete(DonePickUp);

@@ -18,22 +18,21 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Ability/Ban Mai/Pudding Hunter")]
 public class PuddingHunterData : PassiveAbilityBase
 {
-    [Header("Normal")]
+    [Header("Pudding Hunter")]
     public float radius; // To PuddingHunter.cs
     public float buffTime; // To PuddingHunter.cs
     public GameEvent puddingHunterGameEvent; // To PuddingHunter.cs
     public HetData baseHetAbility; // To PuddingHunter.cs
     [Range(0f, 1f)] public float damageIncrease; // To PuddingHunter.cs
     public int healthIncrease; // To BanMaiPudding.cs
-    [Range(0f, 1f)] public float dropChance; // To ItemDropCounterData.cs
 
     [Header("UI")]
     public PassiveAbilityGameEvent activeCountdownImage; // To PuddingHunter.cs
     
+    // Pudding Counter
     public GameObject puddingPrefab;
     private GameObject holder;
-    private List<GameObject> puddingPool;
-    public ItemDropCounterData itemDropCounterData;
+    public ItemDropCounter counter;
 
     public List<PuddingHunterData> upgradeDatas;
 
@@ -41,7 +40,7 @@ public class PuddingHunterData : PassiveAbilityBase
     [HideInInspector] public float currentBuffTime;
     [HideInInspector] public float currentDamageIncrease;
     [HideInInspector] public int currentHealthIncrease;
-    [HideInInspector] public float currentDropChance;
+    [HideInInspector] public ItemDropCounter currentCounter;
 
     public override void Initialize()
     {
@@ -51,14 +50,12 @@ public class PuddingHunterData : PassiveAbilityBase
         currentBuffTime = buffTime;
         currentDamageIncrease = damageIncrease;
         currentHealthIncrease = healthIncrease;
-        currentDropChance = dropChance;
-        
-        // Parse the data to Counter
-        itemDropCounterData.abilityName = abilityName;
-        itemDropCounterData.itemDropPrefab = puddingPrefab;
-        itemDropCounterData.itemDropPool.Clear();
-        itemDropCounterData.itemDropPool = puddingPool;
-        itemDropCounterData.dropChance = currentDropChance;
+        currentCounter = counter;
+        currentCounter.InitCounterObject();
+        for (int i = 0; i < currentCounter.counterPool.Count; i++)
+        {
+            currentCounter.counterPool[i].GetComponent<BanMaiPudding>().LoadData(this);
+        }
         
         // Attach the GameObject with PuddingHunter script to Player
         Transform player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -67,17 +64,6 @@ public class PuddingHunterData : PassiveAbilityBase
         _holder.transform.localPosition = Vector2.zero;
         AddAndLoadComponent(_holder);
         holder = _holder;
-        
-        // Pool the item drop
-        puddingPool = new List<GameObject>();
-        GameObject counterHolder = new GameObject(abilityName + " Counters");
-        for (int i = 0; i < 20; i++)
-        {
-            GameObject itemDrop = Instantiate(puddingPrefab, counterHolder.transform);
-            itemDrop.GetComponent<BanMaiPudding>().LoadData(this);
-            puddingPool.Add(itemDrop);
-            itemDrop.SetActive(false);
-        }
     }
 
     /// <summary>
@@ -100,17 +86,20 @@ public class PuddingHunterData : PassiveAbilityBase
         currentRadius = upgradeData.radius;
         currentBuffTime = upgradeData.buffTime;
         currentDamageIncrease = upgradeData.damageIncrease;
-        currentDropChance = upgradeData.dropChance;
         currentHealthIncrease = upgradeData.healthIncrease;
+        
+        ItemDropCounter tempCounter = currentCounter;
+        currentCounter = new ItemDropCounter(upgradeData.counter);
+        currentCounter.LinkPool(tempCounter);
+
         // Apply the upgrade on PuddingHunter.cs
         holder.GetComponent<PuddingHunter>().LoadData(this);
         // Apply the upgrade on BanMaiPudding.cs
-        foreach (GameObject pudding in puddingPool)
+        for (int i = 0; i < currentCounter.counterPool.Count; i++)
         {
-            pudding.GetComponent<BanMaiPudding>().LoadData(this);
+            currentCounter.counterPool[i].GetComponent<BanMaiPudding>().LoadData(this);
         }
         // Apply the upgrade on ItemDropCounterData.cs
-        itemDropCounterData.dropChance = currentDropChance;
 
         currentLevel += 1;
     }

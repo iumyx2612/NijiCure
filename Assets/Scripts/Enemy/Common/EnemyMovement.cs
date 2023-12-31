@@ -103,7 +103,7 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
     {
         canMove = false;
         Sequence knockbackSequence = DOTween.Sequence();
-        knockbackSequence.Append(rb.DOMove(rb.position - force, duration));
+        knockbackSequence.Append(rb.DOMove(rb.position + force, duration));
         knockbackSequence.OnComplete(() => { canMove = true; });
     }
 
@@ -134,10 +134,7 @@ public class EnemyMovement : MonoBehaviour, IBaseEnemyBehavior
         {
             MoveSpeedCounter counter = spdCounters[i];
             // TODO: Is this math correct?
-            if (counter.increase)
-                percentage += counter.percentage;
-            else
-                percentage -= counter.percentage;
+            percentage -= counter.percentage;
         }
         ModifySpeed(percentage, false);
     }

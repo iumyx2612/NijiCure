@@ -17,27 +17,75 @@ MonoBehaviour:
   typeIcon: {fileID: 21300000, guid: 79f5c6e31af878c478b57f6b208cfe6c, type: 3}
   cooldownTime: 0.75
   description: "T\u1EA1o ra m\u1ED9t v\xF9ng nh\u1EDBt tr\u1EAFng xung quanh b\u1EA3n
-    th\xE2n, g\xE2y 9 s\xE1t th\u01B0\u01A1ng m\u1ED7i 0.75s cho k\u1EBB \u0111\u1ECBch
-    xung quanh v\xE0 l\xE0m ch\u1EADm"
-  summary: 
+    th\xE2n, g\xE2y 12 s\xE1t th\u01B0\u01A1ng m\u1ED7i 0.75s cho k\u1EBB \u0111\u1ECBch
+    xung quanh v\xE0 l\xE0m ch\u1EADm. Ng\u01B0\u1EDDi ch\u01A1i nh\u1EADn th\xEAm
+    10% s\xE1t th\u01B0\u01A1ng"
+  summary: "T\u1EA1o ra v\xF9ng nh\u1EDBt tr\u1EAFng xung quanh b\u1EA3n th\xE2n,
+    g\xE2y s\xE1t th\u01B0\u01A1ng v\xE0 l\xE0m ch\u1EADm k\u1EBB \u0111\u1ECBch
+    trong \u0111\xF3. Ng\u01B0\u1EDDi ch\u01A1i nh\u1EADn th\xEAm 10% s\xE1t th\u01B0\u01A1ng"
   debuffDesc: 
   currentLevel: 0
   currentCooldownTime: 0.75
   internalCooldownTime: 0
   playerType: {fileID: 11400000, guid: d97529471639b32409d084e45e8cfbb5, type: 2}
-  weight: 5
+  weight: 3
   isInitialized: 0
   state: 1
-  damage: 9
+  damage: 12
   radiusScale: 1
-  slowPercentage: 0.2
-  counterData: {fileID: 11400000, guid: c02be3157473eef46aa2438c32ff7331, type: 2}
+  counter:
+    abilityName: "\u0110\u1ED3 \u0103n h\u1EBFt h\u1EA1n"
+    counterName: DoAnHetHanCounter
+    maxNum: 1
+    existTime: Infinity
+    counterPrefab: {fileID: 0}
+    counterPool: []
+    counterHolder: {fileID: 0}
+    percentage: 0.15
+    internalTime: 0
+    currentNum: 0
+    totalPercentage: 0
+  selfCounter:
+    abilityName: "\u0110\u1ED3 \u0103n h\u1EBFt h\u1EA1n"
+    counterName: DoAnHetHanCounter
+    maxNum: 1
+    existTime: Infinity
+    counterPrefab: {fileID: 0}
+    counterPool: []
+    counterHolder: {fileID: 0}
+    singleAbility: 0
+    damageBuff: 0.1
+    internalTime: 0
+    currentNum: 0
   prefab: {fileID: 3566961290145430712, guid: 09ca2942229322b4c9312a30b558a929, type: 3}
   upgradeDatas:
-  - {fileID: 11400000, guid: c50fc675ca9b62f488e9318693dc860d, type: 2}
-  - {fileID: 11400000, guid: dcc6120a7d51b36419434a00f10505be, type: 2}
-  - {fileID: 11400000, guid: a24be137a9c67f1459e6c46988eaf041, type: 2}
-  - {fileID: 11400000, guid: 1ea3fd5fdf6357145a40e30d9708bc7e, type: 2}
-  currentDamage: 9
+  - {fileID: 11400000, guid: 908f7459346ba9a4b87ae7d2d082e1a6, type: 2}
+  - {fileID: 11400000, guid: ed15eb4b71fcb98429b08703a467b69e, type: 2}
+  - {fileID: 11400000, guid: a17896cb617b68f4ab83c09b7e8addf2, type: 2}
+  - {fileID: 11400000, guid: 007ceac5cee4c1a4abedafbd4ede096d, type: 2}
+  currentDamage: 12
   currentRadiusScale: 1
-  currentSlowPercent: 0.3
+  currentCounter:
+    abilityName: "\u0110\u1ED3 \u0103n h\u1EBFt h\u1EA1n"
+    counterName: DoAnHetHanCounter
+    maxNum: 1
+    existTime: Infinity
+    counterPrefab: {fileID: 0}
+    counterPool: []
+    counterHolder: {fileID: 0}
+    percentage: 0.15
+    internalTime: 0
+    currentNum: 0
+    totalPercentage: 0
+  currentSelfCounter:
+    abilityName: "\u0110\u1ED3 \u0103n h\u1EBFt h\u1EA1n"
+    counterName: DoAnHetHanCounter
+    maxNum: 1
+    existTime: Infinity
+    counterPrefab: {fileID: 0}
+    counterPool: []
+    counterHolder: {fileID: 0}
+    singleAbility: 0
+    damageBuff: 0.1
+    internalTime: 0
+    currentNum: 0

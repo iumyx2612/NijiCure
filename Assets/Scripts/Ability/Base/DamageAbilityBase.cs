@@ -6,7 +6,7 @@ public abstract class DamageAbilityBase : AbilityBase
 {
     [Header("Damage")]
     public int damage;
-    [HideInInspector] public int currentDamage; // For in-game upgrade
+    public int currentDamage; // For in-game upgrade
     [HideInInspector] public float critChance; // Setup in AbilityManager.cs
     [HideInInspector] public float currentCritChance; 
     

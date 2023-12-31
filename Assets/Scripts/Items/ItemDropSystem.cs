@@ -8,7 +8,7 @@ public class ItemDropSystem : MonoBehaviour
 {
     [Header("EXP")]
     [SerializeField] private GameObject expPickUpPrefab;
-    [SerializeField] private GameObjectCollection expPickUpPool; // Pool containing expPicker prefabs    
+    [SerializeField] private GameObjectCollection expPickUpPool; // Pool containing expPickup prefabs    
 
     [Header("Healing")]
     [SerializeField] private FloatVariable healthDropChance;

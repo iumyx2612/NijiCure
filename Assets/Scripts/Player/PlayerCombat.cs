@@ -17,6 +17,7 @@ public class PlayerCombat : MonoBehaviour
 
     [SerializeField] private BoolVariable isAlive;
     [SerializeField] private GameEvent onPlayerKilled;
+    [SerializeField] private GameEvent playerDie; // Setup in UIManager.cs
     [SerializeField] private IntGameEvent playerProcessDamage;
     [SerializeField] private IntGameEvent playerTakeDamage;
     
@@ -149,6 +150,7 @@ public class PlayerCombat : MonoBehaviour
     {
         isAlive.Value = false;
         gameObject.SetActive(false);
+        playerDie.Raise();
     }
     
     private void LoadData(PlayerData data)

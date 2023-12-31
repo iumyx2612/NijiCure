@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: "S\u01B0 t\u1EED h\u1ED1ng"
   abilityIcon: {fileID: 21300000, guid: cadfc84d8086ac24696747c3a14b9a36, type: 3}
+  typeIcon: {fileID: 21300000, guid: 3a478766cefb6994aaeda829ea368d39, type: 3}
   cooldownTime: 1
   description: "H\xE9t theo ph\u01B0\u01A1ng ngang, k\u1EBB \u0111\u1ECBch b\u1ECB
     tr\xFAng ph\u1EA3i s\u1EBD b\u1ECB \u0111\u1EA9y l\xF9i trong ch\u1ED1c l\xE1t"
@@ -25,21 +26,24 @@ MonoBehaviour:
   currentCooldownTime: 1
   internalCooldownTime: 0
   playerType: {fileID: 11400000, guid: e8814abdea8216143b1d8343a509e13b, type: 2}
-  weight: 5
+  weight: 6
   isInitialized: 1
-  state: 1
+  state: 2
   damage: 20
   currentDamage: 20
   critChance: 0.05
   currentCritChance: 0.05
-  knockbackForce: 0.5
+  knockbackForce: 0.2
   scale: {x: 1, y: 1}
   offset: {x: 1.5, y: 0}
   bulletPrefab: {fileID: 8150979786157925148, guid: b2a5e4dff40b6e64a994af46ef2d0e48,
     type: 3}
   upgradeDatas:
-  - {fileID: 11400000, guid: 7b59185a08ce4a144b28a48484fa5617, type: 2}
-  - {fileID: 11400000, guid: 11c8690aafddb464f83892c297533721, type: 2}
-  currentKnockbackForce: 0.5
+  - {fileID: 11400000, guid: 42689ff24992d544cb5a7ea14a621aa7, type: 2}
+  - {fileID: 11400000, guid: 4bbdb6d71202a244f843d08fa1b3cc95, type: 2}
+  - {fileID: 11400000, guid: 124f6c32646f1a84faea0c12677cba08, type: 2}
+  - {fileID: 11400000, guid: a99ece46360cd0d41b4fc9009a56c021, type: 2}
+  - {fileID: 11400000, guid: 31a055f0ac821af4a8a93849e578dfdd, type: 2}
+  currentKnockbackForce: 0.2
   currentScale: {x: 1, y: 1}
   bar: 8

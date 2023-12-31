@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 40290830}
   - component: {fileID: 40290829}
   - component: {fileID: 40290828}
+  - component: {fileID: 40290831}
   m_Layer: 5
   m_Name: CreditBtn
   m_TagString: Untagged
@@ -244,6 +245,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 40290826}
   m_CullTransparentMesh: 1
+--- !u!114 &40290831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40290826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f817b7ca1f7e946906918d4c35e752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &91001127
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,6 +703,7 @@ GameObject:
   - component: {fileID: 278243058}
   - component: {fileID: 278243057}
   - component: {fileID: 278243059}
+  - component: {fileID: 278243060}
   m_Layer: 5
   m_Name: Settings Panel
   m_TagString: Untagged
@@ -769,10 +783,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 927901316}
-  navigationControl: {fileID: 11400000, guid: 6f300fadadca16946946dd6dfeb4cd66, type: 2}
   goBack: 0
   deact: 1
   startingGameObject: {fileID: 1580783565}
+--- !u!114 &278243060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278243055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6c21ed03d6c4a541b96acfb9063b6a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxVolumeSlider: {fileID: 1580783565}
+  musicVolumeSlider: {fileID: 1080880213}
+  resolutionIndex: {fileID: 11400000, guid: 46691fb1b460e2548bf952c98ad21e84, type: 2}
+  isFullScr: {fileID: 11400000, guid: 4f4e97452c8b7054b8b957464d9240c1, type: 2}
+  resolutionScript: {fileID: 0}
 --- !u!1 &318392993
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,7 +933,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 278243055}
-  navigationControl: {fileID: 11400000, guid: 6f300fadadca16946946dd6dfeb4cd66, type: 2}
   goBack: 0
   deact: 1
   startingGameObject: {fileID: 599848059}
@@ -1354,6 +1383,7 @@ GameObject:
   - component: {fileID: 578127961}
   - component: {fileID: 578127960}
   - component: {fileID: 578127962}
+  - component: {fileID: 578127963}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -1434,10 +1464,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 0}
-  navigationControl: {fileID: 0}
   goBack: 0
   deact: 0
-  startingGameObject: {fileID: 1580783563}
+  startingGameObject: {fileID: 1580783565}
+--- !u!114 &578127963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578127958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f817b7ca1f7e946906918d4c35e752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &599848056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1451,6 +1492,7 @@ GameObject:
   - component: {fileID: 599848060}
   - component: {fileID: 599848059}
   - component: {fileID: 599848058}
+  - component: {fileID: 599848062}
   m_Layer: 5
   m_Name: Resoluton Button
   m_TagString: Untagged
@@ -1493,7 +1535,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 599848059}
   optionText: {fileID: 2057737882}
-  value: 0
+  isFullScr: {fileID: 11400000, guid: 4f4e97452c8b7054b8b957464d9240c1, type: 2}
+  resolutionIndex: {fileID: 11400000, guid: 46691fb1b460e2548bf952c98ad21e84, type: 2}
+  index: 0
   options:
   - 1920 x 1080
   - 1600 x 900
@@ -1502,7 +1546,6 @@ MonoBehaviour:
   - {x: 1920, y: 1080}
   - {x: 1600, y: 900}
   - {x: 1270, y: 720}
-  isFullscr: 1
 --- !u!114 &599848059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1585,6 +1628,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 599848056}
   m_CullTransparentMesh: 1
+--- !u!114 &599848062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599848056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f817b7ca1f7e946906918d4c35e752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &618813766
 GameObject:
   m_ObjectHideFlags: 0
@@ -1746,7 +1801,6 @@ GameObject:
   - component: {fileID: 799076330}
   - component: {fileID: 799076333}
   - component: {fileID: 799076332}
-  - component: {fileID: 799076331}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -1775,23 +1829,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0, y: -42.609}
   m_SizeDelta: {x: 674.378, y: 685.218}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &799076331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 799076329}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29e42159c2793d74b899601f0ce87483, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  previousPanel: {fileID: 0}
-  navigationControl: {fileID: 0}
-  goBack: 0
-  deact: 0
-  startingGameObject: {fileID: 0}
 --- !u!114 &799076332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1842,6 +1879,7 @@ GameObject:
   - component: {fileID: 894154443}
   - component: {fileID: 894154442}
   - component: {fileID: 894154441}
+  - component: {fileID: 894154445}
   m_Layer: 5
   m_Name: PlayBtn
   m_TagString: Untagged
@@ -1975,6 +2013,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &894154445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894154440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f817b7ca1f7e946906918d4c35e752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &924692706
 GameObject:
   m_ObjectHideFlags: 0
@@ -2124,6 +2174,7 @@ GameObject:
   - component: {fileID: 925985155}
   - component: {fileID: 925985154}
   - component: {fileID: 925985153}
+  - component: {fileID: 925985156}
   m_Layer: 5
   m_Name: QuitBtn
   m_TagString: Untagged
@@ -2245,6 +2296,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 925985151}
   m_CullTransparentMesh: 1
+--- !u!114 &925985156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925985151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f817b7ca1f7e946906918d4c35e752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &927901316
 GameObject:
   m_ObjectHideFlags: 0
@@ -2320,7 +2383,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 0}
-  navigationControl: {fileID: 11400000, guid: 6f300fadadca16946946dd6dfeb4cd66, type: 2}
   goBack: 0
   deact: 0
   startingGameObject: {fileID: 894154441}
@@ -2498,14 +2560,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 950701092}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a9017b0343886d4f8a961199266028a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sfxVolumeSlider: {fileID: 1580783565}
-  musicVolumeSlider: {fileID: 1080880213}
-  graphicsMenu: {fileID: 362641521}
+  resolutionIndex: {fileID: 11400000, guid: 46691fb1b460e2548bf952c98ad21e84, type: 2}
+  isFullScr: {fileID: 11400000, guid: 4f4e97452c8b7054b8b957464d9240c1, type: 2}
+  sfxVolume: {fileID: 11400000, guid: fd69741d16b99f442b65333afe7c3fe8, type: 2}
+  musicVolume: {fileID: 11400000, guid: 03ef461f772df0340a95916b07901c2c, type: 2}
 --- !u!1 &962308719
 GameObject:
   m_ObjectHideFlags: 0
@@ -2758,6 +2821,7 @@ GameObject:
   - component: {fileID: 994689084}
   - component: {fileID: 994689083}
   - component: {fileID: 994689082}
+  - component: {fileID: 994689085}
   m_Layer: 5
   m_Name: SettingsBtn
   m_TagString: Untagged
@@ -2891,6 +2955,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 994689080}
   m_CullTransparentMesh: 1
+--- !u!114 &994689085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994689080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f817b7ca1f7e946906918d4c35e752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1036341532
 GameObject:
   m_ObjectHideFlags: 0
@@ -2901,6 +2977,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1036341533}
   - component: {fileID: 1036341534}
+  - component: {fileID: 1036341535}
   m_Layer: 5
   m_Name: Toggle
   m_TagString: Untagged
@@ -2988,6 +3065,18 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 1
+--- !u!114 &1036341535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036341532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f817b7ca1f7e946906918d4c35e752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1080880211
 GameObject:
   m_ObjectHideFlags: 0
@@ -2998,6 +3087,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1080880212}
   - component: {fileID: 1080880213}
+  - component: {fileID: 1080880214}
   m_Layer: 5
   m_Name: Music Slider
   m_TagString: Untagged
@@ -3078,8 +3168,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 950701094}
-        m_TargetAssemblyTypeName: StartingMenuUI, Assembly-CSharp
+      - m_Target: {fileID: 278243060}
+        m_TargetAssemblyTypeName: SettingsPanel, Assembly-CSharp
         m_MethodName: MusicVolumeSlider
         m_Mode: 1
         m_Arguments:
@@ -3090,6 +3180,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1080880214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080880211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f817b7ca1f7e946906918d4c35e752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1193311122
 GameObject:
   m_ObjectHideFlags: 0
@@ -3135,7 +3237,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputModule: {fileID: 393924168}
-  navigationControl: {fileID: 11400000, guid: 6f300fadadca16946946dd6dfeb4cd66, type: 2}
   navigateAction: {fileID: 0}
   submitAction: {fileID: 0}
   cancelAction: {fileID: 0}
@@ -3323,12 +3424,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25cd2454dec88841bbe5e69eddc5b42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
+  sounds: []
+  tempSounds:
   - audioSource: {fileID: 0}
-    audioClip: {fileID: 8300000, guid: 91bdbbfd3cb7c3f449bd5fac1685957f, type: 3}
+    audioClip: {fileID: 8300000, guid: bbb0b8064d2c56948b54ddd1cacabb83, type: 3}
     isSfx: 1
     keep: 1
-    audioName: Click
+    audioName: Navigate
     loop: 0
     playOnAwake: 0
   - audioSource: {fileID: 0}
@@ -3339,10 +3441,10 @@ MonoBehaviour:
     loop: 0
     playOnAwake: 0
   - audioSource: {fileID: 0}
-    audioClip: {fileID: 8300000, guid: bbb0b8064d2c56948b54ddd1cacabb83, type: 3}
+    audioClip: {fileID: 8300000, guid: 91bdbbfd3cb7c3f449bd5fac1685957f, type: 3}
     isSfx: 1
     keep: 1
-    audioName: Navigate
+    audioName: Click
     loop: 0
     playOnAwake: 0
   audioMixer: {fileID: 24100000, guid: e982c6c643bc8994ab431c70b8fcb65c, type: 2}
@@ -3415,6 +3517,7 @@ GameObject:
   - component: {fileID: 1387535880}
   - component: {fileID: 1387535879}
   - component: {fileID: 1387535878}
+  - component: {fileID: 1387535881}
   m_Layer: 5
   m_Name: Graphics Button
   m_TagString: Untagged
@@ -3548,6 +3651,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1387535876}
   m_CullTransparentMesh: 1
+--- !u!114 &1387535881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387535876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f817b7ca1f7e946906918d4c35e752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1393328745
 GameObject:
   m_ObjectHideFlags: 0
@@ -4091,6 +4206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1580783564}
   - component: {fileID: 1580783565}
+  - component: {fileID: 1580783566}
   m_Layer: 5
   m_Name: Sfx Slider
   m_TagString: Untagged
@@ -4171,8 +4287,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 950701094}
-        m_TargetAssemblyTypeName: StartingMenuUI, Assembly-CSharp
+      - m_Target: {fileID: 278243060}
+        m_TargetAssemblyTypeName: SettingsPanel, Assembly-CSharp
         m_MethodName: SfxVolumeSlider
         m_Mode: 1
         m_Arguments:
@@ -4183,6 +4299,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1580783566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1580783563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f817b7ca1f7e946906918d4c35e752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1656068241
 GameObject:
   m_ObjectHideFlags: 0

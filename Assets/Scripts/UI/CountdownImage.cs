@@ -20,7 +20,7 @@ public class CountdownImage : MonoBehaviour
     private void Awake()
     {
         self = GetComponent<Image>();
-        stackText.text = "";
+        ResetInfo();
     }
 
     private void Update()

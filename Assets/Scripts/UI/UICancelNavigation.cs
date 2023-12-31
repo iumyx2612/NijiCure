@@ -13,7 +13,6 @@ using ScriptableObjectArchitecture;
 public class UICancelNavigation : MonoBehaviour
 {
     public GameObject previousPanel;
-    [SerializeField] private BoolVariable navigationControl; // Setup in UINavigation.cs
     [Tooltip("Go back to previous Scene")]
     [SerializeField] private bool goBack; 
     [Tooltip("Check if SetActive(true) the gameobject when OnCancel is called")]
@@ -22,7 +21,6 @@ public class UICancelNavigation : MonoBehaviour
 
     private void OnEnable()
     {
-        navigationControl.Value = true;
         if (startingGameObject != null)
         {
             startingGameObject.Select();
@@ -36,7 +34,6 @@ public class UICancelNavigation : MonoBehaviour
     {
         if (UINavigation.Instance != null)
             UINavigation.Instance.cancelAction.action.performed -= OnCancel;
-        navigationControl.Value = false;
     }
 
     public void OnCancel(InputAction.CallbackContext ctx)

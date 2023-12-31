@@ -28,6 +28,13 @@ public abstract class AbilityBase : ScriptableObject
     }
 
     public AbilityState state; // Set in initialize
+
+    public virtual void PreInit() 
+    {
+        currentLevel = 0;
+        isInitialized = false;
+        internalCooldownTime = 0f;
+    }
     
     // Setup the Ability
     public abstract void Initialize();
@@ -39,7 +46,7 @@ public abstract class AbilityBase : ScriptableObject
     public abstract void UpgradeAbility();
 
     // If an Ability is dependent on another Ability 
-    // Then it must re-implement this method
+    // Then it MUST re-implement this method
     public abstract bool CanBeInit();
 
     // -------------------------------------------------------

@@ -11,6 +11,7 @@ public class BossSpawnerData : ScriptableObject
     public int damage;
     public int health;
     public int expAmount;
+    public GameEvent endStage;
     public EnemyAbilityBase enemyAbility;
     public RuntimeAnimatorController runtimeAnimatorController;
 

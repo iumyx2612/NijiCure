@@ -106,23 +106,23 @@ public class EnemyCounter : MonoBehaviour
     }
 
     // ------------------ Item Drop Counter ------------------
-    public int GetNumItemDropCounter(ItemDropCounterData _counter)
+    public int GetNumItemDropCounter(string counterName)
     {
-        if (stringToItemDropCounter.ContainsKey(_counter.counterName))
+        if (stringToItemDropCounter.ContainsKey(counterName))
         {
-            ItemDropCounter counter = stringToItemDropCounter[_counter.counterName];
+            ItemDropCounter counter = stringToItemDropCounter[counterName];
             return counter.currentNum;   
         }
 
         return 0;
     }
 
-    public ItemDropCounter GetItemDropCounter(ItemDropCounterData _counter)
+    public ItemDropCounter GetItemDropCounter(string counterName)
     {
-        return stringToItemDropCounter[_counter.counterName];
+        return stringToItemDropCounter[counterName];
     }
     
-    public void AddItemDropCounter(ItemDropCounterData _counter)
+    public void AddItemDropCounter(ItemDropCounter _counter)
     {
         // Make a copy of the counter
         // If the added Counter exists
@@ -139,8 +139,8 @@ public class EnemyCounter : MonoBehaviour
         }
         else
         {
-            ItemDropCounter addedCounter = new ItemDropCounter();
-            addedCounter.SetData(_counter);
+            ItemDropCounter addedCounter = new ItemDropCounter(_counter);
+            addedCounter.LinkPool(_counter);
             addedCounter.currentNum += 1;
             stringToItemDropCounter.Add(addedCounter.counterName, addedCounter);
             // Update the List in EnemyDrop cuz it has new Counter
@@ -148,11 +148,11 @@ public class EnemyCounter : MonoBehaviour
         }
     }
 
-    public void RemoveItemDropCounter(ItemDropCounterData _counter)
+    public void RemoveItemDropCounter(string counterName)
     {
-        if (stringToItemDropCounter.ContainsKey(_counter.counterName))
+        if (stringToItemDropCounter.ContainsKey(counterName))
         {
-            stringToItemDropCounter.Remove(_counter.counterName);
+            stringToItemDropCounter.Remove(counterName);
         }
     }
 
@@ -186,7 +186,7 @@ public class EnemyCounter : MonoBehaviour
     }
     
     // ------------------ Damage Buff Counter ------------------
-    public int GetNumDmgBuffCounter(DamageBuffCounterData _counter)
+    public int GetNumDmgBuffCounter(DamageBuffCounter _counter)
     {
         if (stringToDmgBuffCounter.ContainsKey(_counter.counterName))
         {
@@ -197,12 +197,12 @@ public class EnemyCounter : MonoBehaviour
         return 0;
     }
     
-    public DamageBuffCounter GetDmgBuffCounter(DamageBuffCounterData _counter)
+    public DamageBuffCounter GetDmgBuffCounter(string counterName)
     {
-        return stringToDmgBuffCounter[_counter.counterName];
+        return stringToDmgBuffCounter[counterName];
     }
     
-    public void AddDmgBuffCounter(DamageBuffCounterData _counter)
+    public void AddDmgBuffCounter(DamageBuffCounter _counter)
     {
         // If the added Counter exists
         if (stringToDmgBuffCounter.ContainsKey(_counter.counterName))
@@ -218,9 +218,7 @@ public class EnemyCounter : MonoBehaviour
         }
         else
         {
-            // Make a copy of the counter
-            DamageBuffCounter addedCounter = new DamageBuffCounter();
-            addedCounter.SetData(_counter);
+            DamageBuffCounter addedCounter = new DamageBuffCounter(_counter);
             addedCounter.currentNum += 1;
             stringToDmgBuffCounter.Add(addedCounter.counterName, addedCounter);
             // Update the List in EnemyDrop cuz it has new Counter
@@ -228,11 +226,11 @@ public class EnemyCounter : MonoBehaviour
         }
     }
 
-    public void RemoveDmgBuffCounter(DamageBuffCounterData _counter)
+    public void RemoveDmgBuffCounter(string counterName)
     {
-        if (stringToDmgBuffCounter.ContainsKey(_counter.counterName))
+        if (stringToDmgBuffCounter.ContainsKey(counterName))
         {
-            stringToDmgBuffCounter.Remove(_counter.counterName);
+            stringToDmgBuffCounter.Remove(counterName);
         }
     }
     
@@ -266,23 +264,23 @@ public class EnemyCounter : MonoBehaviour
     }
     
     // ------------------ Move Speed Counter ------------------
-    public int GetNumMoveSpdCounter(MoveSpeedCounterData _counter)
+    public int GetNumMoveSpdCounter(string counterName)
     {
-        if (stringToMoveSpdCounter.ContainsKey(_counter.counterName))
+        if (stringToMoveSpdCounter.ContainsKey(counterName))
         {
-            MoveSpeedCounter counter = stringToMoveSpdCounter[_counter.counterName];
+            MoveSpeedCounter counter = stringToMoveSpdCounter[counterName];
             return counter.currentNum;   
         }
 
         return 0;
     }
     
-    public MoveSpeedCounter GetMoveSpdCounter(MoveSpeedCounterData _counter)
+    public MoveSpeedCounter GetMoveSpdCounter(string counterName)
     {
-        return stringToMoveSpdCounter[_counter.counterName];
+        return stringToMoveSpdCounter[counterName];
     }
     
-    public void AddMoveSpdCounter(MoveSpeedCounterData _counter)
+    public void AddMoveSpdCounter(MoveSpeedCounter _counter)
     {
         // If the added Counter exists
         if (stringToMoveSpdCounter.ContainsKey(_counter.counterName))
@@ -299,8 +297,7 @@ public class EnemyCounter : MonoBehaviour
         else
         {
             // Make a copy of the counter
-            MoveSpeedCounter addedCounter = new MoveSpeedCounter();
-            addedCounter.SetData(_counter);
+            MoveSpeedCounter addedCounter = new MoveSpeedCounter(_counter);
             addedCounter.currentNum += 1;
             stringToMoveSpdCounter.Add(addedCounter.counterName, addedCounter);
             // Update the List in EnemyDrop cuz it has new Counter
@@ -308,11 +305,11 @@ public class EnemyCounter : MonoBehaviour
         }
     }
 
-    public void RemoveMoveSpdCounter(MoveSpeedCounterData _counter)
+    public void RemoveMoveSpdCounter(string counterName)
     {
-        if (stringToMoveSpdCounter.ContainsKey(_counter.counterName))
+        if (stringToMoveSpdCounter.ContainsKey(counterName))
         {
-            stringToMoveSpdCounter.Remove(_counter.counterName);
+            stringToMoveSpdCounter.Remove(counterName);
         }
     }
     

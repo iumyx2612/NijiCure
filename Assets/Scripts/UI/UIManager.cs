@@ -60,7 +60,10 @@ public class UIManager : MonoBehaviour
     [Header("Pause Menu")]
     [SerializeField] private BoolVariable gameIsPause;
     [SerializeField] private GameObject pausePanel;
-    [SerializeField] private BoolVariable navigationControl;
+    [SerializeField] private GameEvent playerDie;
+    [SerializeField] private GameObject deadPanel;
+    [SerializeField] private GameEvent endStage;
+    [SerializeField] private GameObject winPanel;
 
     [Header("Abilites Info")]
     [SerializeField] private List<GameObject> abilityInfoImages;
@@ -70,7 +73,6 @@ public class UIManager : MonoBehaviour
     void Awake()
     {
         stageKillAmount.Value = 0;
-        navigationControl.Value = false;
 //        stageCoinAmount.Value = 0;
         increaseExpUI.AddListener(ChangeExpBar);
         increaseLevelUI.AddListener(ChangeLevelDisplay);
@@ -80,17 +82,19 @@ public class UIManager : MonoBehaviour
         updateKillInfo.AddListener(UpdateKillInfo);
         updateAbilityPanel.AddListener(UpdateAbilityPanel);
         updateAbilityInfo.AddListener(UpdateAbilityInfo);
+        playerDie.AddListener(DeadPanel);
+        endStage.AddListener(WinPanel);
         gameIsPause.Value = false;
         UINavigation.Instance.cancelAction.action.performed += PauseOrUnpause;
+        for (int i = 0; i < abilityInfoImages.Count; i++)
+        {
+            abilityInfoImages[i].SetActive(false);
+        }
     }
 
     private void Start()
     {
         UpdateCharIcon();
-        for (int i = 0; i < abilityInfoImages.Count; i++)
-        {
-            abilityInfoImages[i].SetActive(false);
-        }
     }
 
     private void OnDisable()
@@ -103,6 +107,8 @@ public class UIManager : MonoBehaviour
         updateKillInfo.RemoveListener(UpdateKillInfo);
         updateAbilityPanel.RemoveListener(UpdateAbilityPanel);
         updateAbilityInfo.RemoveListener(UpdateAbilityInfo);
+        playerDie.RemoveListener(DeadPanel);
+        endStage.RemoveListener(WinPanel);
         UINavigation.Instance.cancelAction.action.performed -= PauseOrUnpause;
     }
 
@@ -242,31 +248,40 @@ public class UIManager : MonoBehaviour
 
     private void UpdateAbilityPanel(AbilityBase ability)
     {
-        // Not from player
-       if (ability.playerType != stagePlayerData.type)
-       {
-            for (int i = 0; i < secondRowAbilityIcons.Count; i++)
+        if (!(ability is IntStatsBuff) && !(ability is FloatStatsBuff))
+        {
+            // Not from player
+            if (ability.playerType != stagePlayerData.type)
             {
-                Image icon = secondRowAbilityIcons[i];
-                if (icon.sprite == secondRowIcon)
+                for (int i = 0; i < secondRowAbilityIcons.Count; i++)
                 {
-                    icon.sprite = ability.abilityIcon;
-                    break;
+                    Image icon = secondRowAbilityIcons[i];
+                    if (icon.sprite == secondRowIcon)
+                    {
+                        icon.sprite = ability.abilityIcon;
+                        Color temp = icon.color;
+                        temp.a = 1;
+                        icon.color = temp; 
+                        break;
+                    }
                 }
             }
-       }
-       else if (ability.playerType == stagePlayerData.type)
-       {
-            for (int i = 0; i < firstRowAbilityIcons.Count; i++)
+            else if (ability.playerType == stagePlayerData.type)
             {
-                Image icon = firstRowAbilityIcons[i];
-                if (icon.sprite == firstRowIcon)
+                for (int i = 0; i < firstRowAbilityIcons.Count; i++)
                 {
-                    icon.sprite = ability.abilityIcon;
-                    break;
+                    Image icon = firstRowAbilityIcons[i];
+                    if (icon.sprite == firstRowIcon)
+                    {
+                        icon.sprite = ability.abilityIcon;
+                        Color temp = icon.color;
+                        temp.a = 1;
+                        icon.color = temp; 
+                        break;
+                    }
                 }
             }
-       }
+        }
     }
     
     // --------------- Pause section ---------------
@@ -293,9 +308,34 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    public void Quit()
+    public void CharSelectionScene()
     {
         Resume();
         SceneManager.LoadScene(1);
+    }
+
+    public void MainMenuScene()
+    {
+        Resume();
+        SceneManager.LoadScene(0);
+    }
+
+    public void Retry()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void DeadPanel()
+    {
+        gameIsPause.Value = true;
+        Time.timeScale = 0f;
+        deadPanel.SetActive(true);
+    }
+
+    private void WinPanel()
+    {
+        gameIsPause.Value = true;
+        Time.timeScale = 0f;
+        winPanel.SetActive(true);
     }
 }

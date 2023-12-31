@@ -14,7 +14,7 @@ public class PuddingHunter : MonoBehaviour
     private GameEvent puddingHunterGameEvent; // Raise in BanMaiPudding.cs
     private float radius;
     private float damageIncrease;
-    private ItemDropCounterData counterData;
+    private ItemDropCounter counter;
     private float buffTime;
     private float internalBuffTime;
     private HetData baseHetAbility; // We take the Base Ability of Het
@@ -71,7 +71,7 @@ public class PuddingHunter : MonoBehaviour
         if (collider.CompareTag("Enemy"))
         {
             EnemyCounter script = collider.GetComponent<EnemyCounter>();
-            script.AddItemDropCounter(counterData);
+            script.AddItemDropCounter(counter);
         }
     }
 
@@ -80,7 +80,7 @@ public class PuddingHunter : MonoBehaviour
         if (collider.CompareTag("Enemy"))
         {
             EnemyCounter script = collider.GetComponent<EnemyCounter>();
-            script.RemoveItemDropCounter(counterData);
+            script.RemoveItemDropCounter(counter.counterName);
         }
     }
 
@@ -88,7 +88,7 @@ public class PuddingHunter : MonoBehaviour
     {
         radius = _data.currentRadius;
         selfCollider.radius = radius;
-        counterData = _data.itemDropCounterData;
+        counter = _data.currentCounter;
         buffTime = _data.currentBuffTime;
         damageIncrease = _data.currentDamageIncrease;
         if (baseHetAbility == null)
